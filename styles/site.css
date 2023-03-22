@@ -1,0 +1,42 @@
+body {
+    font-family: Helvetica, sans-serif;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pageContent {
+    display: flex;
+    flex-direction: row;
+    size: 100%;
+}
+
+.tabBar {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.tabContent {
+    background-color: black;
+}
+
+.tab {
+    display: flex;
+    align-items: end;
+}
+
+[data-tab-content] {
+    display: none;
+}
+
+.active[data-tab-content] {
+    display: block;
+}

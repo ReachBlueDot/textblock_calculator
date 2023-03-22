@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Text Block Planner</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/site.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="scripts/navScript.js" defer></script>
+</head>
+
+<body>
+
+    <div class="flex-container">
+        <div class="pageHeader" id="pageHeader" style="background-color: lightcoral;">
+            <h1>How Big Is My Book?</h1>
+        </div>
+        <div id="pageContent">
+            <div class="tabBar" style="background-color: coral;">
+<!--                 <ul>
+                    <li data-tab-target="#paper">Paper</li>
+                    <li data-tab-target="#text">Text</li>
+                    <li data-tab-target="#formatting">Formatting</li>
+                    <li data-tab-target="#extras">Extras</li>
+                    <li data-tab-target="#results">Results</li>
+                </ul> -->
+                <button data-tab-target="#paper">Paper</button>
+                <button data-tab-target="#text">Text</button>
+                <button data-tab-target="#formatting">Formatting</button>
+                <button data-tab-target="#extras">Extras</button>
+                <button data-tab-target="#results">Results</button>
+            </div>
+
+            
+
+            <div class="tabContent">
+                <div class="tab active" id="paper" data-tab-content style="background-color: aqua;">
+                    <h3>Paper Information</h3>
+                    <p>Page Dimentions</p>
+                    <p>Paper Weight</p>
+                    <h4>Advanced</h4>
+                    <p>Paper Thickness</p>
+                </div>
+
+                <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
+                    <h3>Text Information</h3>
+                    <p>Number of characters &#40;Include spaces and punctuation&#41;</p>
+                    <p>Number of chapters or sections</p>
+                    <h4>Advanced</h4>
+                </div>
+
+                <div class="tab" id="formatting" data-tab-content style="background-color:bisque;">
+                    <h3>Text Formatting</h3>
+                    <p>Font point size of body text</p>
+                    <p>Font type</p>
+                    <p>Paragraph formating</p>
+                    <p>Indent</p>
+                    <p>Spacing</p>
+                    <p>Spacing between paragraphs</p>
+                    <h4>Advanced</h4>
+                </div>
+
+                <div class="tab" id="extras" data-tab-content style="background-color:violet;">
+                    <h3>Extras</h3>
+                    <p>Number of fly leaves</p>
+                    <p>Title page</p>
+                    <p>Table of Contents page</p>
+                    <p>Book Information page</p>
+                    <p>Chapter/section heading pages</p>
+                    <p>Pages taken up by images</p>
+                    <h4>Advanced</h4>
+                </div>
+
+                <div class="tab" id="results" data-tab-content style="background-color:cornflowerblue;">
+                    <h3>Textblock Results</h3>
+                    <h4>Approximate</h4>
+                    <p>Number of pages</p>
+                    <p>Number of sheets</p>
+                    <p>Textblock thickness</p>
+                    <p>Textblock weight</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
