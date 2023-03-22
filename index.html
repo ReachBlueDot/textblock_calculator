@@ -14,75 +14,142 @@
 
 <body>
 
-    <div class="flex-container">
+    <div class="flex-container" style="background-color:greenyellow;">
         <div class="pageHeader" id="pageHeader" style="background-color: lightcoral;">
-            <h1>How Big Is My Book?</h1>
+            <h1>How Big Is My TextBlock?</h1>
         </div>
         <div id="pageContent">
             <div class="tabBar" style="background-color: coral;">
-<!--                 <ul>
-                    <li data-tab-target="#paper">Paper</li>
-                    <li data-tab-target="#text">Text</li>
-                    <li data-tab-target="#formatting">Formatting</li>
-                    <li data-tab-target="#extras">Extras</li>
-                    <li data-tab-target="#results">Results</li>
-                </ul> -->
-                <button data-tab-target="#paper">Paper</button>
-                <button data-tab-target="#text">Text</button>
-                <button data-tab-target="#formatting">Formatting</button>
-                <button data-tab-target="#extras">Extras</button>
-                <button data-tab-target="#results">Results</button>
+
+                <div>
+                    <h3 data-tab-target="#paper">Paper Information</h3>
+
+                    <div class="tabContent">
+                        <div class="tab" id="paper" data-tab-content style="background-color: aqua;">
+                            <div>
+                                <h5>Page Dimentions</h5>
+                                <fieldset>
+
+                                    <legend>Select a measurement unit:</legend>
+
+                                    <div>
+                                        <input type="radio" id="pageInCM" name="pageInUnit" value="cm">
+                                        <label for="pageInCM">cm</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="pageInIN" name="pageInUnit" value="in">
+                                        <label for="pageInIN">in</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="pageInPX" name="pageInUnit" value="pixels">
+                                        <label for="pageInPX">pixels</label>
+                                    </div>
+
+                                </fieldset>
+
+                                <div>
+                                    <label for="widthInput">Page Width</label>
+                                    <input type="number" id="widthInput" name="widthInput" required minlength="1"
+                                        size="10">
+                                </div>
+                                
+                                <div>
+                                    <label for="heightInput">Page Height</label>
+                                    <input type="number" id="heightInput" name="heightInput" required minlength="1"
+                                        size="10">
+                                </div>
+                                
+                            </div>
+
+                            <div>
+                                <h5>Paper Weight</h5>
+                                <div>
+                                    <input type="number" id="paperWeight" name="paperWeight">
+                                    <label for="paperWeight">gsm</label>
+                                </div>
+                            </div>
+                            
+                            <h4>Advanced</h4>
+                            <p>Paper Thickness</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 data-tab-target="#text">Text Information</h3>
+
+                    <div class="tabContent">
+                        <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
+                            <div>
+                                <h5>Number of characters &#40;Include spaces and punctuation&#41;</h5>
+                                <div>
+                                    <input type="number" id="numCharacters" name="numCharacters" minlength="1">
+                                    <label for="numCharacters">Character Count</label>
+                                </div>
+                            </div>
+                            <div>
+                                <h5>Number of chapters or sections</h5>
+                                <div>
+                                    <input type="number" id="numSections" name="numSections">
+                                    <label for="numSections">Chapter/Section Count</label>
+                                </div>
+                            </div>
+                            
+                            <h4>Advanced</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 data-tab-target="#formatting">Text Formatting</h3>
+
+                    <div class="tabContent">
+                        <div class="tab" id="formatting" data-tab-content style="background-color:bisque;">
+                            <p>Page Margins</p>
+                            <p>Font point size of body text</p>
+                            <p>Font type</p>
+                            <p>Paragraph formating</p>
+                            <p>Indent</p>
+                            <p>Spacing</p>
+                            <p>Spacing between paragraphs</p>
+                            <h4>Advanced</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 data-tab-target="#extras">Extras</h3>
+
+                    <div class="tabContent">
+                        <div class="tab" id="extras" data-tab-content style="background-color:violet;">
+                            <p>Number of fly leaves</p>
+                            <p>Title page</p>
+                            <p>Table of Contents page</p>
+                            <p>Book Information page</p>
+                            <p>Chapter/section heading pages</p>
+                            <p>Pages taken up by images</p>
+                            <h4>Advanced</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 data-tab-target="#results">Textblock Results</h3>
+
+                    <div class="tabContent">
+                        <div class="tab active" id="results" data-tab-content style="background-color:cornflowerblue;">
+                            <h4>Approximate</h4>
+                            <p>Number of pages</p>
+                            <p>Number of sheets</p>
+                            <p>Textblock thickness</p>
+                            <p>Textblock weight</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            
 
-            <div class="tabContent">
-                <div class="tab active" id="paper" data-tab-content style="background-color: aqua;">
-                    <h3>Paper Information</h3>
-                    <p>Page Dimentions</p>
-                    <p>Paper Weight</p>
-                    <h4>Advanced</h4>
-                    <p>Paper Thickness</p>
-                </div>
-
-                <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
-                    <h3>Text Information</h3>
-                    <p>Number of characters &#40;Include spaces and punctuation&#41;</p>
-                    <p>Number of chapters or sections</p>
-                    <h4>Advanced</h4>
-                </div>
-
-                <div class="tab" id="formatting" data-tab-content style="background-color:bisque;">
-                    <h3>Text Formatting</h3>
-                    <p>Font point size of body text</p>
-                    <p>Font type</p>
-                    <p>Paragraph formating</p>
-                    <p>Indent</p>
-                    <p>Spacing</p>
-                    <p>Spacing between paragraphs</p>
-                    <h4>Advanced</h4>
-                </div>
-
-                <div class="tab" id="extras" data-tab-content style="background-color:violet;">
-                    <h3>Extras</h3>
-                    <p>Number of fly leaves</p>
-                    <p>Title page</p>
-                    <p>Table of Contents page</p>
-                    <p>Book Information page</p>
-                    <p>Chapter/section heading pages</p>
-                    <p>Pages taken up by images</p>
-                    <h4>Advanced</h4>
-                </div>
-
-                <div class="tab" id="results" data-tab-content style="background-color:cornflowerblue;">
-                    <h3>Textblock Results</h3>
-                    <h4>Approximate</h4>
-                    <p>Number of pages</p>
-                    <p>Number of sheets</p>
-                    <p>Textblock thickness</p>
-                    <p>Textblock weight</p>
-                </div>
-            </div>
         </div>
     </div>
 
