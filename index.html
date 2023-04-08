@@ -197,13 +197,47 @@
 
                         <div class="tabContent">
                             <div class="tab" id="extras" data-tab-content style="background-color:violet;">
-                                <p>Number of fly leaves</p>
-                                <p>Title page</p>
-                                <p>Table of Contents page</p>
-                                <p>Book Information page</p>
-                                <p>Chapter/section heading pages</p>
-                                <p>Pages taken up by images</p>
-                                <h4>Advanced</h4>
+                                
+                                <div>
+                                    <h5>Fly Leaves</h5>
+                                    <label for="numFlyLeaves">Number of fly leaves, front and back: </label>
+                                    <input type="number" id="numFlyLeaves" name="numFlyLeaves" size="5">
+                                </div>
+                                
+                                <div>
+                                    <h5>Title Page</h5>
+                                    <label for="titlePageAdd">Add </label>
+                                    <input type="checkbox" id="titlePageAdd" name="titlePageAdd">
+                                </div>
+
+                                <div>
+                                    <h5>Table of Contents</h5>
+                                    <label for="tocPageAdd">Add </label>
+                                    <input type="checkbox" id="tocPageAdd" name="tocPageAdd">
+                                </div>  
+
+                                <div>
+                                    <h5>Book Information or Copyright</h5>
+                                    <label for="bookInfoPageAdd">Add </label>
+                                    <input type="checkbox" id="bookInfoPageAdd" name="bookInfoPageAdd">
+                                </div>
+
+                                <div>
+                                    <h5>Chapter heading</h5>
+                                    <label for="chHeadPage">Portion of Page Taken: </label>
+                                    <input type="number" id="chHeadPage" name="chHeadPage" size="5">
+                                </div>
+
+                                <div>
+                                    <h5>Images</h5>
+                                    <label for="imagePage">Pages taken up by images: </label>
+                                    <input type="number" id="imagePage" name="imagePage" size="5">
+                                </div>  
+
+                                <div>
+                                    <h4>Advanced</h4>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -214,11 +248,31 @@
                         <div class="tabContent">
                             <div class="tab active" id="results" data-tab-content
                                 style="background-color:cornflowerblue;">
-                                <h4>Approximate</h4>
-                                <p>Number of pages</p>
-                                <p>Number of sheets</p>
-                                <p>Textblock thickness</p>
-                                <p>Textblock weight</p>
+                                
+                                <div>
+                                    <h4>Approximates</h4>
+                                </div>
+                                
+                                <div>
+                                    <h5>Number of pages: </h5>
+                                    <div id="resultNumPages"  style="background-color: deeppink;">?</div>
+                                </div>
+
+                                <div>
+                                    <h5>Number of sheets</h5>
+                                    <div id="resultNumSheets"  style="background-color: deeppink;">?</div>
+                                </div>
+
+                                <div>
+                                    <h5>Textblock thickness</h5>
+                                    <div id="resultBlockThickness"  style="background-color: deeppink;">?</div>
+                                </div>
+
+                                <div>
+                                    <h5>Textblock weight</h5>
+                                    <div id="resultWeight"  style="background-color: deeppink;">?</div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
