@@ -52,13 +52,13 @@
                                     <input type="number" id="widthInput" name="widthInput" required minlength="1"
                                         size="10">
                                 </div>
-                                
+
                                 <div>
                                     <label for="heightInput">Page Height</label>
                                     <input type="number" id="heightInput" name="heightInput" required minlength="1"
                                         size="10">
                                 </div>
-                                
+
                             </div>
 
                             <div>
@@ -68,7 +68,7 @@
                                     <label for="paperWeight">gsm</label>
                                 </div>
                             </div>
-                            
+
                             <h4>Advanced</h4>
                             <p>Paper Thickness</p>
                         </div>
@@ -94,7 +94,7 @@
                                     <label for="numSections">Chapter/Section Count</label>
                                 </div>
                             </div>
-                            
+
                             <h4>Advanced</h4>
                         </div>
                     </div>
@@ -105,53 +105,183 @@
 
                     <div class="tabContent">
                         <div class="tab" id="formatting" data-tab-content style="background-color:bisque;">
-                            <p>Page Margins</p>
-                            <p>Font point size of body text</p>
-                            <p>Font type</p>
-                            <p>Paragraph formating</p>
-                            <p>Indent</p>
-                            <p>Spacing</p>
-                            <p>Spacing between paragraphs</p>
-                            <h4>Advanced</h4>
+                            <div>
+                                <div>
+                                    <h4>Page Margins</h4>
+                                    <fieldset>
+
+                                        <legend>Select a measurement unit:</legend>
+
+                                        <div>
+                                            <input type="radio" id="marginInCM" name="marginInUnit" value="cm">
+                                            <label for="marginInCM">cm</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="marginInIN" name="marginInUnit" value="in">
+                                            <label for="marginInIN">in</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="marginInPX" name="marginInUnit" value="pixels">
+                                            <label for="marginInPX">pixels</label>
+                                        </div>
+
+                                    </fieldset>
+                                    <div>
+                                        <label for="topBotomInput">Top and Bottom Margins</label>
+                                        <input type="number" id="topBotomInput" name="topBotomInput" required
+                                            minlength="1" size="10">
+                                    </div>
+
+                                    <div>
+                                        <label for="insideInput">Inside Margins</label>
+                                        <input type="number" id="insideInput" name="insideInput" required minlength="1"
+                                            size="10">
+                                    </div>
+
+                                    <div>
+                                        <label for="outsideInput">Outside Margins</label>
+                                        <input type="number" id="outsideInput" name="outsideInput" required
+                                            minlength="1" size="10">
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>Font Formating</h4>
+                                    <div>
+                                        <h5>Font point size of body text</h5>
+                                        <label for="pointSizeFont">Pt: </label>
+                                        <input type="number" id="pointSizeFont" name="pointSizeFont" required
+                                            minlength="1" size="5">
+                                    </div>
+
+                                    <div>
+                                        <p>Font type</p>
+                                    </div>
+                                </div>
+
+
+
+                                <div>
+                                    <h4>Paragraph formating</h4>
+
+
+                                    <div>
+                                        <h5>Paragraph Indent</h5>
+                                        <label for="pointSizeIndent">Pt: </label>
+                                        <input type="number" id="pointSizeIndent" name="pointSizeIndent" required
+                                            minlength="1" size="5">
+                                    </div>
+
+                                    <div>
+                                        <h5>Line Spacing</h5>
+                                        <label for="lineSpacing">Spacing: </label>
+                                        <input type="number" id="lineSpacing" name="lineSpacing" required minlength="1"
+                                            size="5">
+                                    </div>
+
+                                    <div>
+                                        <h5>Line Spacing Between Paragraphs</h5>
+                                        <label for="paragraphSpacing">Spacing: </label>
+                                        <input type="number" id="paragraphSpacing" name="paragraphSpacing" required minlength="1"
+                                            size="5">
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>Advanced</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <h3 data-tab-target="#extras">Extras</h3>
+                    <div>
+                        <h3 data-tab-target="#extras">Extras</h3>
 
-                    <div class="tabContent">
-                        <div class="tab" id="extras" data-tab-content style="background-color:violet;">
-                            <p>Number of fly leaves</p>
-                            <p>Title page</p>
-                            <p>Table of Contents page</p>
-                            <p>Book Information page</p>
-                            <p>Chapter/section heading pages</p>
-                            <p>Pages taken up by images</p>
-                            <h4>Advanced</h4>
+                        <div class="tabContent">
+                            <div class="tab" id="extras" data-tab-content style="background-color:violet;">
+                                
+                                <div>
+                                    <h5>Fly Leaves</h5>
+                                    <label for="numFlyLeaves">Number of fly leaves, front and back: </label>
+                                    <input type="number" id="numFlyLeaves" name="numFlyLeaves" size="5">
+                                </div>
+                                
+                                <div>
+                                    <h5>Title Page</h5>
+                                    <label for="titlePageAdd">Add </label>
+                                    <input type="checkbox" id="titlePageAdd" name="titlePageAdd">
+                                </div>
+
+                                <div>
+                                    <h5>Table of Contents</h5>
+                                    <label for="tocPageAdd">Add </label>
+                                    <input type="checkbox" id="tocPageAdd" name="tocPageAdd">
+                                </div>  
+
+                                <div>
+                                    <h5>Book Information or Copyright</h5>
+                                    <label for="bookInfoPageAdd">Add </label>
+                                    <input type="checkbox" id="bookInfoPageAdd" name="bookInfoPageAdd">
+                                </div>
+
+                                <div>
+                                    <h5>Chapter heading</h5>
+                                    <label for="chHeadPage">Portion of Page Taken: </label>
+                                    <input type="number" id="chHeadPage" name="chHeadPage" size="5">
+                                </div>
+
+                                <div>
+                                    <h5>Images</h5>
+                                    <label for="imagePage">Pages taken up by images: </label>
+                                    <input type="number" id="imagePage" name="imagePage" size="5">
+                                </div>  
+
+                                <div>
+                                    <h4>Advanced</h4>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <h3 data-tab-target="#results">Textblock Results</h3>
+                    <div>
+                        <h3 data-tab-target="#results">Textblock Results</h3>
 
-                    <div class="tabContent">
-                        <div class="tab active" id="results" data-tab-content style="background-color:cornflowerblue;">
-                            <h4>Approximate</h4>
-                            <p>Number of pages</p>
-                            <p>Number of sheets</p>
-                            <p>Textblock thickness</p>
-                            <p>Textblock weight</p>
+                        <div class="tabContent">
+                            <div class="tab active" id="results" data-tab-content
+                                style="background-color:cornflowerblue;">
+                                
+                                <div>
+                                    <h4>Approximates</h4>
+                                </div>
+                                
+                                <div>
+                                    <h5>Number of pages: </h5>
+                                    <div id="resultNumPages"  style="background-color: deeppink;">?</div>
+                                </div>
+
+                                <div>
+                                    <h5>Number of sheets</h5>
+                                    <div id="resultNumSheets"  style="background-color: deeppink;">?</div>
+                                </div>
+
+                                <div>
+                                    <h5>Textblock thickness</h5>
+                                    <div id="resultBlockThickness"  style="background-color: deeppink;">?</div>
+                                </div>
+
+                                <div>
+                                    <h5>Textblock weight</h5>
+                                    <div id="resultWeight"  style="background-color: deeppink;">?</div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
+
                 </div>
+
 
             </div>
-
-
         </div>
-    </div>
 
 </body>
 
