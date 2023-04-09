@@ -10,7 +10,106 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="scripts/navScript.js" defer></script>
+
+
+    <script type="module">
+        import { getFontList } from './scripts/pickFont.js';
+
+        window.addEventListener("DOMContentLoaded", () => {
+
+            //usable text string
+            let targetText = "";
+
+            /*
+            * take in text file from user. 
+            */
+            const filePicker = document.getElementById('filePicker');
+            filePicker.addEventListener('change', handleFiles, false);
+
+            function handleFiles() {
+                const fileList = this.files;
+                console.log(fileList);
+
+
+                for (const file of fileList) {
+
+                    const fileReader = new FileReader();
+                    fileReader.readAsText(file);
+
+                    fileReader.onload = function () {
+
+                        let thisText = fileReader.result;
+
+                        //TEST
+                        console.log("readTXTfile __")
+                        console.log(thisText);
+
+                        targetText = targetText + thisText;
+
+                        //TEST
+                        console.log("RTF Target __");
+                        console.log(targetText);
+
+                        return thisText;
+                        //
+                    };
+                    fileReader.onerror = function () {
+
+                        //TEST
+                        console.log(fileReader.error);
+                    };
+                }
+            }
+
+
+            /*
+            * Font input from user 
+            */
+            const fontPicker = document.getElementById("fontList");
+            document.querySelector('#fontList').addEventListener("change", event => {
+                textMeasure();
+            })
+
+
+            /*
+            * get font list and populate fontList selector 
+            */
+            getFontList().then(results => {
+                let html = `<option value='-1'>Select your font</option>`;
+                if (results) {
+                    results.forEach(font => {
+                        html += `<option value='${font.family}'>${font.family}</option>`;
+                    });
+                    document.querySelector("#fontList").innerHTML = html;
+                }
+            })
+
+
+            /*
+            * TEST FOR CANVAS and TEXT METRICS
+            * Need to find a way to do this that restrict the placement of text and wrapps text for measuring
+            */
+            const textMeasure = function () {
+                const canvas = document.getElementById("canvas");
+                const ctx = canvas.getContext("2d");
+                ctx.font = document.getElementById("fontList").value;
+                const textMetrics = ctx.measureText(targetText);
+
+                console.log("text Width __" + textMetrics.width);
+                let textWidth = textMetrics.actualBoundingBoxRight + textMetrics.actualBoundingBoxLeft;
+                console.log("text Width2 __" + textWidth);
+                let textHeight = textMetrics.actualBoundingBoxAscent + textMetrics.actualBoundingBoxDescent;
+                console.log("text Height __" + textHeight);
+            }
+
+
+        });
+
+
+    </script>
 </head>
+
+
 
 <body>
 
@@ -18,6 +117,11 @@
         <div class="pageHeader" id="pageHeader" style="background-color: lightcoral;">
             <h1>How Big Is My TextBlock?</h1>
         </div>
+
+        <div style="float: right;">
+            <canvas id="canvas" width="500px"></canvas>
+        </div>
+
         <div id="pageContent">
             <div class="tabBar" style="background-color: coral;">
 
@@ -80,6 +184,12 @@
 
                     <div class="tabContent">
                         <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
+                            <div>
+                                <h5>Input TXT File</h5>
+                                <input type="file" id="filePicker" multiple accept=".txt">
+
+                            </div>
+
                             <div>
                                 <h5>Number of characters &#40;Include spaces and punctuation&#41;</h5>
                                 <div>
@@ -154,7 +264,9 @@
                                     </div>
 
                                     <div>
-                                        <p>Font type</p>
+                                        <h5>Font</h5>
+                                        <label for="fontList">Select: </label>
+                                        <select id="fontList"></select>
                                     </div>
                                 </div>
 
@@ -181,8 +293,8 @@
                                     <div>
                                         <h5>Line Spacing Between Paragraphs</h5>
                                         <label for="paragraphSpacing">Spacing: </label>
-                                        <input type="number" id="paragraphSpacing" name="paragraphSpacing" required minlength="1"
-                                            size="5">
+                                        <input type="number" id="paragraphSpacing" name="paragraphSpacing" required
+                                            minlength="1" size="5">
                                     </div>
                                 </div>
                                 <div>
@@ -197,13 +309,13 @@
 
                         <div class="tabContent">
                             <div class="tab" id="extras" data-tab-content style="background-color:violet;">
-                                
+
                                 <div>
                                     <h5>Fly Leaves</h5>
                                     <label for="numFlyLeaves">Number of fly leaves, front and back: </label>
                                     <input type="number" id="numFlyLeaves" name="numFlyLeaves" size="5">
                                 </div>
-                                
+
                                 <div>
                                     <h5>Title Page</h5>
                                     <label for="titlePageAdd">Add </label>
@@ -214,7 +326,7 @@
                                     <h5>Table of Contents</h5>
                                     <label for="tocPageAdd">Add </label>
                                     <input type="checkbox" id="tocPageAdd" name="tocPageAdd">
-                                </div>  
+                                </div>
 
                                 <div>
                                     <h5>Book Information or Copyright</h5>
@@ -232,7 +344,7 @@
                                     <h5>Images</h5>
                                     <label for="imagePage">Pages taken up by images: </label>
                                     <input type="number" id="imagePage" name="imagePage" size="5">
-                                </div>  
+                                </div>
 
                                 <div>
                                     <h4>Advanced</h4>
@@ -248,29 +360,29 @@
                         <div class="tabContent">
                             <div class="tab active" id="results" data-tab-content
                                 style="background-color:cornflowerblue;">
-                                
+
                                 <div>
                                     <h4>Approximates</h4>
                                 </div>
-                                
+
                                 <div>
                                     <h5>Number of pages: </h5>
-                                    <div id="resultNumPages"  style="background-color: deeppink;">?</div>
+                                    <div id="resultNumPages" style="background-color: deeppink;">?</div>
                                 </div>
 
                                 <div>
                                     <h5>Number of sheets</h5>
-                                    <div id="resultNumSheets"  style="background-color: deeppink;">?</div>
+                                    <div id="resultNumSheets" style="background-color: deeppink;">?</div>
                                 </div>
 
                                 <div>
                                     <h5>Textblock thickness</h5>
-                                    <div id="resultBlockThickness"  style="background-color: deeppink;">?</div>
+                                    <div id="resultBlockThickness" style="background-color: deeppink;">?</div>
                                 </div>
 
                                 <div>
                                     <h5>Textblock weight</h5>
-                                    <div id="resultWeight"  style="background-color: deeppink;">?</div>
+                                    <div id="resultWeight" style="background-color: deeppink;">?</div>
                                 </div>
 
                             </div>
