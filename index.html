@@ -17,8 +17,29 @@
 
         window.addEventListener("DOMContentLoaded", () => {
 
+            //Paper Information Tab
+            let pageWidth = 528;
+            let pageHeight = 816;
+            let paperGSM = 75;
+
+            //Text Information Tab
+            let fileName = "Your File";
             //usable text string
             let targetText = "";
+            let numCharacters = 0;
+            let numSections = 1;
+
+            //Text Formating Tab
+            let topBottomMargin = .5;
+            let insideMargin = .5;
+            let outsideMargin = .5;
+            let targetFontPt = 12;
+            let fontFamily = "Times New Roman";
+            let paragraphInd = .3;
+            let lineSpacing = 1.5;
+            let paragraphSpacing = 1;
+
+
 
             /*
             * take in text file from user. 
@@ -65,8 +86,24 @@
             /*
             * Font input from user 
             */
+
+            /*
+            * get font size 
+            */
+            const fontSizeIn = document.getElementById("pointSizeFont");
+            document.querySelector('#pointSizeFont').addEventListener("change", event => {
+                targetFontPt = fontSizeIn.value;
+            })
+
+            /*
+            * get font family 
+            */
             const fontPicker = document.getElementById("fontList");
             document.querySelector('#fontList').addEventListener("change", event => {
+
+                fontFamily = fontPicker.value;
+
+                //TESTING USING FONT CHANGE TO TRIGER CALCULATION
                 textMeasure();
             })
 
@@ -86,13 +123,53 @@
 
 
             /*
+            * get paragraph indent 
+            */
+            const paragraphIndentIn = document.getElementById("pointSizeIndent");
+            document.querySelector('#pointSizeIndent').addEventListener("change", event => {
+                paragraphInd = paragraphIndentIn.value;
+            })
+
+
+
+            /*
+            * get line spacing 
+            */
+            const lineSpaceIn = document.getElementById("lineSpacing");
+            document.querySelector('#lineSpacing').addEventListener("change", event => {
+                lineSpacing = lineSpaceIn.value;
+            })
+
+
+            /*
+            * get paragraph spacing 
+            */
+            const paragraphSpaceIn = document.getElementById("paragraphSpacing");
+            document.querySelector('#paragraphSpacing').addEventListener("change", event => {
+                paragraphSpacing = paragraphSpaceIn.value;
+            })
+
+
+
+            /*
             * TEST FOR CANVAS and TEXT METRICS
             * Need to find a way to do this that restrict the placement of text and wrapps text for measuring
             */
-            const textMeasure = function () {
-                const canvas = document.getElementById("canvas");
+            const textMeasure1 = function () {
+                const canvas = document.getElementById("canvasNoShow");
                 const ctx = canvas.getContext("2d");
-                ctx.font = document.getElementById("fontList").value;
+                //ctx.font = document.querySelector("#fontList").value;
+                let fontPick = document.getElementById("fontList");
+                let valueFont = fontPick.value;
+                //TEST
+                console.log("fontVal _" + valueFont);
+
+                let textFont = fontPick.options[fontPick.selectedIndex].text;
+                //TEST
+                console.log("fontTxt _" + textFont);
+
+                ctx.font = textFont;
+
                 const textMetrics = ctx.measureText(targetText);
 
                 console.log("text Width __" + textMetrics.width);
@@ -102,6 +179,31 @@
                 console.log("text Height __" + textHeight);
             }
 
+
+            /*
+            * TEST FOR DIV MEASUREMENT
+            * Need to ask prof about better way to do this, this one blinks
+            */
+            const numPageRes = document.getElementById("resultNumPages");
+            const numSheetsRes = document.getElementById("resultNumSheets");
+            const textMeasure = function () {
+                let noShowDiv = document.getElementById("textNoShow");
+                noShowDiv.innerText = targetText;
+                noShowDiv.style.fontSize = targetFontPt + "pt";
+                noShowDiv.style.fontFamily = fontFamily;
+                noShowDiv.style.lineHeight = lineSpacing;
+                noShowDiv.style.width = pageWidth + "px";
+                noShowDiv.style.display = "block";
+                let divHeight = noShowDiv.clientHeight;
+                let divWidth = noShowDiv.clientWidth + "px";
+                noShowDiv.style.display = "none";
+                let pages = Math.ceil(divHeight/pageHeight);
+                let sheets = Math.ceil(pages/4);
+                numPageRes.innerText = pages;
+                numSheetsRes.innerText = sheets;
+                console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
+                console.log(noShowDiv.innerText);
+            }
 
         });
 
@@ -115,12 +217,15 @@
 
     <div class="flex-container" style="background-color:greenyellow;">
         <div class="pageHeader" id="pageHeader" style="background-color: lightcoral;">
+            <H4>**under construction**</H4>
             <h1>How Big Is My TextBlock?</h1>
         </div>
 
-        <div style="float: right;">
-            <canvas id="canvas" width="500px"></canvas>
+        <div style="float: right; display: none;">
+            <canvas id="canvasNoShow" width="500px"></canvas>
         </div>
+
+        <div id="textNoShow" style="display: none;"></div>
 
         <div id="pageContent">
             <div class="tabBar" style="background-color: coral;">
