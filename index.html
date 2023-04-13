@@ -22,8 +22,8 @@
             let pageHeight = 816;
             let paperGSM = 75;
             //Text Area Information
-            let textAreaWidth = 1;
-            let textAreaHeight = 1;
+            let textAreaWidth = pageWidth;
+            let textAreaHeight = pageHeight;
 
             //Text Information Tab
             let fileName = "Your File";
@@ -33,9 +33,9 @@
             let numSections = 1;
 
             //Text Formating Tab
-            let topBottomMargin = 1;
-            let insideMargin = 1;
-            let outsideMargin = 1;
+            let topBottomMargin = 0;
+            let insideMargin = 0;
+            let outsideMargin = 0;
             let targetFontPt = 12;
             let fontFamily = "Times New Roman";
             //let paragraphInd = .3;
@@ -49,7 +49,7 @@
             const pageWidthIn = document.getElementById("widthInput");
             document.querySelector('#widthInput').addEventListener("change", event => {
                 pageWidth = pageWidthIn.value;
-                calcTextAraeaWidth();
+                //calcTextAraeaWidth();
                 textMeasure();
             })
 
@@ -60,7 +60,7 @@
             const pageHeightIn = document.getElementById("heightInput");
             document.querySelector('#heightInput').addEventListener("change", event => {
                 pageHeight = pageHeightIn.value;
-                calcTextAraeaWidth();
+                //calcTextAraeaWidth();
                 textMeasure();
             })
 
@@ -112,9 +112,11 @@
                         //TEST
                         console.log(fileReader.error);
                     };
+
+                    textMeasure();
                 }
 
-                textMeasure();
+                //textMeasure();
             }
 
 
@@ -148,7 +150,6 @@
             const insideMarginIn = document.getElementById("insideInput");
             document.querySelector('#insideInput').addEventListener("change", event => {
                 insideMargin = insideMarginIn.value;
-                calcTextAraeaWidth();
                 textMeasure();
             })
 
@@ -158,7 +159,6 @@
             const ousideMarginIn = document.getElementById("outsideInput");
             document.querySelector('#outsideInput').addEventListener("change", event => {
                 outsideMargin = ousideMarginIn.value;
-                calcTextAraeaWidth();
                 textMeasure();
             })
 
@@ -190,10 +190,7 @@
             */
             const fontPicker = document.getElementById("fontList");
             document.querySelector('#fontList').addEventListener("change", event => {
-
                 fontFamily = fontPicker.value;
-
-                //TESTING USING FONT CHANGE TO TRIGER CALCULATION
                 textMeasure();
             })
 
@@ -213,7 +210,7 @@
 
 
             /*
-            * REMOVED!!
+            * REMOVED!! the css that I wanted to use was experimental and does not work
             * get paragraph indent from user
             */
             /*             const paragraphIndentIn = document.getElementById("pointSizeIndent");
@@ -301,10 +298,9 @@
                 noShowDiv.style.fontSize = targetFontPt + "pt";
                 noShowDiv.style.fontFamily = fontFamily;
                 noShowDiv.style.lineHeight = lineSpacing;
+                calcTextAraeaWidth();
                 noShowDiv.style.width = textAreaWidth + "px";
-                //noShowDiv.style.textIndent = paragraphInd +"px each-line";
-                //TEST
-                //console.log("style ind _" + noShowDiv.style.textIndent.toString);
+
 
                 noShowDiv.style.display = "block";
                 let divHeight = noShowDiv.clientHeight;
@@ -313,7 +309,7 @@
                 divHeight = divHeight + getParaSpace(paragraphSpacing);
 
                 let divWidth = noShowDiv.clientWidth + "px";
-                //noShowDiv.style.display = "none";
+                noShowDiv.style.display = "none";
                 let pages = Math.ceil(divHeight / textAreaHeight);
                 let sheets = Math.ceil(pages / 4);
                 let thick = blockThicknessMM(paperGSM, pages);
@@ -327,7 +323,7 @@
 
             /*
             * TEST FOR TESXT THICKNESS MEASUREMENT
-            * 
+            * translates paper GSM and page count to aproxomate thickness of textblock in MM
             */
             const blockThicknessMM = function (pageThicknessGSM, pageCount) {
                 let factorGSMtoMM = 0.001328146;
@@ -641,7 +637,7 @@
             </div>
         </div>
 
-        <div id="textNoShow" style="display: block;">!</div>
+        <div id="textNoShow" style="display: none;">!</div>
     </div>
 </body>
 
