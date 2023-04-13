@@ -14,7 +14,11 @@ tabs.forEach(tab => {
     tab.addEventListener('click', () => {
         const target = document.querySelector(tab.dataset.tabTarget);
         tabContents.forEach(tabContents => {
-            tabContents.classList.remove('active')
+            
+            if (tabContents.id !== "results") {
+                tabContents.classList.remove('active');
+            }
+            
         });
         target.classList.add('active');
     });
