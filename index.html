@@ -21,24 +21,57 @@
             let pageWidth = 528;
             let pageHeight = 816;
             let paperGSM = 75;
+            //Text Area Information
+            let textAreaWidth = pageWidth;
+            let textAreaHeight = pageHeight;
 
             //Text Information Tab
             let fileName = "Your File";
             //usable text string
             let targetText = "";
-            let numCharacters = 0;
+            //let numCharacters = 0;
             let numSections = 1;
 
             //Text Formating Tab
-            let topBottomMargin = .5;
-            let insideMargin = .5;
-            let outsideMargin = .5;
+            let topBottomMargin = 0;
+            let insideMargin = 0;
+            let outsideMargin = 0;
             let targetFontPt = 12;
             let fontFamily = "Times New Roman";
-            let paragraphInd = .3;
+            //let paragraphInd = .3;
             let lineSpacing = 1.5;
             let paragraphSpacing = 1;
 
+
+            /*
+            * take in page width from user in px. 
+            */
+            const pageWidthIn = document.getElementById("widthInput");
+            document.querySelector('#widthInput').addEventListener("change", event => {
+                pageWidth = pageWidthIn.value;
+                //calcTextAraeaWidth();
+                textMeasure();
+            })
+
+
+            /*
+            * take in page height from user in px. 
+            */
+            const pageHeightIn = document.getElementById("heightInput");
+            document.querySelector('#heightInput').addEventListener("change", event => {
+                pageHeight = pageHeightIn.value;
+                //calcTextAraeaWidth();
+                textMeasure();
+            })
+
+            /*
+            * take in paper weight from user in GSM. 
+            */
+            const paperGSMinput = document.getElementById("paperWeight");
+            document.querySelector('#paperWeight').addEventListener("change", event => {
+                paperGSM = paperGSMinput.value;
+                textMeasure();
+            })
 
 
             /*
@@ -79,31 +112,85 @@
                         //TEST
                         console.log(fileReader.error);
                     };
+
+                    textMeasure();
                 }
+
+                //textMeasure();
             }
 
+
+            /*
+            * get section count from user
+            */
+            const sectionCountIn = document.getElementById("numSections");
+            document.querySelector('#numSections').addEventListener("change", event => {
+                numSections = sectionCountIn.value;
+                textMeasure();
+            })
+
+
+            /*
+            * Margin Input from user
+            */
+
+            /*
+            * get top and bottom margin size from user in px.
+            */
+            const topBottomMarginIn = document.getElementById("topBotomInput");
+            document.querySelector('#topBotomInput').addEventListener("change", event => {
+                topBottomMargin = topBottomMarginIn.value;
+                textAreaHeight = pageHeight - (topBottomMargin * 2);
+                textMeasure();
+            })
+
+            /*
+            * get inside margin size from user in px.
+            */
+            const insideMarginIn = document.getElementById("insideInput");
+            document.querySelector('#insideInput').addEventListener("change", event => {
+                insideMargin = insideMarginIn.value;
+                textMeasure();
+            })
+
+            /*
+            * get outside margin size from user in px.
+            */
+            const ousideMarginIn = document.getElementById("outsideInput");
+            document.querySelector('#outsideInput').addEventListener("change", event => {
+                outsideMargin = ousideMarginIn.value;
+                textMeasure();
+            })
+
+            /*
+            * calculate and set the Text Area Width
+            */
+            let calcTextAraeaWidth = function () {
+
+                //test
+                console.log("IM__"+insideMargin+"__OM__"+outsideMargin);
+                textAreaWidth = pageWidth - (insideMargin + outsideMargin);
+            }
 
             /*
             * Font input from user 
             */
 
             /*
-            * get font size 
+            * get font size  from user in points
             */
             const fontSizeIn = document.getElementById("pointSizeFont");
             document.querySelector('#pointSizeFont').addEventListener("change", event => {
                 targetFontPt = fontSizeIn.value;
+                textMeasure();
             })
 
             /*
-            * get font family 
+            * get font family from user 
             */
             const fontPicker = document.getElementById("fontList");
             document.querySelector('#fontList').addEventListener("change", event => {
-
                 fontFamily = fontPicker.value;
-
-                //TESTING USING FONT CHANGE TO TRIGER CALCULATION
                 textMeasure();
             })
 
@@ -123,30 +210,32 @@
 
 
             /*
-            * get paragraph indent 
+            * REMOVED!! the css that I wanted to use was experimental and does not work
+            * get paragraph indent from user
             */
-            const paragraphIndentIn = document.getElementById("pointSizeIndent");
-            document.querySelector('#pointSizeIndent').addEventListener("change", event => {
-                paragraphInd = paragraphIndentIn.value;
-            })
-
+            /*             const paragraphIndentIn = document.getElementById("pointSizeIndent");
+                        document.querySelector('#pointSizeIndent').addEventListener("change", event => {
+                            paragraphInd = paragraphIndentIn.value;
+                        }) */
 
 
             /*
-            * get line spacing 
+            * get line spacing  from user
             */
             const lineSpaceIn = document.getElementById("lineSpacing");
             document.querySelector('#lineSpacing').addEventListener("change", event => {
                 lineSpacing = lineSpaceIn.value;
+                textMeasure();
             })
 
 
             /*
-            * get paragraph spacing 
+            * get paragraph spacing  from user
             */
             const paragraphSpaceIn = document.getElementById("paragraphSpacing");
             document.querySelector('#paragraphSpacing').addEventListener("change", event => {
                 paragraphSpacing = paragraphSpaceIn.value;
+                textMeasure();
             })
 
 
@@ -181,28 +270,66 @@
 
 
             /*
+            * Get measure of height added to text by paragraph spacing
+            */
+            const getParaSpace = function (linesBetween) {
+                let newLineCount = (targetText.match(/\n/g) || []).length;
+                //TEST
+                console.log("numParagraphs __" + newLineCount);
+                let addUnit = targetFontPt * lineSpacing;
+                let totalAdded = (linesBetween * addUnit) * newLineCount;
+
+                //TEST
+                console.log("added for paragraphs __" + totalAdded);
+                return totalAdded;
+            }
+
+            /*
             * TEST FOR DIV MEASUREMENT
             * Need to ask prof about better way to do this, this one blinks
             */
             const numPageRes = document.getElementById("resultNumPages");
             const numSheetsRes = document.getElementById("resultNumSheets");
+            const thicknessBlockRes = document.getElementById("resultBlockThickness");
             const textMeasure = function () {
                 let noShowDiv = document.getElementById("textNoShow");
                 noShowDiv.innerText = targetText;
+
                 noShowDiv.style.fontSize = targetFontPt + "pt";
                 noShowDiv.style.fontFamily = fontFamily;
                 noShowDiv.style.lineHeight = lineSpacing;
-                noShowDiv.style.width = pageWidth + "px";
+                calcTextAraeaWidth();
+                noShowDiv.style.width = textAreaWidth + "px";
+
+
                 noShowDiv.style.display = "block";
                 let divHeight = noShowDiv.clientHeight;
+
+                //add in paragrph spacing
+                divHeight = divHeight + getParaSpace(paragraphSpacing);
+
                 let divWidth = noShowDiv.clientWidth + "px";
                 noShowDiv.style.display = "none";
-                let pages = Math.ceil(divHeight/pageHeight);
-                let sheets = Math.ceil(pages/4);
+                let pages = Math.ceil(divHeight / textAreaHeight);
+                let sheets = Math.ceil(pages / 4);
+                let thick = blockThicknessMM(paperGSM, pages);
                 numPageRes.innerText = pages;
                 numSheetsRes.innerText = sheets;
+                thicknessBlockRes.innerText = thick;
                 console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
                 console.log(noShowDiv.innerText);
+            }
+
+
+            /*
+            * TEST FOR TESXT THICKNESS MEASUREMENT
+            * translates paper GSM and page count to aproxomate thickness of textblock in MM
+            */
+            const blockThicknessMM = function (pageThicknessGSM, pageCount) {
+                let factorGSMtoMM = 0.001328146;
+                let mmMeasure = pageThicknessGSM * factorGSMtoMM;
+                let thickness = (pageCount / 2) * mmMeasure;
+                return thickness;
             }
 
         });
@@ -225,10 +352,54 @@
             <canvas id="canvasNoShow" width="500px"></canvas>
         </div>
 
-        <div id="textNoShow" style="display: none;"></div>
+
 
         <div id="pageContent">
             <div class="tabBar" style="background-color: coral;">
+
+                <div>
+                    <h3 data-tab-target="#settings">Settings</h3>
+
+                    <div class="tab" id="settings" data-tab-content style="background-color: plum;">
+                        <div>
+                            <h5>Units</h5>
+                            <fieldset>
+
+                                <legend>Select a Linear Measurement Unit:</legend>
+
+                                <div>
+                                    <input type="radio" id="pageInCM" name="pageLinearUnit" value="cm">
+                                    <label for="pageInCM">cm</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="pageInIN" name="pageLinearUnit" value="in">
+                                    <label for="pageInIN">in</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="pageInPX" name="pageLinearUnit" value="pixels">
+                                    <label for="pageInPX">pixels</label>
+                                </div>
+
+                            </fieldset>
+
+                            <fieldset>
+
+                                <legend>Select a Weight Measurement Unit:</legend>
+
+                                <div>
+                                    <input type="radio" id="blockInKG" name="pageWeightUnit" value="kg">
+                                    <label for="blockInKG">cm</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="blockInLB" name="pageWeightUnit" value="lb">
+                                    <label for="blockInLB">in</label>
+                                </div>
+
+                            </fieldset>
+                        </div>
+
+                    </div>
+                </div>
 
                 <div>
                     <h3 data-tab-target="#paper">Paper Information</h3>
@@ -237,24 +408,6 @@
                         <div class="tab" id="paper" data-tab-content style="background-color: aqua;">
                             <div>
                                 <h5>Page Dimentions</h5>
-                                <fieldset>
-
-                                    <legend>Select a measurement unit:</legend>
-
-                                    <div>
-                                        <input type="radio" id="pageInCM" name="pageInUnit" value="cm">
-                                        <label for="pageInCM">cm</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="pageInIN" name="pageInUnit" value="in">
-                                        <label for="pageInIN">in</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="pageInPX" name="pageInUnit" value="pixels">
-                                        <label for="pageInPX">pixels</label>
-                                    </div>
-
-                                </fieldset>
 
                                 <div>
                                     <label for="widthInput">Page Width</label>
@@ -295,6 +448,7 @@
 
                             </div>
 
+                            <!--
                             <div>
                                 <h5>Number of characters &#40;Include spaces and punctuation&#41;</h5>
                                 <div>
@@ -302,6 +456,8 @@
                                     <label for="numCharacters">Character Count</label>
                                 </div>
                             </div>
+                            -->
+
                             <div>
                                 <h5>Number of chapters or sections</h5>
                                 <div>
@@ -323,24 +479,6 @@
                             <div>
                                 <div>
                                     <h4>Page Margins</h4>
-                                    <fieldset>
-
-                                        <legend>Select a measurement unit:</legend>
-
-                                        <div>
-                                            <input type="radio" id="marginInCM" name="marginInUnit" value="cm">
-                                            <label for="marginInCM">cm</label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" id="marginInIN" name="marginInUnit" value="in">
-                                            <label for="marginInIN">in</label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" id="marginInPX" name="marginInUnit" value="pixels">
-                                            <label for="marginInPX">pixels</label>
-                                        </div>
-
-                                    </fieldset>
                                     <div>
                                         <label for="topBotomInput">Top and Bottom Margins</label>
                                         <input type="number" id="topBotomInput" name="topBotomInput" required
@@ -379,15 +517,14 @@
 
                                 <div>
                                     <h4>Paragraph formating</h4>
-
-
+                                    <!--
                                     <div>
                                         <h5>Paragraph Indent</h5>
                                         <label for="pointSizeIndent">Pt: </label>
                                         <input type="number" id="pointSizeIndent" name="pointSizeIndent" required
                                             minlength="1" size="5">
                                     </div>
-
+-->
                                     <div>
                                         <h5>Line Spacing</h5>
                                         <label for="lineSpacing">Spacing: </label>
@@ -399,7 +536,7 @@
                                         <h5>Line Spacing Between Paragraphs</h5>
                                         <label for="paragraphSpacing">Spacing: </label>
                                         <input type="number" id="paragraphSpacing" name="paragraphSpacing" required
-                                            minlength="1" size="5">
+                                            minlength="1">
                                     </div>
                                 </div>
                                 <div>
@@ -500,6 +637,8 @@
             </div>
         </div>
 
+        <div id="textNoShow" style="display: none;">!</div>
+    </div>
 </body>
 
 </html>
