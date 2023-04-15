@@ -79,48 +79,6 @@ class TextBlock {
 
 
 
-/**
- * Funciton to handle File input on user upload of files
- */
-function handleFiles() {
-    const fileList = this.files;
-    console.log(fileList);
-
-
-    for (const file of fileList) {
-
-        const fileReader = new FileReader();
-        fileReader.readAsText(file);
-
-        fileReader.onload = function () {
-
-            let thisText = fileReader.result;
-
-            //TEST
-            console.log("readTXTfile __")
-            console.log(thisText);
-
-            targetText = targetText + thisText;
-
-            //TEST
-            console.log("RTF Target __");
-            console.log(targetText);
-
-            return thisText;
-            //
-        };
-        fileReader.onerror = function () {
-
-            //TEST
-            console.log(fileReader.error);
-        };
-
-        textMeasure();
-    }
-
-}
-
-
 /*
 * TEST FOR TEXT THICKNESS MEASUREMENT
 * translates paper GSM and page count to aproxomate thickness of textblock in MM

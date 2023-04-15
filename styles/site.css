@@ -7,24 +7,77 @@ body {
     margin: 0px;
 }
 
-.pageHeader {
-    text-align: center;
-}
-
 
 .flex-container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .flex-item {
     display: flex;
     flex-direction: row;
+}
+
+
+.pageHeader {
+    text-align: center;
+    max-height: 10%;
+}
+
+#divHeaderText {
+    flex-grow: 2;
+}
+
+#divHeaderImg {
+    flex-grow: 1;
+}
+
+#headerImg {
+    width: auto;
+    max-width: 100px;
+}
+
+
+#resultsDisplay {
+    text-align: center;
+    max-height: fit-content;
+}
+
+#resultsHeader {
+    max-height: 20px;
+    margin: 0px;
+}
+
+.flex-container-inner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 0px;
+}
+
+.flex-item-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+    max-width: 45%;
+    max-height: fit-content;
+    margin: 3px;
+    padding: 3px;
+}
+.card-header
+.card-header {
+    max-height: fit-content;
+    margin: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .pageContent {
@@ -37,6 +90,7 @@ body {
     flex-direction: column;
     justify-content: center;
     flex-grow: 1;
+    padding-bottom: 15px;
 }
 
 .tabContent {
@@ -54,4 +108,23 @@ body {
 
 .active[data-tab-content] {
     display: block;
+}
+
+.tabBar > div {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin: 0px;
+    text-align: center;
+}
+
+
+
+
+
+@media only screen and (min-width: 400px) {
+    .tabBar > div {
+        text-align: start;
+    }
 }

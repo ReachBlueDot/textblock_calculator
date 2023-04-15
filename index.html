@@ -11,37 +11,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="scripts/navScript.js" defer></script>
-    
+
 
 
     <script type="module">
         import { getFontList } from './scripts/pickFont.js';
-        import { TextBlock, textMeasure  } from './modules/TextBlock.mjs';
+        import { TextBlock, textMeasure } from './modules/TextBlock.mjs';
 
         window.addEventListener("DOMContentLoaded", () => {
 
-/*             //Paper Information Tab
-            let pageWidth = 528;
-            let pageHeight = 816;
-            let paperGSM = 75;
-            //Text Area Information
-            let textAreaWidth = pageWidth;
-            let textAreaHeight = pageHeight;
-
-            //Text Information Tab
-            let fileName = "Your File";
-            //usable text string
-            let targetText = "";
-            let numSections = 1;
-
-            //Text Formating Tab
-            let topBottomMargin = 0;
-            let insideMargin = 0;
-            let outsideMargin = 0;
-            let targetFontPt = 12;
-            let fontFamily = "Times New Roman";
-            let lineSpacing = 1.5;
-            let paragraphSpacing = 1; */
+            /*             //Paper Information Tab
+                        let pageWidth = 528;
+                        let pageHeight = 816;
+                        let paperGSM = 75;
+                        //Text Area Information
+                        let textAreaWidth = pageWidth;
+                        let textAreaHeight = pageHeight;
+            
+                        //Text Information Tab
+                        let fileName = "Your File";
+                        //usable text string
+                        let targetText = "";
+                        let numSections = 1;
+            
+                        //Text Formating Tab
+                        let topBottomMargin = 0;
+                        let insideMargin = 0;
+                        let outsideMargin = 0;
+                        let targetFontPt = 12;
+                        let fontFamily = "Times New Roman";
+                        let lineSpacing = 1.5;
+                        let paragraphSpacing = 1; */
 
             /*
             * Text Block object
@@ -57,9 +57,9 @@
 
 
             const updateResults = function () {
-            numPageRes.innerText = textBlock1.resultNumPages;
-            numSheetsRes.innerText = textBlock1.resultNumSheets;
-            thicknessBlockRes.innerText = textBlock1.resultThickness;
+                numPageRes.innerText = textBlock1.resultNumPages;
+                numSheetsRes.innerText = textBlock1.resultNumSheets;
+                thicknessBlockRes.innerText = textBlock1.resultThickness;
             }
 
 
@@ -69,7 +69,7 @@
             const pageWidthIn = document.getElementById("widthInput");
             document.querySelector('#widthInput').addEventListener("change", event => {
                 textBlock1.pageWidth = parseFloat(pageWidthIn.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -79,7 +79,7 @@
             const pageHeightIn = document.getElementById("heightInput");
             document.querySelector('#heightInput').addEventListener("change", event => {
                 textBlock1.pageHeight = parseFloat(pageHeightIn.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -90,7 +90,7 @@
             const paperGSMinput = document.getElementById("paperWeight");
             document.querySelector('#paperWeight').addEventListener("change", event => {
                 textBlock1.paperGSM = parseFloat(paperGSMinput.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -137,7 +137,7 @@
                         console.log(fileReader.error);
                     };
 
-                    textMeasure (noShowDiv, textBlock1);
+                    textMeasure(noShowDiv, textBlock1);
                     updateResults();
                 }
 
@@ -150,7 +150,7 @@
             const sectionCountIn = document.getElementById("numSections");
             document.querySelector('#numSections').addEventListener("change", event => {
                 textBlock1.numSections = parseInt(sectionCountIn.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -160,7 +160,7 @@
             const topBottomMarginIn = document.getElementById("topBotomInput");
             document.querySelector('#topBotomInput').addEventListener("change", event => {
                 textBlock1.topBottomMargin = parseFloat(topBottomMarginIn.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -170,7 +170,7 @@
             const insideMarginIn = document.getElementById("insideInput");
             document.querySelector('#insideInput').addEventListener("change", event => {
                 textBlock1.insideMargin = parseFloat(insideMarginIn.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -180,7 +180,7 @@
             const ousideMarginIn = document.getElementById("outsideInput");
             document.querySelector('#outsideInput').addEventListener("change", event => {
                 textBlock1.outsideMargin = parseFloat(ousideMarginIn.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -191,7 +191,7 @@
             const fontSizeIn = document.getElementById("pointSizeFont");
             document.querySelector('#pointSizeFont').addEventListener("change", event => {
                 textBlock1.targetFontPt = parseFloat(fontSizeIn.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -201,7 +201,7 @@
             const fontPicker = document.getElementById("fontList");
             document.querySelector('#fontList').addEventListener("change", event => {
                 textBlock1.fontFamily = fontPicker.value;
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -224,7 +224,7 @@
             const lineSpaceIn = document.getElementById("lineSpacing");
             document.querySelector('#lineSpacing').addEventListener("change", event => {
                 textBlock1.lineSpacing = parseFloat(lineSpaceIn.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
 
@@ -234,336 +234,9 @@
             const paragraphSpaceIn = document.getElementById("paragraphSpacing");
             document.querySelector('#paragraphSpacing').addEventListener("change", event => {
                 textBlock1.paragraphSpacing = parseFloat(paragraphSpaceIn.value);
-                textMeasure (noShowDiv, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
                 updateResults();
-            })  
-
-            /*
-            * TEST FOR DIV MEASUREMENT
-            * WITH TEXTBLOCK
-            */
-/*             const numPageRes = document.getElementById("resultNumPages");
-            const numSheetsRes = document.getElementById("resultNumSheets");
-            const thicknessBlockRes = document.getElementById("resultBlockThickness");
-            const noShowDiv = document.getElementById("textNoShow"); */
-/*             console.log("passing__");
-            console.log(textBlock1);
-            textMeasure (noShowDiv, textBlock1);
-            numPageRes.innerText = textBlock1.resultNumPages;
-            numSheetsRes.innerText = textBlock1.resultNumSheets;
-            thicknessBlockRes.innerText = textBlock1.resultThickness; */
-
-
-            /*
-            * take in page width from user in px. 
-            */
-/*             const pageWidthIn = document.getElementById("widthInput");
-            document.querySelector('#widthInput').addEventListener("change", event => {
-                pageWidth = pageWidthIn.value;
-                //calcTextAraeaWidth();
-                textMeasure();
-            }) */
-
-            /*
-            * take in page height from user in px. 
-            */
-/*             const pageHeightIn = document.getElementById("heightInput");
-            document.querySelector('#heightInput').addEventListener("change", event => {
-                pageHeight = pageHeightIn.value;
-                //calcTextAraeaWidth();
-                textMeasure();
-            }) */
-
-
-            /*
-            * take in paper weight from user in GSM. 
-            */
-/*             const paperGSMinput = document.getElementById("paperWeight");
-            document.querySelector('#paperWeight').addEventListener("change", event => {
-                paperGSM = paperGSMinput.value;
-                textMeasure();
             })
- */
-
-/*             function handleFiles() {
-                const fileList = this.files;
-                console.log(fileList);
-
-
-                for (const file of fileList) {
-
-                    const fileReader = new FileReader();
-                    fileReader.readAsText(file);
-
-                    fileReader.onload = function () {
-
-                        let thisText = fileReader.result;
-
-                        //TEST
-                        console.log("readTXTfile __")
-                        console.log(thisText);
-
-                        targetText = targetText + thisText;
-
-                        //TEST
-                        console.log("RTF Target __");
-                        console.log(targetText);
-
-                        return thisText;
-                        //
-                    };
-                    fileReader.onerror = function () {
-
-                        //TEST
-                        console.log(fileReader.error);
-                    };
-
-                    textMeasure();
-                }
-
-                //textMeasure();
-            }
- */
-
-            /*
-            * get section count from user
-            */
-/*             const sectionCountIn = document.getElementById("numSections");
-            document.querySelector('#numSections').addEventListener("change", event => {
-                numSections = sectionCountIn.value;
-                textMeasure();
-            })
- */
-
-            /*
-            * Margin Input from user
-            */
-
-            /*
-            * get top and bottom margin size from user in px.
-            */
-/*             const topBottomMarginIn = document.getElementById("topBotomInput");
-            document.querySelector('#topBotomInput').addEventListener("change", event => {
-                topBottomMargin = topBottomMarginIn.value;
-                textAreaHeight = pageHeight - (topBottomMargin * 2);
-                textMeasure();
-            }) */
-
-            /*
-            * get inside margin size from user in px.
-            */
-/*             const insideMarginIn = document.getElementById("insideInput");
-            document.querySelector('#insideInput').addEventListener("change", event => {
-                insideMargin = insideMarginIn.value;
-                textMeasure();
-            }) */
-
-            /*
-            * get outside margin size from user in px.
-            */
-/*             const ousideMarginIn = document.getElementById("outsideInput");
-            document.querySelector('#outsideInput').addEventListener("change", event => {
-                outsideMargin = ousideMarginIn.value;
-                textMeasure();
-            })
- */
-
-            /*
-            * calculate and set the Text Area Width
-            */
-/*             let calcTextAraeaWidth = function () {
-
-                //test
-                console.log("IM__"+insideMargin+"__OM__"+outsideMargin);
-                textAreaWidth = pageWidth - (insideMargin + outsideMargin);
-            } */
-
-            /*
-            * Font input from user 
-            */
-
-            /*
-            * get font size  from user in points
-            */
-/*             const fontSizeIn = document.getElementById("pointSizeFont");
-            document.querySelector('#pointSizeFont').addEventListener("change", event => {
-                targetFontPt = fontSizeIn.value;
-                textMeasure();
-            }) */
-
-            /*
-            * get font family from user 
-            */
-/*             const fontPicker = document.getElementById("fontList");
-            document.querySelector('#fontList').addEventListener("change", event => {
-                fontFamily = fontPicker.value;
-                textMeasure();
-            })
- */
-
-            /*
-            * REMOVED!! the css that I wanted to use was experimental and does not work
-            * get paragraph indent from user
-            */
-            /*             const paragraphIndentIn = document.getElementById("pointSizeIndent");
-                        document.querySelector('#pointSizeIndent').addEventListener("change", event => {
-                            paragraphInd = paragraphIndentIn.value;
-                        }) */
-
-
-            /*
-            * get line spacing  from user
-            */
-/*             const lineSpaceIn = document.getElementById("lineSpacing");
-            document.querySelector('#lineSpacing').addEventListener("change", event => {
-                lineSpacing = lineSpaceIn.value;
-                textMeasure();
-            }) */
-
-
-
-            /*
-            * get paragraph spacing  from user
-            */
-/*             const paragraphSpaceIn = document.getElementById("paragraphSpacing");
-            document.querySelector('#paragraphSpacing').addEventListener("change", event => {
-                paragraphSpacing = paragraphSpaceIn.value;
-                textMeasure();
-            }) */
-
-          
-
-
-            /*
-            * TEST FOR CANVAS and TEXT METRICS
-            * Need to find a way to do this that restrict the placement of text and wrapps text for measuring
-            */
-/*             const textMeasure1 = function () {
-                const canvas = document.getElementById("canvasNoShow");
-                const ctx = canvas.getContext("2d");
-                //ctx.font = document.querySelector("#fontList").value;
-                let fontPick = document.getElementById("fontList");
-                let valueFont = fontPick.value;
-                //TEST
-                console.log("fontVal _" + valueFont);
-
-                let textFont = fontPick.options[fontPick.selectedIndex].text;
-                //TEST
-                console.log("fontTxt _" + textFont);
-
-                ctx.font = textFont;
-
-                const textMetrics = ctx.measureText(targetText);
-
-                console.log("text Width __" + textMetrics.width);
-                let textWidth = textMetrics.actualBoundingBoxRight + textMetrics.actualBoundingBoxLeft;
-                console.log("text Width2 __" + textWidth);
-                let textHeight = textMetrics.actualBoundingBoxAscent + textMetrics.actualBoundingBoxDescent;
-                console.log("text Height __" + textHeight);
-            } */
-
-
-            /*
-            * Get measure of height added to text by paragraph spacing
-            */
-/*             const getParaSpace = function (linesBetween) {
-                let newLineCount = (targetText.match(/\n/g) || []).length;
-                //TEST
-                console.log("numParagraphs __" + newLineCount);
-                let addUnit = targetFontPt * lineSpacing;
-                let totalAdded = (linesBetween * addUnit) * newLineCount;
-
-                //TEST
-                console.log("added for paragraphs __" + totalAdded);
-                return totalAdded;
-            } */
-
-
-
-            /*
-            * TEST FOR DIV MEASUREMENT
-            * Need to ask prof about better way to do this, this one blinks
-            */
-/*             const numPageRes = document.getElementById("resultNumPages");
-            const numSheetsRes = document.getElementById("resultNumSheets");
-            const thicknessBlockRes = document.getElementById("resultBlockThickness");
-            const textMeasure = function () {
-                let noShowDiv = document.getElementById("textNoShow");
-                noShowDiv.innerText = targetText;
-
-                noShowDiv.style.fontSize = targetFontPt + "pt";
-                noShowDiv.style.fontFamily = fontFamily;
-                noShowDiv.style.lineHeight = lineSpacing;
-                calcTextAraeaWidth();
-                noShowDiv.style.width = textAreaWidth + "px";
-
-
-                noShowDiv.style.display = "block";
-                let divHeight = noShowDiv.clientHeight;
-
-                //add in paragrph spacing
-                divHeight = divHeight + getParaSpace(paragraphSpacing);
-
-                let divWidth = noShowDiv.clientWidth + "px";
-                noShowDiv.style.display = "none";
-                let pages = Math.ceil(divHeight / textAreaHeight);
-                let sheets = Math.ceil(pages / 4);
-                let thick = blockThicknessMM(paperGSM, pages);
-                numPageRes.innerText = pages;
-                numSheetsRes.innerText = sheets;
-                thicknessBlockRes.innerText = thick;
-                console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
-                console.log(noShowDiv.innerText);
-            } */
-
-
-
-
-
-/*             const textMeasure = function () {
-                let noShowDiv = document.getElementById("textNoShow");
-                noShowDiv.innerText = textBlock1.targetText;
-
-                noShowDiv.style.fontSize = textBlock1.targetFontPt + "pt";
-                noShowDiv.style.fontFamily = textBlock1.fontFamily;
-                noShowDiv.style.lineHeight = textBlock1.lineSpacing;
-                //TEST DOES A GETTER WORK LIKE THIS?
-                noShowDiv.style.width = textBlock1.textAreaWidth + "px";
-
-
-                noShowDiv.style.display = "block";
-                let divHeight = noShowDiv.clientHeight;
-
-                //add in paragrph spacing
-                //TEST DOES A GETTER WORK LIKE THIS?
-                divHeight = divHeight + textBlock1.paraSpaceAdd;
-
-                let divWidth = noShowDiv.clientWidth + "px";
-                noShowDiv.style.display = "none";
-                //TEST DOES A GETTER WORK LIKE THIS?
-                let pages = Math.ceil(divHeight / textBlock1.textAreaHeight);
-                let sheets = Math.ceil(pages / 4);
-                let thick = blockThicknessMM(textBlock1.paperGSM, pages);
-                numPageRes.innerText = pages;
-                numSheetsRes.innerText = sheets;
-                thicknessBlockRes.innerText = thick;
-                console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
-                console.log(noShowDiv.innerText);
-            }
-             */
-
-
-
-            /*
-            * TEST FOR TEXT THICKNESS MEASUREMENT
-            * translates paper GSM and page count to aproxomate thickness of textblock in MM
-            */
-/*             const blockThicknessMM = function (pageThicknessGSM, pageCount) {
-                let factorGSMtoMM = 0.001328146;
-                let mmMeasure = pageThicknessGSM * factorGSMtoMM;
-                let thickness = (pageCount / 2) * mmMeasure;
-                return thickness;
-            } */
 
         });
 
@@ -576,30 +249,54 @@
 <body>
 
     <div class="flex-container" style="background-color:greenyellow;">
-        <div class="pageHeader" id="pageHeader" style="background-color: lightcoral;">
+        <div class="pageHeader flex-container" id="pageHeader" style="background-color: lightcoral;">
             <H4>**under construction**</H4>
             <div class="flex-item">
-                <img src="images/books.png" alt="books of various sizes standing against eachother" style="width: 10%;" >
+                <div id="divHeaderImg" class="flex-item">
+                    <img id="headerImg" src="images/books.png" alt="books of various sizes standing against eachother"
+                        style="max-width: 100px;">
+                </div>
+                <div id="divHeaderText" class="flex-item">
+                    <h1>TextBlock Planner</h1>
+                </div>
             </div>
-            <div class="flex-item">
-                <h1>TextBlock Planner</h1>
-            </div>
-            <div class="flex-item">
-                <img src="images/books.png" alt="books of various sizes standing against eachother" style="width: 10%;" >
+
+        </div>
+
+        <div id="resultsDisplay">
+            <h6 id="resultsHeader" style="background-color: brown;">Textblock Results</h6>
+
+            <div class="flex-container-inner resultsContent" style="background-color:cornflowerblue;">
+
+                    <div class="flex-item-card" style="background-color: aliceblue;">
+                        <h5 class="card-header">Number of pages: </h5>
+                        <div id="resultNumPages" style="background-color: deeppink;">?</div>
+                    </div>
+
+                    <div class="flex-item-card" style="background-color: aliceblue;">
+                        <h5 class="card-header">Number of sheets</h5>
+                        <div id="resultNumSheets" style="background-color: deeppink;">?</div>
+                    </div>
+
+                    <div class="flex-item-card" style="background-color: aliceblue;">
+                        <h5 class="card-header">Textblock thickness</h5>
+                        <div id="resultBlockThickness" style="background-color: deeppink;">?</div>
+                    </div>
+
+                    <div class="flex-item-card" style="background-color: aliceblue;">
+                        <h5 class="card-header">Textblock weight</h5>
+                        <div id="resultWeight" style="background-color: deeppink;">?</div>
+                    </div>
+
+                
             </div>
         </div>
 
-        <div style="float: right; display: none;">
-            <canvas id="canvasNoShow" width="500px"></canvas>
-        </div>
-
-
-
-        <div id="pageContent">
+        <div class="flex-container" id="pageContent">
             <div class="tabBar" style="background-color: coral;">
 
-                <div>
-                    <h3 data-tab-target="#settings">Settings</h3>
+                <div data-tab-target="#settings">
+                    <h3>Settings</h3>
 
                     <div class="tab" id="settings" data-tab-content style="background-color: plum;">
                         <div>
@@ -642,8 +339,8 @@
                     </div>
                 </div>
 
-                <div>
-                    <h3 data-tab-target="#paper">Paper Information</h3>
+                <div data-tab-target="#paper">
+                    <h3>Paper Information</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="paper" data-tab-content style="background-color: aqua;">
@@ -678,8 +375,8 @@
                     </div>
                 </div>
 
-                <div>
-                    <h3 data-tab-target="#text">Text Information</h3>
+                <div data-tab-target="#text">
+                    <h3>Text Information</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
@@ -688,16 +385,6 @@
                                 <input type="file" id="filePicker" multiple accept=".txt">
 
                             </div>
-
-                            <!--
-                            <div>
-                                <h5>Number of characters &#40;Include spaces and punctuation&#41;</h5>
-                                <div>
-                                    <input type="number" id="numCharacters" name="numCharacters" minlength="1">
-                                    <label for="numCharacters">Character Count</label>
-                                </div>
-                            </div>
-                            -->
 
                             <div>
                                 <h5>Number of chapters or sections</h5>
@@ -712,8 +399,8 @@
                     </div>
                 </div>
 
-                <div>
-                    <h3 data-tab-target="#formatting">Text Formatting</h3>
+                <div data-tab-target="#formatting">
+                    <h3>Text Formatting</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="formatting" data-tab-content style="background-color:bisque;">
@@ -758,14 +445,7 @@
 
                                 <div>
                                     <h4>Paragraph formating</h4>
-                                    <!--
-                                    <div>
-                                        <h5>Paragraph Indent</h5>
-                                        <label for="pointSizeIndent">Pt: </label>
-                                        <input type="number" id="pointSizeIndent" name="pointSizeIndent" required
-                                            minlength="1" size="5">
-                                    </div>
--->
+
                                     <div>
                                         <h5>Line Spacing</h5>
                                         <label for="lineSpacing">Spacing: </label>
@@ -786,100 +466,67 @@
                             </div>
                         </div>
                     </div>
-
-                    <div>
-                        <h3 data-tab-target="#extras">Extras</h3>
-
-                        <div class="tabContent">
-                            <div class="tab" id="extras" data-tab-content style="background-color:violet;">
-
-                                <div>
-                                    <h5>Fly Leaves</h5>
-                                    <label for="numFlyLeaves">Number of fly leaves, front and back: </label>
-                                    <input type="number" id="numFlyLeaves" name="numFlyLeaves" size="5">
-                                </div>
-
-                                <div>
-                                    <h5>Title Page</h5>
-                                    <label for="titlePageAdd">Add </label>
-                                    <input type="checkbox" id="titlePageAdd" name="titlePageAdd">
-                                </div>
-
-                                <div>
-                                    <h5>Table of Contents</h5>
-                                    <label for="tocPageAdd">Add </label>
-                                    <input type="checkbox" id="tocPageAdd" name="tocPageAdd">
-                                </div>
-
-                                <div>
-                                    <h5>Book Information or Copyright</h5>
-                                    <label for="bookInfoPageAdd">Add </label>
-                                    <input type="checkbox" id="bookInfoPageAdd" name="bookInfoPageAdd">
-                                </div>
-
-                                <div>
-                                    <h5>Chapter heading</h5>
-                                    <label for="chHeadPage">Portion of Page Taken: </label>
-                                    <input type="number" id="chHeadPage" name="chHeadPage" size="5">
-                                </div>
-
-                                <div>
-                                    <h5>Images</h5>
-                                    <label for="imagePage">Pages taken up by images: </label>
-                                    <input type="number" id="imagePage" name="imagePage" size="5">
-                                </div>
-
-                                <div>
-                                    <h4>Advanced</h4>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 data-tab-target="#results">Textblock Results</h3>
-
-                        <div class="tabContent">
-                            <div class="tab active" id="results" data-tab-content
-                                style="background-color:cornflowerblue;">
-
-                                <div>
-                                    <h4>Approximates</h4>
-                                </div>
-
-                                <div>
-                                    <h5>Number of pages: </h5>
-                                    <div id="resultNumPages" style="background-color: deeppink;">?</div>
-                                </div>
-
-                                <div>
-                                    <h5>Number of sheets</h5>
-                                    <div id="resultNumSheets" style="background-color: deeppink;">?</div>
-                                </div>
-
-                                <div>
-                                    <h5>Textblock thickness</h5>
-                                    <div id="resultBlockThickness" style="background-color: deeppink;">?</div>
-                                </div>
-
-                                <div>
-                                    <h5>Textblock weight</h5>
-                                    <div id="resultWeight" style="background-color: deeppink;">?</div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
 
-            </div>
-        </div>
+                <div data-tab-target="#extras">
+                    <h3>Extras</h3>
 
-        <div id="textNoShow" style="display: none;">!</div>
+                    <div class="tabContent">
+                        <div class="tab" id="extras" data-tab-content style="background-color:violet;">
+
+                            <div>
+                                <h5>Fly Leaves</h5>
+                                <label for="numFlyLeaves">Number of fly leaves, front and back: </label>
+                                <input type="number" id="numFlyLeaves" name="numFlyLeaves" size="5">
+                            </div>
+
+                            <div>
+                                <h5>Title Page</h5>
+                                <label for="titlePageAdd">Add </label>
+                                <input type="checkbox" id="titlePageAdd" name="titlePageAdd">
+                            </div>
+
+                            <div>
+                                <h5>Table of Contents</h5>
+                                <label for="tocPageAdd">Add </label>
+                                <input type="checkbox" id="tocPageAdd" name="tocPageAdd">
+                            </div>
+
+                            <div>
+                                <h5>Book Information or Copyright</h5>
+                                <label for="bookInfoPageAdd">Add </label>
+                                <input type="checkbox" id="bookInfoPageAdd" name="bookInfoPageAdd">
+                            </div>
+
+                            <div>
+                                <h5>Chapter heading</h5>
+                                <label for="chHeadPage">Portion of Page Taken: </label>
+                                <input type="number" id="chHeadPage" name="chHeadPage" size="5">
+                            </div>
+
+                            <div>
+                                <h5>Images</h5>
+                                <label for="imagePage">Pages taken up by images: </label>
+                                <input type="number" id="imagePage" name="imagePage" size="5">
+                            </div>
+
+                            <div>
+                                <h4>Advanced</h4>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
     </div>
+
+    <div id="textNoShow" style="display: none;">!</div>
+
 </body>
 
 </html>
