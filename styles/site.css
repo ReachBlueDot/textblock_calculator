@@ -15,10 +15,16 @@ body {
 .flex-container {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
+}
+
+.flex-item {
+    display: flex;
+    flex-direction: row;
 }
 
 .pageContent {
