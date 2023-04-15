@@ -1,3 +1,5 @@
+
+
 /**
  * TextBlock class to store info
  */
@@ -73,7 +75,6 @@ class TextBlock {
     }
 
 
-
     //
 }
 
@@ -90,6 +91,24 @@ function blockThicknessMM(pageThicknessGSM, pageCount) {
     return thickness;
 }
 
+
+/*
+* TEST FOR TEXT WEIGHT MEASUREMENT
+* translates paper GSM and page count to aproxomate weight of textblock in kilograms
+*/
+function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, pageCount) {
+
+    console.log("_block Weight test__");
+    console.log(pageThicknessGSM);
+    console.log(pageHeight);
+    console.log(pageWidth);
+    console.log(pageCount);
+
+    let areaPage = pageHeight * pageWidth;
+    let areaPaper = areaPage * (pageCount / 2);
+    let weight = (pageThicknessGSM * areaPaper) / 100000;
+    return weight;
+}
 
 /**
  * Function to measure the div with the text, and calculate TextBlock text measurements
@@ -123,9 +142,8 @@ function textMeasure(element, textBlock) {
     textBlock.resultNumPages = Math.ceil(divHeight / textBlock.textAreaHeight);
     textBlock.resultNumSheets = Math.ceil(textBlock.resultNumPages / 4);
     textBlock.resultThickness = blockThicknessMM(textBlock.paperGSM, textBlock.resultNumPages);
-    /*     numPageRes.innerText = textBlock.resultNumPages;
-        numSheetsRes.innerText = textBlock.resultNumSheets;
-        thicknessBlockRes.innerText = textBlock.resultThickness; */
+    textBlock.resultWeight = blockWeightKg(textBlock.paperGSM, textBlock.pageHeight, textBlock.pageWidth, textBlock.resultNumPages);
+
     console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
     console.log(noShowDiv.innerText);
 }
