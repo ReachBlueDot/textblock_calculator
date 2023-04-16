@@ -11,41 +11,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="scripts/navScript.js" defer></script>
+    <script type="module" src="./modules/converters.mjs"></script>
 
 
 
     <script type="module">
         import { getFontList } from './scripts/pickFont.js';
         import { TextBlock, textMeasure } from './modules/TextBlock.mjs';
-        /*         import {
-                    onvertCMtoPX, convertPXtoCM, convertINtoPX, convertPXtoIN, convertCMtoIN,
-                    convertINtoCM, convertLBtoKG, convertKGtoLB
-                } from "./converters.mjs"; */
+        import { linearConverter, weightConverter } from './modules/converters.mjs';
 
         window.addEventListener("DOMContentLoaded", () => {
-
-            /*             //Paper Information Tab
-                        let pageWidth = 528;
-                        let pageHeight = 816;
-                        let paperGSM = 75;
-                        //Text Area Information
-                        let textAreaWidth = pageWidth;
-                        let textAreaHeight = pageHeight;
-            
-                        //Text Information Tab
-                        let fileName = "Your File";
-                        //usable text string
-                        let targetText = "";
-                        let numSections = 1;
-            
-                        //Text Formating Tab
-                        let topBottomMargin = 0;
-                        let insideMargin = 0;
-                        let outsideMargin = 0;
-                        let targetFontPt = 12;
-                        let fontFamily = "Times New Roman";
-                        let lineSpacing = 1.5;
-                        let paragraphSpacing = 1; */
 
             /*
             * Text Block object
@@ -64,7 +39,8 @@
             const updateResults = function () {
                 numPageRes.innerText = textBlock1.resultNumPages;
                 numSheetsRes.innerText = textBlock1.resultNumSheets;
-                thicknessBlockRes.innerText = textBlock1.resultThickness.toFixed(2);
+                let showThickness = linearConverter((textBlock1.resultThickness / 100), "cm", textBlock1.linearUnit);
+                thicknessBlockRes.innerText = showThickness.toFixed(2);
                 weightBlockRes.innerText = textBlock1.resultWeight.toFixed(2);
             }
 
@@ -103,7 +79,8 @@
             */
             const pageWidthIn = document.getElementById("widthInput");
             document.querySelector('#widthInput').addEventListener("change", event => {
-                textBlock1.pageWidth = parseFloat(pageWidthIn.value);
+                let inWidth = parseFloat(pageWidthIn.value);
+                textBlock1.pageWidth = linearConverter(inWidth, textBlock1.linearUnit, "px");
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
@@ -113,7 +90,8 @@
             */
             const pageHeightIn = document.getElementById("heightInput");
             document.querySelector('#heightInput').addEventListener("change", event => {
-                textBlock1.pageHeight = parseFloat(pageHeightIn.value);
+                let inHeight = parseFloat(pageHeightIn.value);
+                textBlock1.pageHeight = linearConverter(inHeight, textBlock1.linearUnit, "px");
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
@@ -124,7 +102,19 @@
             */
             const paperGSMinput = document.getElementById("paperWeight");
             document.querySelector('#paperWeight').addEventListener("change", event => {
-                textBlock1.paperGSM = parseFloat(paperGSMinput.value);
+                let value;
+                if (paperGSMinput.value === "") {
+                    value = 75;
+                } else {
+
+                    //TEST
+                    console.log("GSM __");
+                    console.log(paperGSMinput.value);
+
+                    value = parseFloat(paperGSMinput.value);
+                }
+
+                textBlock1.paperGSM = value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
@@ -184,7 +174,19 @@
             */
             const sectionCountIn = document.getElementById("numSections");
             document.querySelector('#numSections').addEventListener("change", event => {
-                textBlock1.numSections = parseInt(sectionCountIn.value);
+                let value;
+                if (sectionCountIn.value === "") {
+                    value = 1;
+                } else {
+
+                    //TEST
+                    console.log("NUM SECTIONS __");
+                    console.log(sectionCountIn.value);
+
+                    value = parseFloat(sectionCountIn.value);
+                }
+
+                textBlock1.numSections = value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
@@ -194,7 +196,20 @@
             */
             const topBottomMarginIn = document.getElementById("topBotomInput");
             document.querySelector('#topBotomInput').addEventListener("change", event => {
-                textBlock1.topBottomMargin = parseFloat(topBottomMarginIn.value);
+                let value;
+                if (topBottomMarginIn.value === "") {
+                    value = 0;
+                } else {
+
+                    //TEST
+                    console.log("TBM in__");
+                    console.log(topBottomMarginIn.value);
+
+                    value = parseFloat(topBottomMarginIn.value);
+                }
+
+                let inMargin = value
+                textBlock1.topBottomMargin = linearConverter(inMargin, textBlock1.linearUnit, "px");
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
@@ -204,7 +219,21 @@
             */
             const insideMarginIn = document.getElementById("insideInput");
             document.querySelector('#insideInput').addEventListener("change", event => {
-                textBlock1.insideMargin = parseFloat(insideMarginIn.value);
+                let value;
+                if (insideMarginIn.value === "") {
+                    value = 0;
+                } else {
+
+                    //TEST
+                    console.log("IM in__");
+                    console.log(insideMarginIn.value);
+
+                    value = parseFloat(insideMarginIn.value);
+                }
+
+
+                let inMargin = value;
+                textBlock1.insideMargin = linearConverter(inMargin, textBlock1.linearUnit, "px");
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
@@ -214,7 +243,20 @@
             */
             const ousideMarginIn = document.getElementById("outsideInput");
             document.querySelector('#outsideInput').addEventListener("change", event => {
-                textBlock1.outsideMargin = parseFloat(ousideMarginIn.value);
+                let value;
+                if (ousideMarginIn.value === "") {
+                    value = 0;
+                } else {
+
+                    //TEST
+                    console.log("OM in__");
+                    console.log(ousideMarginIn.value);
+
+                    value = parseFloat(ousideMarginIn.value);
+                }
+
+                let inMargin = value;
+                textBlock1.outsideMargin = linearConverter(inMargin, textBlock1.linearUnit, "px");
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
@@ -258,7 +300,19 @@
             */
             const lineSpaceIn = document.getElementById("lineSpacing");
             document.querySelector('#lineSpacing').addEventListener("change", event => {
-                textBlock1.lineSpacing = parseFloat(lineSpaceIn.value);
+                let value;
+                if (lineSpaceIn.value === "") {
+                    value = 1;
+                } else {
+
+                    //TEST
+                    console.log("LINE SPACE__");
+                    console.log(lineSpaceIn.value);
+
+                    value = parseFloat(lineSpaceIn.value);
+                }
+
+                textBlock1.lineSpacing = value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
@@ -268,7 +322,148 @@
             */
             const paragraphSpaceIn = document.getElementById("paragraphSpacing");
             document.querySelector('#paragraphSpacing').addEventListener("change", event => {
-                textBlock1.paragraphSpacing = parseFloat(paragraphSpaceIn.value);
+                let value;
+                if (paragraphSpaceIn.value === "") {
+                    value = 1;
+                } else {
+
+                    //TEST
+                    console.log("PARA SPACE__");
+                    console.log(paragraphSpaceIn.value);
+
+                    value = parseFloat(paragraphSpaceIn.value);
+                }
+
+                textBlock1.paragraphSpacing = value;
+                textMeasure(noShowDiv, textBlock1);
+                updateResults();
+            })
+
+            /*
+            * get number of fly leaves  from user. WITH TEXTBLOCK
+            */
+            const flyLeavesIn = document.getElementById("numFlyLeaves");
+            document.querySelector('#numFlyLeaves').addEventListener("change", event => {
+                let value;
+                if (flyLeavesIn.value === "") {
+                    value = 0;
+                } else {
+
+                    //TEST
+                    console.log("FLY LEAVS__");
+                    console.log(flyLeavesIn.value);
+
+                    value = parseFloat(flyLeavesIn.value);
+                }
+                textBlock1.flyLeaves = value;
+                textMeasure(noShowDiv, textBlock1);
+                updateResults();
+            })
+
+            /*
+            * get if Title page  from user. WITH TEXTBLOCK
+            */
+            const titlePageIn = document.getElementById("titlePageAdd");
+            document.querySelector('#titlePageAdd').addEventListener("change", event => {
+                if (titlePageIn.checked) {
+                    //TEST
+                    console.log("checked!!!");
+
+                    textBlock1.titlePage = 2;
+
+                } else {
+                    //TEST
+                    console.log("Not Checked!!!");
+
+                    textBlock1.titlePage = 0;
+                }
+                textMeasure(noShowDiv, textBlock1);
+                updateResults();
+
+            })
+
+            /*
+            * get if Table of contents page  from user. WITH TEXTBLOCK
+            */
+            const tocPageIn = document.getElementById("tocPageAdd");
+            document.querySelector('#tocPageAdd').addEventListener("change", event => {
+                if (tocPageIn.checked) {
+                    //TEST
+                    console.log("checked!!!");
+
+                    textBlock1.tableOfContentsPage = 2;
+
+                } else {
+                    //TEST
+                    console.log("Not Checked!!!");
+
+                    textBlock1.tableOfContentsPage = 0;
+                }
+                textMeasure(noShowDiv, textBlock1);
+                updateResults();
+            })
+
+
+            /*
+            * get if Copyright page  from user. WITH TEXTBLOCK
+            */
+            const infoPageIn = document.getElementById("bookInfoPageAdd");
+            document.querySelector('#bookInfoPageAdd').addEventListener("change", event => {
+                if (infoPageIn.checked) {
+                    //TEST
+                    console.log("checked!!!");
+
+                    textBlock1.infoPage = 2;
+
+                } else {
+                    //TEST
+                    console.log("Not Checked!!!");
+
+                    textBlock1.infoPage = 0;
+                }
+                textMeasure(noShowDiv, textBlock1);
+                updateResults();
+            })
+
+
+            /*
+            * get portion of a page taken by each section heading  from user. WITH TEXTBLOCK
+            */
+            const secionHeaderPortionIn = document.getElementById("chHeadPage");
+            document.querySelector('#chHeadPage').addEventListener("change", event => {
+                let value;
+                if (secionHeaderPortionIn.value === "") {
+                    value = 0;
+                } else {
+
+                    //TEST
+                    console.log("Ch Header Pg__");
+                    console.log(secionHeaderPortionIn.value);
+
+                    value = parseFloat(secionHeaderPortionIn.value);
+                }
+                textBlock1.pagePerSectionHead = value;
+                textMeasure(noShowDiv, textBlock1);
+                updateResults();
+            })
+
+            /*
+            * get number of a pages taken by images  from user. WITH TEXTBLOCK
+            */
+            const imgPagesIn = document.getElementById("imagePage");
+            document.querySelector('#imagePage').addEventListener("change", event => {
+                let value;
+                if (imgPagesIn.value === "") {
+                    value = 0;
+                } else {
+
+                    //TEST
+                    console.log("Image Pg__");
+                    console.log(imgPagesIn.value);
+
+                    value = parseFloat(imgPagesIn.value);
+                }
+                textBlock1.imagePages = value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
@@ -513,7 +708,7 @@
                             <div>
                                 <h5>Fly Leaves</h5>
                                 <label for="numFlyLeaves">Number of fly leaves, front and back: </label>
-                                <input type="number" id="numFlyLeaves" name="numFlyLeaves" size="5">
+                                <input type="number" id="numFlyLeaves" name="numFlyLeaves" required size="5" min="0">
                             </div>
 
                             <div>
