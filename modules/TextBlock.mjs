@@ -1,3 +1,5 @@
+
+
 /**
  * TextBlock class to store info
  */
@@ -30,8 +32,16 @@ class TextBlock {
         this.outsideMargin = 0;
         this.targetFontPt = 12;
         this.fontFamily = "Times New Roman";
-        this.lineSpacing = 1.5;
+        this.lineSpacing = 1;
         this.paragraphSpacing = 1;
+
+        //Extras
+        this.flyLeaves = 0;
+        this.titlePage = 0;
+        this.tableOfContentsPage = 0;
+        this.infoPage = 0;
+        this.pagePerSectionHead = 0;
+        this.imagePages = 0;
 
         //Result Values
         this.resultNumPages = 0;
@@ -73,8 +83,7 @@ class TextBlock {
     }
 
 
-
-    //
+    
 }
 
 
@@ -88,6 +97,34 @@ function blockThicknessMM(pageThicknessGSM, pageCount) {
     let mmMeasure = pageThicknessGSM * factorGSMtoMM;
     let thickness = (pageCount / 2) * mmMeasure;
     return thickness;
+}
+
+
+/*
+* TEST FOR TEXT WEIGHT MEASUREMENT
+* translates paper GSM and page count to aproxomate weight of textblock in kilograms
+*/
+function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, pageCount) {
+
+    console.log("_block Weight test__");
+    console.log(pageThicknessGSM);
+    console.log(pageHeight);
+    console.log(pageWidth);
+    console.log(pageCount);
+
+    let areaPage = pageHeight * pageWidth;
+    let areaPaper = areaPage * (pageCount / 2);
+    let weight = (pageThicknessGSM * areaPaper) / 100000;
+    return weight;
+}
+
+
+/**
+ * Calculate pages to add for section headings
+ * takes portion of page per, and number of sections
+ */
+function headerSpace(portionOfPage, numSections) {
+    return (portionOfPage * numSections);
 }
 
 
@@ -119,13 +156,28 @@ function textMeasure(element, textBlock) {
 
     let divWidth = noShowDiv.clientWidth + "px";
     noShowDiv.style.display = "none";
-    //TEST DOES A GETTER WORK LIKE THIS?
-    textBlock.resultNumPages = Math.ceil(divHeight / textBlock.textAreaHeight);
+    
+    let headerPgs = headerSpace(textBlock.pagePerSectionHead, textBlock.numSections);
+    let addInPages = (2*textBlock.flyLeaves) + textBlock.titlePage + textBlock.tableOfContentsPage + textBlock.infoPage + headerPgs + textBlock.imagePages;
+    addInPages = Math.ceil(addInPages);
+
+    //TEST
+    console.log("TEST ADD IN Pages ___");
+    console.log(textBlock.pagePerSectionHead);
+    console.log(numSections);
+    console.log(headerPgs);
+    console.log(2*textBlock.flyLeaves);
+    console.log(textBlock.titlePage);
+    console.log(textBlock.tableOfContentsPage);
+    console.log(textBlock.infoPage);
+    console.log(textBlock.imagePages);
+    console.log(addInPages);
+
+    textBlock.resultNumPages = Math.ceil(divHeight / textBlock.textAreaHeight) + addInPages;
     textBlock.resultNumSheets = Math.ceil(textBlock.resultNumPages / 4);
     textBlock.resultThickness = blockThicknessMM(textBlock.paperGSM, textBlock.resultNumPages);
-    /*     numPageRes.innerText = textBlock.resultNumPages;
-        numSheetsRes.innerText = textBlock.resultNumSheets;
-        thicknessBlockRes.innerText = textBlock.resultThickness; */
+    textBlock.resultWeight = blockWeightKg(textBlock.paperGSM, textBlock.pageHeight, textBlock.pageWidth, textBlock.resultNumPages);
+
     console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
     console.log(noShowDiv.innerText);
 }
