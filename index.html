@@ -294,7 +294,7 @@
 
                 let inMargin = value
                 let inMarginPX = linearConverter(inMargin, textBlock1.linearUnit, "px");
-                if (inMarginPX < (textBlock1.pageHeight/2) && inMarginPX >= 0) {
+                if (inMarginPX < (textBlock1.pageHeight / 2) && inMarginPX >= 0) {
                     textBlock1.topBottomMargin = inMarginPX;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults();
@@ -371,9 +371,9 @@
             document.querySelector('#pointSizeFont').addEventListener("change", event => {
 
                 if (fontSizeIn.value > 0) {
-                                    textBlock1.targetFontPt = parseFloat(fontSizeIn.value);
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                    textBlock1.targetFontPt = parseFloat(fontSizeIn.value);
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
                 } else {
                     alert(`${fontSizeIn.value} is not a valid value. Please try again.`);
                 }
@@ -385,10 +385,29 @@
             */
             const fontPicker = document.getElementById("fontList");
             document.querySelector('#fontList').addEventListener("change", event => {
+                addFontLink(fontPicker.value);
+                //TEST
+                console.log("added header link");
+
+
                 textBlock1.fontFamily = fontPicker.value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
             })
+
+            /*
+            * Add download link for font to header
+            */
+            const headerElement = document.getElementsByTagName('head');
+            function addFontLink(fontFamily) {
+                const url = "https://fonts.googleapis.com/css?family=" + fontFamily;
+                const link = document.createElement('link');
+                link.href = url;
+                link.rel = "stylesheet";
+                headerElement[0].appendChild(link);
+
+            }
+
 
             /*
             * get font list and populate fontList selector 
@@ -420,9 +439,9 @@
                     value = parseFloat(lineSpaceIn.value);
                 }
                 if (value > 0) {
-                                    textBlock1.lineSpacing = value;
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                    textBlock1.lineSpacing = value;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
                 } else {
                     alert(`${value} is not a valid value. Please try again.`);
                 }
@@ -447,9 +466,9 @@
                     value = parseFloat(paragraphSpaceIn.value);
                 }
                 if (value > 0) {
-                                    textBlock1.paragraphSpacing = value;
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                    textBlock1.paragraphSpacing = value;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
                 } else {
                     alert(`${value} is not a valid value. Please try again.`);
                 }
@@ -473,9 +492,9 @@
                     value = parseFloat(flyLeavesIn.value);
                 }
                 if (value >= 0) {
-                                    textBlock1.flyLeaves = value;
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                    textBlock1.flyLeaves = value;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
                 } else {
                     alert(`${value} is not a valid value. Please try again.`);
                 }
@@ -565,9 +584,9 @@
                     value = parseFloat(secionHeaderPortionIn.value);
                 }
                 if (value >= 0) {
-                                    textBlock1.pagePerSectionHead = value;
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                    textBlock1.pagePerSectionHead = value;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
                 } else {
                     alert(`${value} is not a valid value. Please try agian.`);
                 }
@@ -591,9 +610,9 @@
                     value = parseFloat(imgPagesIn.value);
                 }
                 if (value >= 0) {
-                                    textBlock1.imagePages = value;
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                    textBlock1.imagePages = value;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
                 } else {
                     alert(`${value} is not a valid value. Please try agian.`);
                 }
