@@ -35,13 +35,69 @@
             const weightBlockRes = document.getElementById("resultWeight");
             const noShowDiv = document.getElementById("textNoShow");
 
-
+            /*
+            * update results. WITH TEXTBLOCK
+            */
             const updateResults = function () {
                 numPageRes.innerText = textBlock1.resultNumPages;
                 numSheetsRes.innerText = textBlock1.resultNumSheets;
-                let showThickness = linearConverter((textBlock1.resultThickness / 100), "cm", textBlock1.linearUnit);
+                let showThickness = linearConverter((textBlock1.resultThickness), "cm", textBlock1.linearUnit);
                 thicknessBlockRes.innerText = showThickness.toFixed(2);
-                weightBlockRes.innerText = textBlock1.resultWeight.toFixed(2);
+                let showWeight = weightConverter(textBlock1.resultWeight, "kg", textBlock1.weightUnit);
+                weightBlockRes.innerText = showWeight.toFixed(2);
+            }
+
+            /*
+            * update linear measures from user. WITH TEXTBLOCK
+            */
+            const updateMeasures = function () {
+                let inWidth = parseFloat(pageWidthIn.value);
+                textBlock1.pageWidth = linearConverter(inWidth, textBlock1.linearUnit, "px");
+                let inHeight = parseFloat(pageHeightIn.value);
+                textBlock1.pageHeight = linearConverter(inHeight, textBlock1.linearUnit, "px");
+                
+                let valueTBM;
+                if (topBottomMarginIn.value === "") {
+                    valueTBM = 0;
+                } else {
+
+                    //TEST
+                    console.log("TBM in__");
+                    console.log(topBottomMarginIn.value);
+
+                    valueTBM = parseFloat(topBottomMarginIn.value);
+                }
+                let inMarginTBM = valueTBM
+                textBlock1.topBottomMargin = linearConverter(inMarginTBM, textBlock1.linearUnit, "px");
+
+                let valueIM;
+                if (insideMarginIn.value === "") {
+                    valueIM = 0;
+                } else {
+
+                    //TEST
+                    console.log("IM in__");
+                    console.log(insideMarginIn.value);
+
+                    valueIM = parseFloat(insideMarginIn.value);
+                }
+                let inMarginIM = valueIM;
+                textBlock1.insideMargin = linearConverter(inMarginIM, textBlock1.linearUnit, "px");
+
+
+                let valueOM;
+                if (ousideMarginIn.value === "") {
+                    valueOM = 0;
+                } else {
+
+                    //TEST
+                    console.log("OM in__");
+                    console.log(ousideMarginIn.value);
+
+                    valueOM = parseFloat(ousideMarginIn.value);
+                }
+                let inMarginOM = valueOM;
+                textBlock1.outsideMargin = linearConverter(inMarginOM, textBlock1.linearUnit, "px");
             }
 
             /*
@@ -55,6 +111,9 @@
                         console.log("L unit __");
                         console.log(textBlock1.linearUnit);
                     }
+                    updateMeasures();
+                    textMeasure(noShowDiv, textBlock1);
+                updateResults();
                 })
             })
 
@@ -70,6 +129,8 @@
                         console.log("W unit __");
                         console.log(textBlock1.weightUnit);
                     }
+                    textMeasure(noShowDiv, textBlock1);
+                updateResults();
                 })
             })
 
