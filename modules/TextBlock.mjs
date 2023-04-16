@@ -87,6 +87,30 @@ class TextBlock {
 }
 
 
+/*
+* TEST FOR LOADING FONTS
+* loads fonts selected from google fonts
+*/
+/* function loadFontFamily (fontFamily, element) {
+    const url = "https://fonts.googleapis.com/css?family=" + fontFamily;
+    
+    //TEST
+    console.log(url);
+
+    const fontFile = new FontFace(fontFamily, url);
+    document.fonts.add(fontFile);
+    fontFile.load().then(
+        () => {
+            element.style.fontFamily = fontFamily;
+            console.log("load FontFamily successfully");
+        },
+        (err) => {
+            console.error(err);
+        }
+    );
+}
+ */
+
 
 /*
 * TEST FOR TEXT THICKNESS MEASUREMENT
@@ -151,6 +175,11 @@ function textMeasure(element, textBlock) {
     noShowDiv.innerText = textBlock.targetText;
 
     noShowDiv.style.fontSize = textBlock.targetFontPt + "pt";
+
+    //TEST
+/*     console.log("font family__");
+    console.log(textBlock.fontFamily);
+    loadFontFamily(textBlock.fontFamily, element); */
     noShowDiv.style.fontFamily = textBlock.fontFamily;
     noShowDiv.style.lineHeight = textBlock.lineSpacing;
     //TEST DOES A GETTER WORK LIKE THIS?
@@ -165,6 +194,8 @@ function textMeasure(element, textBlock) {
     divHeight = divHeight + textBlock.paraSpaceAdd;
 
     let divWidth = noShowDiv.clientWidth + "px";
+    
+    //TEST - none
     noShowDiv.style.display = "none";
     
     let headerPgs = headerSpace(textBlock.pagePerSectionHead, textBlock.numSections);
