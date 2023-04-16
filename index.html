@@ -55,7 +55,7 @@
                 textBlock1.pageWidth = linearConverter(inWidth, textBlock1.linearUnit, "px");
                 let inHeight = parseFloat(pageHeightIn.value);
                 textBlock1.pageHeight = linearConverter(inHeight, textBlock1.linearUnit, "px");
-                
+
                 let valueTBM;
                 if (topBottomMarginIn.value === "") {
                     valueTBM = 0;
@@ -108,12 +108,14 @@
                 element.addEventListener("change", event => {
                     if (element.checked) {
                         textBlock1.linearUnit = element.value;
+
+                        //TEST
                         console.log("L unit __");
                         console.log(textBlock1.linearUnit);
                     }
                     updateMeasures();
                     textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                    updateResults();
                 })
             })
 
@@ -126,11 +128,13 @@
                 element.addEventListener("change", event => {
                     if (element.checked) {
                         textBlock1.weightUnit = element.value;
+
+                        //TEST
                         console.log("W unit __");
                         console.log(textBlock1.weightUnit);
                     }
                     textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                    updateResults();
                 })
             })
 
@@ -141,9 +145,14 @@
             const pageWidthIn = document.getElementById("widthInput");
             document.querySelector('#widthInput').addEventListener("change", event => {
                 let inWidth = parseFloat(pageWidthIn.value);
-                textBlock1.pageWidth = linearConverter(inWidth, textBlock1.linearUnit, "px");
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                if (inWidth >= 1) {
+                    textBlock1.pageWidth = linearConverter(inWidth, textBlock1.linearUnit, "px");
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
+                } else {
+                    alert(`${inWidth} is not a valid value. Please try again.`);
+                }
+
             })
 
             /*
@@ -152,9 +161,14 @@
             const pageHeightIn = document.getElementById("heightInput");
             document.querySelector('#heightInput').addEventListener("change", event => {
                 let inHeight = parseFloat(pageHeightIn.value);
-                textBlock1.pageHeight = linearConverter(inHeight, textBlock1.linearUnit, "px");
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                if (inHeight >= 1) {
+                    textBlock1.pageHeight = linearConverter(inHeight, textBlock1.linearUnit, "px");
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
+                } else {
+                    alert(`${inHeight} is not a valid value. Please try again.`);
+                }
+
             })
 
 
@@ -167,7 +181,6 @@
                 if (paperGSMinput.value === "") {
                     value = 75;
                 } else {
-
                     //TEST
                     console.log("GSM __");
                     console.log(paperGSMinput.value);
@@ -175,9 +188,14 @@
                     value = parseFloat(paperGSMinput.value);
                 }
 
-                textBlock1.paperGSM = value;
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                if (value >= 1) {
+                    textBlock1.paperGSM = value;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
+                } else {
+                    alert(`${value} is not a valid value. Please try again.`);
+                }
+
             })
 
             /*
@@ -244,12 +262,17 @@
                     console.log("NUM SECTIONS __");
                     console.log(sectionCountIn.value);
 
-                    value = parseFloat(sectionCountIn.value);
+                    value = parseInt(sectionCountIn.value);
                 }
 
-                textBlock1.numSections = value;
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                if (value >= 1) {
+                    textBlock1.numSections = value;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
+                } else {
+                    alert(`${value} is not a valid value. Please try again.`);
+                }
+
             })
 
             /*
@@ -270,9 +293,15 @@
                 }
 
                 let inMargin = value
-                textBlock1.topBottomMargin = linearConverter(inMargin, textBlock1.linearUnit, "px");
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                let inMarginPX = linearConverter(inMargin, textBlock1.linearUnit, "px");
+                if (inMarginPX < (textBlock1.pageHeight/2) && inMarginPX >= 0) {
+                    textBlock1.topBottomMargin = inMarginPX;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
+                } else {
+                    alert(`${inMargin} is not a valid margin value for a page of this size. Please try again.`);
+                }
+
             })
 
             /*
@@ -294,9 +323,15 @@
 
 
                 let inMargin = value;
-                textBlock1.insideMargin = linearConverter(inMargin, textBlock1.linearUnit, "px");
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                let inMarginPX = linearConverter(inMargin, textBlock1.linearUnit, "px");
+                if (inMarginPX < (textBlock1.pageWidth - textBlock1.outsideMargin) && inMarginPX >= 0) {
+                    textBlock1.insideMargin = inMarginPX;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
+                } else {
+                    alert(`${inMargin} is not a valid margin value for a page of this size. Please check the outside margin value and try again.`);
+                }
+
             })
 
             /*
@@ -317,9 +352,15 @@
                 }
 
                 let inMargin = value;
-                textBlock1.outsideMargin = linearConverter(inMargin, textBlock1.linearUnit, "px");
-                textMeasure(noShowDiv, textBlock1);
-                updateResults();
+                let inMarginPX = linearConverter(inMargin, textBlock1.linearUnit, "px");
+                if (inMarginPX < (textBlock1.pageWidth - textBlock1.insideMargin) && inMarginPX >= 0) {
+                    textBlock1.outsideMargin = inMarginPX;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults();
+                } else {
+                    alert(`${inMargin} is not a valid margin value for a page of this size. Please check the inside margin value and try again.`);
+                }
+
             })
 
 
@@ -328,9 +369,15 @@
             */
             const fontSizeIn = document.getElementById("pointSizeFont");
             document.querySelector('#pointSizeFont').addEventListener("change", event => {
-                textBlock1.targetFontPt = parseFloat(fontSizeIn.value);
+
+                if (fontSizeIn.value > 0) {
+                                    textBlock1.targetFontPt = parseFloat(fontSizeIn.value);
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
+                } else {
+                    alert(`${fontSizeIn.value} is not a valid value. Please try again.`);
+                }
+
             })
 
             /*
@@ -372,10 +419,15 @@
 
                     value = parseFloat(lineSpaceIn.value);
                 }
-
-                textBlock1.lineSpacing = value;
+                if (value > 0) {
+                                    textBlock1.lineSpacing = value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
+                } else {
+                    alert(`${value} is not a valid value. Please try again.`);
+                }
+
+
             })
 
             /*
@@ -394,10 +446,14 @@
 
                     value = parseFloat(paragraphSpaceIn.value);
                 }
-
-                textBlock1.paragraphSpacing = value;
+                if (value > 0) {
+                                    textBlock1.paragraphSpacing = value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
+                } else {
+                    alert(`${value} is not a valid value. Please try again.`);
+                }
+
             })
 
             /*
@@ -416,9 +472,14 @@
 
                     value = parseFloat(flyLeavesIn.value);
                 }
-                textBlock1.flyLeaves = value;
+                if (value >= 0) {
+                                    textBlock1.flyLeaves = value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
+                } else {
+                    alert(`${value} is not a valid value. Please try again.`);
+                }
+
             })
 
             /*
@@ -503,9 +564,14 @@
 
                     value = parseFloat(secionHeaderPortionIn.value);
                 }
-                textBlock1.pagePerSectionHead = value;
+                if (value >= 0) {
+                                    textBlock1.pagePerSectionHead = value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
+                } else {
+                    alert(`${value} is not a valid value. Please try agian.`);
+                }
+
             })
 
             /*
@@ -524,9 +590,14 @@
 
                     value = parseFloat(imgPagesIn.value);
                 }
-                textBlock1.imagePages = value;
+                if (value >= 0) {
+                                    textBlock1.imagePages = value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults();
+                } else {
+                    alert(`${value} is not a valid value. Please try agian.`);
+                }
+
             })
 
         });
