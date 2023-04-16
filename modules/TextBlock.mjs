@@ -1,4 +1,4 @@
-
+import { linearConverter, weightConverter } from './converters.mjs';
 
 /**
  * TextBlock class to store info
@@ -90,32 +90,42 @@ class TextBlock {
 
 /*
 * TEST FOR TEXT THICKNESS MEASUREMENT
-* translates paper GSM and page count to aproxomate thickness of textblock in MM
+* translates paper GSM and page count to aproxomate thickness of textblock in CM
 */
-function blockThicknessMM(pageThicknessGSM, pageCount) {
+function blockThicknessCM(pageThicknessGSM, leafeCount) {
     let factorGSMtoMM = 0.001328146;
     let mmMeasure = pageThicknessGSM * factorGSMtoMM;
-    let thickness = (pageCount / 2) * mmMeasure;
-    return thickness;
+    let thickness = leafeCount * mmMeasure;
+    let thicknessCM = thickness / 10;
+    return thicknessCM;
 }
 
 
 /*
 * TEST FOR TEXT WEIGHT MEASUREMENT
 * translates paper GSM and page count to aproxomate weight of textblock in kilograms
+* takes linear units of px
 */
-function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, pageCount) {
+function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, sheetCount) {
 
     console.log("_block Weight test__");
     console.log(pageThicknessGSM);
     console.log(pageHeight);
     console.log(pageWidth);
-    console.log(pageCount);
+    console.log(sheetCount);
 
-    let areaPage = pageHeight * pageWidth;
+    let cmHeight = linearConverter(pageHeight, "px", "cm");
+    console.log(cmHeight);
+    let cmWidth = linearConverter(pageWidth, "px", "cm");
+    console.log(cmWidth);
+/*     let areaPage = pageHeight * pageWidth;
     let areaPaper = areaPage * (pageCount / 2);
-    let weight = (pageThicknessGSM * areaPaper) / 100000;
-    return weight;
+    let weight = (pageThicknessGSM * areaPaper) / 100000; */
+
+    let weightKG = (pageThicknessGSM * cmHeight * cmWidth * sheetCount * 2)/(1000 * 10000);
+    console.log(weightKG);
+
+    return weightKG;
 }
 
 
@@ -175,8 +185,8 @@ function textMeasure(element, textBlock) {
 
     textBlock.resultNumPages = Math.ceil(divHeight / textBlock.textAreaHeight) + addInPages;
     textBlock.resultNumSheets = Math.ceil(textBlock.resultNumPages / 4);
-    textBlock.resultThickness = blockThicknessMM(textBlock.paperGSM, textBlock.resultNumPages);
-    textBlock.resultWeight = blockWeightKg(textBlock.paperGSM, textBlock.pageHeight, textBlock.pageWidth, textBlock.resultNumPages);
+    textBlock.resultThickness = blockThicknessCM(textBlock.paperGSM, textBlock.resultNumSheets);
+    textBlock.resultWeight = blockWeightKg(textBlock.paperGSM, textBlock.pageHeight, textBlock.pageWidth, textBlock.resultNumSheets);
 
     console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
     console.log(noShowDiv.innerText);

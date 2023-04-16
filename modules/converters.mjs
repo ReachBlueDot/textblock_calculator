@@ -62,7 +62,7 @@ function convertPXtoIN(measurement) {
  * cm to in
  */
 function convertCMtoIN(measurement) {
-    let inCount = measurement * 2.54;
+    let inCount = measurement / 2.54;
     return inCount;
 }
 
@@ -70,7 +70,7 @@ function convertCMtoIN(measurement) {
  * in to cm
  */
 function convertINtoCM(measurement) {
-    let cmCount = measurement / 2.54;
+    let cmCount = measurement * 2.54;
     return cmCount;
 }
 
@@ -108,7 +108,7 @@ function linearConverter(measurement, inUnit, outUnit) {
                 return measurement;
             }
             if (outUnit === "cm") {
-                return convertINtoCM;
+                return convertINtoCM(measurement);
             }
         }
         if (inUnit === "px") {
@@ -119,7 +119,7 @@ function linearConverter(measurement, inUnit, outUnit) {
                 return convertPXtoIN(measurement);
             }
             if (outUnit === "cm") {
-                return convertPXtoCM;
+                return convertPXtoCM(measurement);
             }
         }
     } else {
