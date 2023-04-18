@@ -23,6 +23,7 @@ class TextBlock {
 
         //usable text string
         this.targetText = "";
+        this.targetTexts = new Map();
 
         this.numSections = 1;
 
