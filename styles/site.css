@@ -53,6 +53,21 @@ body {
     margin: 0px;
 }
 
+#fileList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+}
+
+#fileList > div {
+    width: 100px;
+    background-color: darkgoldenrod;
+    margin: 2px;
+    overflow-wrap: break-word;
+}
+
 .flex-container-inner {
     display: flex;
     flex-direction: row;
