@@ -22,7 +22,7 @@ class TextBlock {
         this.fileNames = [];
 
         //usable text string
-        this.targetText = "";
+        //this.targetText = "";
         this.targetTexts = new Map();
 
         this.numSections = 1;
@@ -63,54 +63,48 @@ class TextBlock {
     }
 
     /**
-     * get number of line breaks in the target text string
+     * get number of line breaks in the target texts Map strings
      */
+
     get numLineBreaks() {
         //TEST
-        let newLineCount = (this.targetText.match(/\n/g) || []).length
+        const textsIter = this.targetTexts.values();
+
+        let newLineCount = 0;
+        for (let text of textsIter) {
+            newLineCount = newLineCount + (text.match(/\n/g) || []).length + 1;
+
+            //TEST
+            console.log("Line Count So far__ ");
+            console.log("numParagraphs __" + newLineCount);
+        }
+
+        //TEST
+        console.log("Line Count Total__ ");
         console.log("numParagraphs __" + newLineCount);
         return newLineCount;
     }
+
 
     /**
      * get space to add to text length measurment for line break spacing
      */
     get paraSpaceAdd() {
         let addUnit = this.targetFontPt * this.lineSpacing;
+
+        //TEST       
         let totalAdded = (this.paragraphSpacing * addUnit) * this.numLineBreaks;
+
         //TEST
         console.log("added for paragraphs __" + totalAdded);
         return totalAdded;
     }
 
 
-    
+
 }
 
 
-/*
-* TEST FOR LOADING FONTS
-* loads fonts selected from google fonts
-*/
-/* function loadFontFamily (fontFamily, element) {
-    const url = "https://fonts.googleapis.com/css?family=" + fontFamily;
-    
-    //TEST
-    console.log(url);
-
-    const fontFile = new FontFace(fontFamily, url);
-    document.fonts.add(fontFile);
-    fontFile.load().then(
-        () => {
-            element.style.fontFamily = fontFamily;
-            console.log("load FontFamily successfully");
-        },
-        (err) => {
-            console.error(err);
-        }
-    );
-}
- */
 
 
 /*
@@ -143,11 +137,8 @@ function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, sheetCount) {
     console.log(cmHeight);
     let cmWidth = linearConverter(pageWidth, "px", "cm");
     console.log(cmWidth);
-/*     let areaPage = pageHeight * pageWidth;
-    let areaPaper = areaPage * (pageCount / 2);
-    let weight = (pageThicknessGSM * areaPaper) / 100000; */
 
-    let weightKG = (pageThicknessGSM * cmHeight * cmWidth * sheetCount * 2)/(1000 * 10000);
+    let weightKG = (pageThicknessGSM * cmHeight * cmWidth * sheetCount * 2) / (1000 * 10000);
     console.log(weightKG);
 
     return weightKG;
@@ -162,6 +153,58 @@ function headerSpace(portionOfPage, numSections) {
     return (portionOfPage * numSections);
 }
 
+/**
+ * Creat child div for input element, and populate with Strings
+ */
+function addChildTextDiv(element, textBlock, targetTextsKey) {
+    for (const child of element.children) {
+        if (targetTextsKey === child.id) {
+            //TEST
+            console.log(targetTextsKey);
+            console.log(child.id);
+
+            child.remove();
+        }
+    }
+    const textDiv = document.createElement("div");
+    textDiv.setAttribute("id", targetTextsKey);
+    const node = document.createTextNode(textBlock.targetTexts.get(targetTextsKey));
+    textDiv.appendChild(node);
+
+    element.appendChild(textDiv);
+
+    textDiv.style.margin = "0px";
+    textDiv.style.padding = "0px";
+}
+
+/**
+ * Remove child div for input element
+ */
+function removeChildTextDiv(element, textBlock, targetTextsKey) {
+    for (const child of element.children) {
+        if (targetTextsKey === child.id) {
+            //TEST
+            console.log(targetTextsKey);
+            console.log(child.id);
+
+            child.remove();
+        }
+    }
+}
+
+
+
+/**
+ * Update style for child divs 
+ */
+function updateStyleChildTextDiv(element, textBlock) {
+    for (const child of element.children) {
+        child.style.fontSize = textBlock.targetFontPt + "pt";
+        child.style.fontFamily = textBlock.fontFamily;
+        child.style.lineHeight = textBlock.lineSpacing;
+    }
+}
+
 
 /**
  * Function to measure the div with the text, and calculate TextBlock text measurements
@@ -173,16 +216,8 @@ function textMeasure(element, textBlock) {
     console.log("measure Block__");
     console.log(textBlock);
 
-    noShowDiv.innerText = textBlock.targetText;
+    updateStyleChildTextDiv(element, textBlock);
 
-    noShowDiv.style.fontSize = textBlock.targetFontPt + "pt";
-
-    //TEST
-/*     console.log("font family__");
-    console.log(textBlock.fontFamily);
-    loadFontFamily(textBlock.fontFamily, element); */
-    noShowDiv.style.fontFamily = textBlock.fontFamily;
-    noShowDiv.style.lineHeight = textBlock.lineSpacing;
     //TEST DOES A GETTER WORK LIKE THIS?
     noShowDiv.style.width = textBlock.textAreaWidth + "px";
 
@@ -191,16 +226,15 @@ function textMeasure(element, textBlock) {
     let divHeight = noShowDiv.clientHeight;
 
     //add in paragrph spacing
-    //TEST DOES A GETTER WORK LIKE THIS?
     divHeight = divHeight + textBlock.paraSpaceAdd;
 
     let divWidth = noShowDiv.clientWidth + "px";
-    
+
     //TEST - none
-    noShowDiv.style.display = "none";
-    
+    //noShowDiv.style.display = "none";
+
     let headerPgs = headerSpace(textBlock.pagePerSectionHead, textBlock.numSections);
-    let addInPages = (2*textBlock.flyLeaves) + textBlock.titlePage + textBlock.tableOfContentsPage + textBlock.infoPage + headerPgs + textBlock.imagePages;
+    let addInPages = (2 * textBlock.flyLeaves) + textBlock.titlePage + textBlock.tableOfContentsPage + textBlock.infoPage + headerPgs + textBlock.imagePages;
     addInPages = Math.ceil(addInPages);
 
     //TEST
@@ -208,7 +242,7 @@ function textMeasure(element, textBlock) {
     console.log(textBlock.pagePerSectionHead);
     console.log(numSections);
     console.log(headerPgs);
-    console.log(2*textBlock.flyLeaves);
+    console.log(2 * textBlock.flyLeaves);
     console.log(textBlock.titlePage);
     console.log(textBlock.tableOfContentsPage);
     console.log(textBlock.infoPage);
@@ -225,4 +259,4 @@ function textMeasure(element, textBlock) {
 }
 
 
-export { TextBlock, textMeasure }
+export { TextBlock, textMeasure, addChildTextDiv, removeChildTextDiv, updateStyleChildTextDiv }

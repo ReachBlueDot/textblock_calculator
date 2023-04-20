@@ -17,9 +17,9 @@
 
     <script type="module">
         import { getFontList } from './scripts/pickFont.js';
-        import { TextBlock, textMeasure } from './modules/TextBlock.mjs';
+        import { TextBlock, textMeasure, addChildTextDiv, removeChildTextDiv } from './modules/TextBlock.mjs';
         import { linearConverter, weightConverter } from './modules/converters.mjs';
-        import {  FileHandler, handleFilesIn, showFilesFromLocal, activateFile  } from './modules/FileHandler.mjs';
+        import { FileHandler, handleFilesIn, showFilesFromLocal, activateFile } from './modules/FileHandler.mjs';
 
 
         window.addEventListener("DOMContentLoaded", () => {
@@ -205,18 +205,6 @@
 
 
 
-            
-/*             fileDisplay.addEventListener('load', event => {
-                console.log("file Display fired");
-                let fileList = Object.keys(localStorage);
-                console.log("file Display fired");
-                for (item of fileList) {
-                    fileDisplay.innerText = fileDisplay.innerText + item;
-                }
-            }) */
-
-
-
             /*
             * take in text file from user. 
             */
@@ -226,38 +214,99 @@
             * File Display for user
             */
             const fileDisplay = document.getElementById('fileList');
-            
+
 
             const loadFilesBtn = document.getElementById('load');
             loadFilesBtn.addEventListener('click', event => {
-                while(fileDisplay.firstChild) {
+                while (fileDisplay.firstChild) {
                     fileDisplay.removeChild(fileDisplay.firstChild);
                 }
 
-                showFilesFromLocal(fileDisplay);
+                showFilesFromLocal(fileDisplay, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
+                updateResults();
 
-                let docElements = document.querySelectorAll("div.showDoc");
-                docElements.forEach((item) => {
-                    item.addEventListener('click', () => {
-                        let fileKey = item.innerText;
-                        //TEST
-                        console.log("file Key __");
-                        console.log(fileKey);
 
+                let checkElement = document.querySelectorAll("input.activeCheck");
+                checkElement.forEach((item) => {
+                    item.addEventListener('onload', () => {
+                        console.log("Loaded !!**!!**!!");
+                    })
+
+                    item.addEventListener('change', () => {
+                        console.log("changed********************");
+
+                        let fileKey = item.id;
                         let localText = localStorage.getItem(fileKey);
 
-                        //TEST
-                        console.log("local text __");
-                        console.log(localText);
-                        
-                        if (localText === null && localText==="undefined") {
-                            console.log("did not find file to activate");
-                        } else {
+
+                        if (item.checked === true) {
+                            console.log("now Checked ************");
                             activateFile(textBlock1, fileKey, localText);
+                            addChildTextDiv(noShowDiv, textBlock1, fileKey);
+                            textMeasure(noShowDiv, textBlock1);
+                            updateResults();
+                        } else {
+                            console.log("now NOT Checked ************");
+                            console.log(textBlock1.targetTexts);
+                            textBlock1.targetTexts.delete(`${fileKey}`);
+                            removeChildTextDiv(noShowDiv, textBlock1, fileKey);
+                            console.log(textBlock1.targetTexts);
+                            textMeasure(noShowDiv, textBlock1);
+                            updateResults();
                         }
-                        
                     })
-                }) 
+                })
+
+
+
+                /*                let docElements = document.querySelectorAll("div.showDoc");
+                               docElements.forEach((item) => {
+                                   item.addEventListener('click', () => {
+                                       let fileKey = item.innerText;
+                                       //TEST
+                                       console.log("file Key __");
+                                       console.log(fileKey);
+               
+                                       let localText = localStorage.getItem(fileKey);
+               
+                                       //TEST
+                                       console.log("local text __");
+                                       console.log(localText);
+               
+                                       //TEST
+                                       let checkActive = item.querySelector('.activeCheck');
+                                       let checkActiveID = checkActive.id;
+                                       console.log("check id__");
+                                       console.log(checkActiveID);
+                                       let activeVal = checkActive.value;
+               
+               
+                                       if (localText === null && localText === "undefined") {
+                                           console.log("did not find file to activate");
+                                       } else {
+               
+                                           if (activeVal === false) {
+                                               //TEST
+                                               console.log("was not checked");
+               
+                                               activateFile(textBlock1, fileKey, localText);
+                                               addChildTextDiv(noShowDiv, textBlock1, fileKey);
+                                               textMeasure(noShowDiv, textBlock1);
+                                               updateResults();
+                                               checkActive = true;
+                                           } else {
+                                               console.log("!!!!!!!checked!");
+                                               console.log(textBlock1.targetTexts);
+                                               textBlock1.targetTexts.delete(`${fileKey}`);
+                                               console.log(textBlock1.targetTexts);
+                                           }
+               
+               
+                                       }
+               
+                                   })
+                               })*/
             })
 
             //TEST NEW FILE Handler
@@ -930,7 +979,7 @@
         </div>
     </div>
 
-    <div id="textNoShow" style="display: none;">!</div>
+    <div id="textNoShow" style="display: block;">!</div>
 
 </body>
 

@@ -1,4 +1,4 @@
-import { TextBlock } from "./TextBlock.mjs";
+import { TextBlock, addChildTextDiv } from "./TextBlock.mjs";
 
 class FileHandler {
     constructor() {
@@ -58,7 +58,7 @@ async function handleFilesIn(element) {
             thisText = thisText + val[i];
             console.log(thisText);
 
-            if(localStorage.getItem(nameListArray[i]) !== null) {
+            if (localStorage.getItem(nameListArray[i]) !== null) {
                 storeFile = confirm(`A file with this name (${nameListArray[i]}) already exists, do you want to replace it?`);
                 //TEST
                 console.log(storeFile);
@@ -81,7 +81,7 @@ async function handleFilesIn(element) {
             //TEST
             console.log("Local Storage Keys");
             console.log(Object.keys(localStorage));
-            
+
         }
 
     });
@@ -98,13 +98,29 @@ async function handleFilesIn(element) {
  * Show files from Local Storage in a Div
  * takes a div
  */
-function showFilesFromLocal(element) {
+function showFilesFromLocal(element, textBlock) {
     const fileList = Object.keys(localStorage);
     for (let item of fileList) {
         const fileDiv = document.createElement("div");
-        const node = document.createTextNode(item);
         fileDiv.setAttribute("class", "showDoc");
-        fileDiv.appendChild(node);
+
+        const activeCheck = document.createElement("input");
+        activeCheck.setAttribute("type", "checkbox");
+        activeCheck.setAttribute("class", "activeCheck");
+        activeCheck.setAttribute("id", `${item}`);
+
+        if (textBlock.targetTexts.has(item)) {
+            console.log("already on list ^^^^^^^^^^^^^^");
+            activeCheck.setAttribute("checked", "true");
+        }
+        //activeCheck.setAttribute("checked", "true");
+        const activeFileLable = document.createElement("lable");
+        activeFileLable.setAttribute("for", `${item}`);
+        activeFileLable.innerText = item;
+
+        fileDiv.appendChild(activeCheck);
+        fileDiv.appendChild(activeFileLable);
+        
 
         element.appendChild(fileDiv);
     }
@@ -125,6 +141,7 @@ function activateFile(textBlock, fileName, fileText) {
     textBlock.targetTexts.set(fileName, fileText);
     console.log("Target Texts Array __");
     console.log(textBlock.targetTexts);
+
 
 
     //TEST
