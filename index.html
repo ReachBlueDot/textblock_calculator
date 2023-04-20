@@ -17,10 +17,15 @@
 
     <script type="module">
         import { getFontList } from './scripts/pickFont.js';
-        import { TextBlock, textMeasure } from './modules/TextBlock.mjs';
+        import { TextBlock, textMeasure, addChildTextDiv, removeChildTextDiv } from './modules/TextBlock.mjs';
         import { linearConverter, weightConverter } from './modules/converters.mjs';
+        import { FileHandler, handleFilesIn, showFilesFromLocal, activateFile } from './modules/FileHandler.mjs';
+
 
         window.addEventListener("DOMContentLoaded", () => {
+
+            //TESTING
+            localStorage.clear();
 
             /*
             * Text Block object
@@ -198,55 +203,117 @@
 
             })
 
+
+
             /*
             * take in text file from user. 
             */
             const filePicker = document.getElementById('filePicker');
             filePicker.addEventListener('change', handleFiles, false);
+            /*
+            * File Display for user
+            */
+            const fileDisplay = document.getElementById('fileList');
 
-            //handleFiles. WITH TEXTBLOCK
-            function handleFiles() {
-                const fileList = this.files;
-                console.log(fileList);
 
-
-                for (const file of fileList) {
-
-                    const fileReader = new FileReader();
-                    fileReader.readAsText(file);
-
-                    fileReader.onload = function () {
-
-                        let thisText = fileReader.result;
-
-                        //TEST
-                        console.log("readTXTfile __")
-                        console.log(thisText);
-
-                        textBlock1.targetText = textBlock1.targetText + thisText;
-                        textBlock1.fileNames.push(file.name);
-                        console.log("file names __");
-                        console.log(textBlock1.fileNames);
-
-                        //TEST
-                        console.log("RTF Target __");
-                        console.log(textBlock1.targetText);
-
-                        return thisText;
-                        //
-                    };
-                    fileReader.onerror = function () {
-
-                        //TEST
-                        console.log(fileReader.error);
-                    };
-
-                    textMeasure(noShowDiv, textBlock1);
-                    updateResults();
+            const loadFilesBtn = document.getElementById('load');
+            loadFilesBtn.addEventListener('click', event => {
+                while (fileDisplay.firstChild) {
+                    fileDisplay.removeChild(fileDisplay.firstChild);
                 }
 
-                //textMeasure();
+                showFilesFromLocal(fileDisplay, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
+                updateResults();
+
+
+                let checkElement = document.querySelectorAll("input.activeCheck");
+                checkElement.forEach((item) => {
+                    item.addEventListener('onload', () => {
+                        console.log("Loaded !!**!!**!!");
+                    })
+
+                    item.addEventListener('change', () => {
+                        console.log("changed********************");
+
+                        let fileKey = item.id;
+                        let localText = localStorage.getItem(fileKey);
+
+
+                        if (item.checked === true) {
+                            console.log("now Checked ************");
+                            activateFile(textBlock1, fileKey, localText);
+                            addChildTextDiv(noShowDiv, textBlock1, fileKey);
+                            textMeasure(noShowDiv, textBlock1);
+                            updateResults();
+                        } else {
+                            console.log("now NOT Checked ************");
+                            console.log(textBlock1.targetTexts);
+                            textBlock1.targetTexts.delete(`${fileKey}`);
+                            removeChildTextDiv(noShowDiv, textBlock1, fileKey);
+                            console.log(textBlock1.targetTexts);
+                            textMeasure(noShowDiv, textBlock1);
+                            updateResults();
+                        }
+                    })
+                })
+
+
+
+                /*                let docElements = document.querySelectorAll("div.showDoc");
+                               docElements.forEach((item) => {
+                                   item.addEventListener('click', () => {
+                                       let fileKey = item.innerText;
+                                       //TEST
+                                       console.log("file Key __");
+                                       console.log(fileKey);
+               
+                                       let localText = localStorage.getItem(fileKey);
+               
+                                       //TEST
+                                       console.log("local text __");
+                                       console.log(localText);
+               
+                                       //TEST
+                                       let checkActive = item.querySelector('.activeCheck');
+                                       let checkActiveID = checkActive.id;
+                                       console.log("check id__");
+                                       console.log(checkActiveID);
+                                       let activeVal = checkActive.value;
+               
+               
+                                       if (localText === null && localText === "undefined") {
+                                           console.log("did not find file to activate");
+                                       } else {
+               
+                                           if (activeVal === false) {
+                                               //TEST
+                                               console.log("was not checked");
+               
+                                               activateFile(textBlock1, fileKey, localText);
+                                               addChildTextDiv(noShowDiv, textBlock1, fileKey);
+                                               textMeasure(noShowDiv, textBlock1);
+                                               updateResults();
+                                               checkActive = true;
+                                           } else {
+                                               console.log("!!!!!!!checked!");
+                                               console.log(textBlock1.targetTexts);
+                                               textBlock1.targetTexts.delete(`${fileKey}`);
+                                               console.log(textBlock1.targetTexts);
+                                           }
+               
+               
+                                       }
+               
+                                   })
+                               })*/
+            })
+
+            //TEST NEW FILE Handler
+            function handleFiles() {
+                handleFilesIn(filePicker);
             }
+
 
             /*
             * get section count from user. WITH TEXTBLOCK
@@ -762,8 +829,14 @@
                     <div class="tabContent">
                         <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
                             <div>
-                                <h5>Input TXT File</h5>
+                                <h5>Select Text</h5>
+                                <div id="fileList"></div>
+                            </div>
+
+                            <div>
+                                <h5>Input New TXT File</h5>
                                 <input type="file" id="filePicker" multiple accept=".txt">
+                                <button id="load">Load Files</button>
 
                             </div>
 
@@ -906,7 +979,7 @@
         </div>
     </div>
 
-    <div id="textNoShow" style="display: none;">!</div>
+    <div id="textNoShow" style="display: block;">!</div>
 
 </body>
 
