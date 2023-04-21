@@ -257,56 +257,6 @@
                         }
                     })
                 })
-
-
-
-                /*                let docElements = document.querySelectorAll("div.showDoc");
-                               docElements.forEach((item) => {
-                                   item.addEventListener('click', () => {
-                                       let fileKey = item.innerText;
-                                       //TEST
-                                       console.log("file Key __");
-                                       console.log(fileKey);
-               
-                                       let localText = localStorage.getItem(fileKey);
-               
-                                       //TEST
-                                       console.log("local text __");
-                                       console.log(localText);
-               
-                                       //TEST
-                                       let checkActive = item.querySelector('.activeCheck');
-                                       let checkActiveID = checkActive.id;
-                                       console.log("check id__");
-                                       console.log(checkActiveID);
-                                       let activeVal = checkActive.value;
-               
-               
-                                       if (localText === null && localText === "undefined") {
-                                           console.log("did not find file to activate");
-                                       } else {
-               
-                                           if (activeVal === false) {
-                                               //TEST
-                                               console.log("was not checked");
-               
-                                               activateFile(textBlock1, fileKey, localText);
-                                               addChildTextDiv(noShowDiv, textBlock1, fileKey);
-                                               textMeasure(noShowDiv, textBlock1);
-                                               updateResults();
-                                               checkActive = true;
-                                           } else {
-                                               console.log("!!!!!!!checked!");
-                                               console.log(textBlock1.targetTexts);
-                                               textBlock1.targetTexts.delete(`${fileKey}`);
-                                               console.log(textBlock1.targetTexts);
-                                           }
-               
-               
-                                       }
-               
-                                   })
-                               })*/
             })
 
             //TEST NEW FILE Handler
@@ -817,8 +767,7 @@
                                 </div>
                             </div>
 
-                            <h4>Advanced</h4>
-                            <p>Paper Thickness</p>
+
                         </div>
                     </div>
                 </div>
@@ -848,7 +797,6 @@
                                 </div>
                             </div>
 
-                            <h4>Advanced</h4>
                         </div>
                     </div>
                 </div>
@@ -914,9 +862,7 @@
                                             minlength="1">
                                     </div>
                                 </div>
-                                <div>
-                                    <h4>Advanced</h4>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -965,9 +911,6 @@
                                 <input type="number" id="imagePage" name="imagePage" size="5">
                             </div>
 
-                            <div>
-                                <h4>Advanced</h4>
-                            </div>
 
                         </div>
                     </div>
@@ -979,7 +922,7 @@
         </div>
     </div>
 
-    <div id="textNoShow" style="display: block;">!</div>
+    <div id="textNoShow" style="display: none;">!</div>
 
 </body>
 
