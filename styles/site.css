@@ -115,6 +115,7 @@ body {
 .tab {
     display: flex;
     align-items: end;
+    padding: 2px;
 }
 
 [data-tab-content] {
