@@ -27,10 +27,111 @@
             //TESTING
             localStorage.clear();
 
+            //TESTING
+            /*
+            * fetch default configuration json file for TextBlock settings
+            */
+            const textBlock1 = new TextBlock();
+
+            const path = './json/defaults.json';
+            const getJSONconfig = async function getJSONconfig(path) {
+                const response = await fetch(path);
+                const jsonData = await response.json();
+                console.log("JSON fetched");
+                console.log(jsonData);
+                return jsonData;
+            }
+
+            /*
+            * set TextBlock atributes to configuration json file for TextBlock settings
+            */
+            const setJSONconfig = function setJSONconfig(textBlock, jsonData) {
+                textBlock.linearUnit = jsonData.linearUnit;
+                textBlock.weightUnit = jsonData.weightUnit;
+                textBlock.pageWidth = jsonData.pageWidth;
+                textBlock.pageHeight = jsonData.pageHeight;
+                textBlock.paperGSM = jsonData.paperGSM;
+                textBlock.topBottomMargin = jsonData.topBottomMargin;
+                textBlock.insideMargin = jsonData.insideMargin;
+                textBlock.outsideMargin = jsonData.outsideMargin;
+                textBlock.targetFontPt = jsonData.targetFontPt;
+                textBlock.fontFamily = jsonData.fontFamily;
+                textBlock.lineSpacing = jsonData.lineSpacing;
+                textBlock.paragraphSpacing = jsonData.paragraphSpacing;
+                textBlock.flyLeaves = jsonData.flyLeaves;
+                textBlock.titlePage = jsonData.titlePage;
+                textBlock.tableOfContentsPage = jsonData.tableOfContentsPage;
+                textBlock.infoPage = jsonData.infoPage;
+                textBlock.pagePerSectionHead = jsonData.pagePerSectionHead;
+                textBlock.imagePages = jsonData.imagePages;
+            }
+
+            /*
+            * set element values to match TextBlock settings
+            */
+            const setViewToConfig = function setViewToConfig(textBlock) {
+                //Linear Unit
+                document.querySelectorAll('input[name="pageLinearUnit"]').forEach((element) => {
+                    if (element.value === textBlock.linearUnit) {
+                        console.log(`match LU __ ${element.value} is ${textBlock.linearUnit}`);
+                        element.setAttribute("checked", "true");
+                    }
+                });
+                //Weight Unit
+                document.querySelectorAll('input[name="pageWeightUnit"]').forEach((element) => {
+                    if (element.value === textBlock.weightUnit) {
+                        console.log(`match LU __ ${element.value} is ${textBlock.weightUnit}`);
+                        element.setAttribute("checked", "true");
+                    }
+                });
+                //Page Width
+                document.querySelector('#widthInput').setAttribute("placeholder", textBlock.pageWidth);
+                //Page Height
+                document.querySelector('#heightInput').setAttribute("placeholder", textBlock.pageHeight);
+                //Paper GSM
+                document.querySelector('#paperWeight').setAttribute("placeholder", textBlock.paperGSM);
+                //Top and Bottom Margins
+                document.querySelector('#topBotomInput').setAttribute("placeholder", textBlock.topBottomMargin);
+                //Inside Margin
+                document.querySelector('#insideInput').setAttribute("placeholder", textBlock.insideMargin);
+                //Outside Margin
+                document.querySelector('#outsideInput').setAttribute("placeholder", textBlock.outsideMargin);
+                //Target Font Point Size
+                document.querySelector('#pointSizeFont').setAttribute("placeholder", textBlock.targetFontPt);
+                //Font Family
+                document.querySelector('#fontList').setAttribute("placeholder", textBlock.fontFamily);
+                //Line Spacing
+                document.querySelector('#lineSpacing').setAttribute("placeholder", textBlock.lineSpacing);
+                //Paragraph Spacing
+                document.querySelector('#paragraphSpacing').setAttribute("placeholder", textBlock.paragraphSpacing);
+                //Fly Leaves
+                document.querySelector('#numFlyLeaves').setAttribute("placeholder", textBlock.flyLeaves);
+                //Title Page
+                if (textBlock.titlePage > 0) {
+                    document.querySelector('#titlePageAdd').setAttribute("checked", "true");
+                }
+                //Table Of Contents Page
+                if (textBlock.tableOfContentsPage > 0) {
+                    document.querySelector('#tocPageAdd').setAttribute("checked", "true");
+                }               
+                //Info Page
+                if (textBlock.infoPage > 0) {
+                    document.querySelector('#bookInfoPageAdd').setAttribute("checked", "true");
+                }                 
+                //Page Per Section Head
+                document.querySelector('#chHeadPage').setAttribute("placeholder", textBlock.pagePerSectionHead);
+                //Image Pages
+                document.querySelector('#imagePage').setAttribute("placeholder", textBlock.imagePages);
+
+
+            }
+
+            getJSONconfig(path).then(res => setJSONconfig(textBlock1, res)).then(re => setViewToConfig(textBlock1));
+
             /*
             * Text Block object
             */
-            const textBlock1 = new TextBlock();
+            //const textBlock1 = new TextBlock();
             console.log("NEW TEXTBLOCK __");
             console.log(textBlock1);
 
@@ -67,8 +168,8 @@
                 } else {
 
                     //TEST
-                    console.log("TBM in__");
-                    console.log(topBottomMarginIn.value);
+                    /*                     console.log("TBM in__");
+                                        console.log(topBottomMarginIn.value); */
 
                     valueTBM = parseFloat(topBottomMarginIn.value);
                 }
@@ -81,8 +182,8 @@
                 } else {
 
                     //TEST
-                    console.log("IM in__");
-                    console.log(insideMarginIn.value);
+                    /*                     console.log("IM in__");
+                                        console.log(insideMarginIn.value); */
 
                     valueIM = parseFloat(insideMarginIn.value);
                 }
@@ -96,8 +197,8 @@
                 } else {
 
                     //TEST
-                    console.log("OM in__");
-                    console.log(ousideMarginIn.value);
+                    /*                     console.log("OM in__");
+                                        console.log(ousideMarginIn.value); */
 
                     valueOM = parseFloat(ousideMarginIn.value);
                 }
@@ -115,8 +216,8 @@
                         textBlock1.linearUnit = element.value;
 
                         //TEST
-                        console.log("L unit __");
-                        console.log(textBlock1.linearUnit);
+                        /*                         console.log("L unit __");
+                                                console.log(textBlock1.linearUnit); */
                     }
                     updateMeasures();
                     textMeasure(noShowDiv, textBlock1);
@@ -135,8 +236,8 @@
                         textBlock1.weightUnit = element.value;
 
                         //TEST
-                        console.log("W unit __");
-                        console.log(textBlock1.weightUnit);
+                        /*                         console.log("W unit __");
+                                                console.log(textBlock1.weightUnit); */
                     }
                     textMeasure(noShowDiv, textBlock1);
                     updateResults();
@@ -187,8 +288,8 @@
                     value = 75;
                 } else {
                     //TEST
-                    console.log("GSM __");
-                    console.log(paperGSMinput.value);
+                    /*                     console.log("GSM __");
+                                        console.log(paperGSMinput.value); */
 
                     value = parseFloat(paperGSMinput.value);
                 }
@@ -230,28 +331,28 @@
                 let checkElement = document.querySelectorAll("input.activeCheck");
                 checkElement.forEach((item) => {
                     item.addEventListener('onload', () => {
-                        console.log("Loaded !!**!!**!!");
+                        /*                         console.log("Loaded !!**!!**!!"); */
                     })
 
                     item.addEventListener('change', () => {
-                        console.log("changed********************");
+                        /*                         console.log("changed********************"); */
 
                         let fileKey = item.id;
                         let localText = localStorage.getItem(fileKey);
 
 
                         if (item.checked === true) {
-                            console.log("now Checked ************");
+                            /*                             console.log("now Checked ************"); */
                             activateFile(textBlock1, fileKey, localText);
                             addChildTextDiv(noShowDiv, textBlock1, fileKey);
                             textMeasure(noShowDiv, textBlock1);
                             updateResults();
                         } else {
-                            console.log("now NOT Checked ************");
-                            console.log(textBlock1.targetTexts);
+                            /*                             console.log("now NOT Checked ************");
+                                                        console.log(textBlock1.targetTexts); */
                             textBlock1.targetTexts.delete(`${fileKey}`);
                             removeChildTextDiv(noShowDiv, textBlock1, fileKey);
-                            console.log(textBlock1.targetTexts);
+                            /*                             console.log(textBlock1.targetTexts); */
                             textMeasure(noShowDiv, textBlock1);
                             updateResults();
                         }
@@ -276,8 +377,8 @@
                 } else {
 
                     //TEST
-                    console.log("NUM SECTIONS __");
-                    console.log(sectionCountIn.value);
+                    /*                     console.log("NUM SECTIONS __");
+                                        console.log(sectionCountIn.value); */
 
                     value = parseInt(sectionCountIn.value);
                 }
@@ -303,8 +404,8 @@
                 } else {
 
                     //TEST
-                    console.log("TBM in__");
-                    console.log(topBottomMarginIn.value);
+                    /*                     console.log("TBM in__");
+                                        console.log(topBottomMarginIn.value); */
 
                     value = parseFloat(topBottomMarginIn.value);
                 }
@@ -332,8 +433,8 @@
                 } else {
 
                     //TEST
-                    console.log("IM in__");
-                    console.log(insideMarginIn.value);
+                    /*                     console.log("IM in__");
+                                        console.log(insideMarginIn.value); */
 
                     value = parseFloat(insideMarginIn.value);
                 }
@@ -362,8 +463,8 @@
                 } else {
 
                     //TEST
-                    console.log("OM in__");
-                    console.log(ousideMarginIn.value);
+                    /*                     console.log("OM in__");
+                                        console.log(ousideMarginIn.value); */
 
                     value = parseFloat(ousideMarginIn.value);
                 }
@@ -404,8 +505,8 @@
             document.querySelector('#fontList').addEventListener("change", event => {
                 addFontLink(fontPicker.value);
                 //TEST
-                console.log("added header link");
-
+                /*                 console.log("added header link");
+                 */
 
                 textBlock1.fontFamily = fontPicker.value;
                 textMeasure(noShowDiv, textBlock1);
@@ -450,8 +551,8 @@
                 } else {
 
                     //TEST
-                    console.log("LINE SPACE__");
-                    console.log(lineSpaceIn.value);
+                    /*                     console.log("LINE SPACE__");
+                                        console.log(lineSpaceIn.value); */
 
                     value = parseFloat(lineSpaceIn.value);
                 }
@@ -477,8 +578,8 @@
                 } else {
 
                     //TEST
-                    console.log("PARA SPACE__");
-                    console.log(paragraphSpaceIn.value);
+                    /*                     console.log("PARA SPACE__");
+                                        console.log(paragraphSpaceIn.value); */
 
                     value = parseFloat(paragraphSpaceIn.value);
                 }
@@ -503,8 +604,8 @@
                 } else {
 
                     //TEST
-                    console.log("FLY LEAVS__");
-                    console.log(flyLeavesIn.value);
+                    /*                     console.log("FLY LEAVS__");
+                                        console.log(flyLeavesIn.value); */
 
                     value = parseFloat(flyLeavesIn.value);
                 }
@@ -525,13 +626,13 @@
             document.querySelector('#titlePageAdd').addEventListener("change", event => {
                 if (titlePageIn.checked) {
                     //TEST
-                    console.log("checked!!!");
+                    /*                     console.log("checked!!!"); */
 
                     textBlock1.titlePage = 2;
 
                 } else {
                     //TEST
-                    console.log("Not Checked!!!");
+                    /*                     console.log("Not Checked!!!"); */
 
                     textBlock1.titlePage = 0;
                 }
@@ -547,7 +648,7 @@
             document.querySelector('#tocPageAdd').addEventListener("change", event => {
                 if (tocPageIn.checked) {
                     //TEST
-                    console.log("checked!!!");
+                    /*              console.log("checked!!!"); */
 
                     textBlock1.tableOfContentsPage = 2;
 
@@ -569,13 +670,13 @@
             document.querySelector('#bookInfoPageAdd').addEventListener("change", event => {
                 if (infoPageIn.checked) {
                     //TEST
-                    console.log("checked!!!");
+                    /*          console.log("checked!!!"); */
 
                     textBlock1.infoPage = 2;
 
                 } else {
                     //TEST
-                    console.log("Not Checked!!!");
+                    /*               console.log("Not Checked!!!"); */
 
                     textBlock1.infoPage = 0;
                 }
@@ -595,8 +696,8 @@
                 } else {
 
                     //TEST
-                    console.log("Ch Header Pg__");
-                    console.log(secionHeaderPortionIn.value);
+                    /*                     console.log("Ch Header Pg__");
+                                        console.log(secionHeaderPortionIn.value); */
 
                     value = parseFloat(secionHeaderPortionIn.value);
                 }
@@ -621,8 +722,8 @@
                 } else {
 
                     //TEST
-                    console.log("Image Pg__");
-                    console.log(imgPagesIn.value);
+                    /*                     console.log("Image Pg__");
+                                        console.log(imgPagesIn.value); */
 
                     value = parseFloat(imgPagesIn.value);
                 }
@@ -747,14 +848,12 @@
 
                                 <div>
                                     <label for="widthInput">Page Width</label>
-                                    <input type="number" id="widthInput" name="widthInput" required minlength="1"
-                                        size="10">
+                                    <input type="number" id="widthInput" name="widthInput" required>
                                 </div>
 
                                 <div>
                                     <label for="heightInput">Page Height</label>
-                                    <input type="number" id="heightInput" name="heightInput" required minlength="1"
-                                        size="10">
+                                    <input type="number" id="heightInput" name="heightInput" required>
                                 </div>
 
                             </div>
@@ -811,20 +910,17 @@
                                     <h4>Page Margins</h4>
                                     <div>
                                         <label for="topBotomInput">Top and Bottom Margins</label>
-                                        <input type="number" id="topBotomInput" name="topBotomInput" required
-                                            minlength="1" size="10">
+                                        <input type="number" id="topBotomInput" name="topBotomInput" required>
                                     </div>
 
                                     <div>
                                         <label for="insideInput">Inside Margins</label>
-                                        <input type="number" id="insideInput" name="insideInput" required minlength="1"
-                                            size="10">
+                                        <input type="number" id="insideInput" name="insideInput" required>
                                     </div>
 
                                     <div>
                                         <label for="outsideInput">Outside Margins</label>
-                                        <input type="number" id="outsideInput" name="outsideInput" required
-                                            minlength="1" size="10">
+                                        <input type="number" id="outsideInput" name="outsideInput" required>
                                     </div>
                                 </div>
                                 <div>
@@ -832,8 +928,7 @@
                                     <div>
                                         <h5>Font point size of body text</h5>
                                         <label for="pointSizeFont">Pt: </label>
-                                        <input type="number" id="pointSizeFont" name="pointSizeFont" required
-                                            minlength="1" size="5">
+                                        <input type="number" id="pointSizeFont" name="pointSizeFont" required>
                                     </div>
 
                                     <div>
@@ -851,15 +946,13 @@
                                     <div>
                                         <h5>Line Spacing</h5>
                                         <label for="lineSpacing">Spacing: </label>
-                                        <input type="number" id="lineSpacing" name="lineSpacing" required minlength="1"
-                                            size="5">
+                                        <input type="number" id="lineSpacing" name="lineSpacing" required>
                                     </div>
 
                                     <div>
                                         <h5>Line Spacing Between Paragraphs</h5>
                                         <label for="paragraphSpacing">Spacing: </label>
-                                        <input type="number" id="paragraphSpacing" name="paragraphSpacing" required
-                                            minlength="1">
+                                        <input type="number" id="paragraphSpacing" name="paragraphSpacing" required>
                                     </div>
                                 </div>
 
@@ -878,7 +971,7 @@
                             <div>
                                 <h5>Fly Leaves</h5>
                                 <label for="numFlyLeaves">Number of fly leaves, front and back: </label>
-                                <input type="number" id="numFlyLeaves" name="numFlyLeaves" required size="5" min="0">
+                                <input type="number" id="numFlyLeaves" name="numFlyLeaves" required min="0">
                             </div>
 
                             <div>
@@ -902,13 +995,13 @@
                             <div>
                                 <h5>Chapter heading</h5>
                                 <label for="chHeadPage">Portion of Page Taken: </label>
-                                <input type="number" id="chHeadPage" name="chHeadPage" size="5">
+                                <input type="number" id="chHeadPage" name="chHeadPage">
                             </div>
 
                             <div>
                                 <h5>Images</h5>
                                 <label for="imagePage">Pages taken up by images: </label>
-                                <input type="number" id="imagePage" name="imagePage" size="5">
+                                <input type="number" id="imagePage" name="imagePage">
                             </div>
 
 
@@ -922,7 +1015,7 @@
         </div>
     </div>
 
-    <div id="textNoShow" style="display: none;">!</div>
+    <div id="textNoShow" style="display: block;">!</div>
 
 </body>
 
