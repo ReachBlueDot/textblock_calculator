@@ -54,6 +54,9 @@ class TextBlock {
         this.resultNumSheets = 0;
         this.resultThickness = 0;
         this.resultWeight = 0;
+
+        //Validation Map
+/*         this.validation = new Map(); */
     }
 
     //Getters
@@ -83,7 +86,6 @@ class TextBlock {
 /*             console.log("Line Count So far__ ");
             console.log("numParagraphs __" + newLineCount); */
         }
-
         //TEST
 /*         console.log("Line Count Total__ ");
         console.log("numParagraphs __" + newLineCount); */
@@ -106,9 +108,21 @@ class TextBlock {
     }
 
 
-
 }
 
+
+/*
+* TEST FOR INPUT VALIDATIONS TRACKING
+* adds to validation map with input validation 
+* values 0 for good, 1 for bad
+* input element id is key
+*/
+/* function addValidation (key, value) {
+    this.validation.set(key, value);
+    
+
+}
+ */
 
 
 
