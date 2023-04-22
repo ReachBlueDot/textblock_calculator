@@ -6,20 +6,25 @@ import { linearConverter, weightConverter } from './converters.mjs';
 class TextBlock {
     constructor() {
         //Unit Settings for Display
-        this.linearUnit = "px";
-        this.weightUnit = "kg";
+/*         this.linearUnit = "px";
+        this.weightUnit = "kg"; */
+        this.linearUnit = "";
+        this.weightUnit = "";
 
         //Paper Information
-        this.pageWidth = 528;
+/*         this.pageWidth = 528;
         this.pageHeight = 816;
-        this.paperGSM = 75;
+        this.paperGSM = 75; */
+        this.pageWidth = 0;
+        this.pageHeight = 0;
+        this.paperGSM = 0;
 
         //Text Area Information
         //this.textAreaWidth = pageWidth;
         //this.textAreaHeight = pageHeight;
 
         //Text Information
-        this.fileNames = [];
+        //this.fileNames = [];
 
         //usable text string
         //this.targetText = "";
@@ -75,13 +80,13 @@ class TextBlock {
             newLineCount = newLineCount + (text.match(/\n/g) || []).length + 1;
 
             //TEST
-            console.log("Line Count So far__ ");
-            console.log("numParagraphs __" + newLineCount);
+/*             console.log("Line Count So far__ ");
+            console.log("numParagraphs __" + newLineCount); */
         }
 
         //TEST
-        console.log("Line Count Total__ ");
-        console.log("numParagraphs __" + newLineCount);
+/*         console.log("Line Count Total__ ");
+        console.log("numParagraphs __" + newLineCount); */
         return newLineCount;
     }
 
@@ -96,7 +101,7 @@ class TextBlock {
         let totalAdded = (this.paragraphSpacing * addUnit) * this.numLineBreaks;
 
         //TEST
-        console.log("added for paragraphs __" + totalAdded);
+/*         console.log("added for paragraphs __" + totalAdded); */
         return totalAdded;
     }
 
@@ -127,19 +132,19 @@ function blockThicknessCM(pageThicknessGSM, leafeCount) {
 */
 function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, sheetCount) {
 
-    console.log("_block Weight test__");
+/*     console.log("_block Weight test__");
     console.log(pageThicknessGSM);
     console.log(pageHeight);
     console.log(pageWidth);
-    console.log(sheetCount);
+    console.log(sheetCount); */
 
     let cmHeight = linearConverter(pageHeight, "px", "cm");
-    console.log(cmHeight);
+/*     console.log(cmHeight); */
     let cmWidth = linearConverter(pageWidth, "px", "cm");
-    console.log(cmWidth);
+/*     console.log(cmWidth); */
 
     let weightKG = (pageThicknessGSM * cmHeight * cmWidth * sheetCount * 2) / (1000 * 10000);
-    console.log(weightKG);
+/*     console.log(weightKG); */
 
     return weightKG;
 }
@@ -160,8 +165,8 @@ function addChildTextDiv(element, textBlock, targetTextsKey) {
     for (const child of element.children) {
         if (targetTextsKey === child.id) {
             //TEST
-            console.log(targetTextsKey);
-            console.log(child.id);
+/*             console.log(targetTextsKey);
+            console.log(child.id); */
 
             child.remove();
         }
@@ -184,8 +189,8 @@ function removeChildTextDiv(element, textBlock, targetTextsKey) {
     for (const child of element.children) {
         if (targetTextsKey === child.id) {
             //TEST
-            console.log(targetTextsKey);
-            console.log(child.id);
+/*             console.log(targetTextsKey);
+            console.log(child.id); */
 
             child.remove();
         }
@@ -228,7 +233,7 @@ function textMeasure(element, textBlock) {
     //add in paragrph spacing
     divHeight = divHeight + textBlock.paraSpaceAdd;
 
-    let divWidth = noShowDiv.clientWidth + "px";
+/*     let divWidth = noShowDiv.clientWidth + "px"; */
 
     //TEST - none
     noShowDiv.style.display = "none";
@@ -238,7 +243,7 @@ function textMeasure(element, textBlock) {
     addInPages = Math.ceil(addInPages);
 
     //TEST
-    console.log("TEST ADD IN Pages ___");
+/*     console.log("TEST ADD IN Pages ___");
     console.log(textBlock.pagePerSectionHead);
     console.log(numSections);
     console.log(headerPgs);
@@ -247,15 +252,15 @@ function textMeasure(element, textBlock) {
     console.log(textBlock.tableOfContentsPage);
     console.log(textBlock.infoPage);
     console.log(textBlock.imagePages);
-    console.log(addInPages);
+    console.log(addInPages); */
 
     textBlock.resultNumPages = Math.ceil(divHeight / textBlock.textAreaHeight) + addInPages;
     textBlock.resultNumSheets = Math.ceil(textBlock.resultNumPages / 4);
     textBlock.resultThickness = blockThicknessCM(textBlock.paperGSM, textBlock.resultNumSheets);
     textBlock.resultWeight = blockWeightKg(textBlock.paperGSM, textBlock.pageHeight, textBlock.pageWidth, textBlock.resultNumSheets);
 
-    console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
-    console.log(noShowDiv.innerText);
+/*     console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
+    console.log(noShowDiv.innerText); */
 }
 
 
