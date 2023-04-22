@@ -74,54 +74,81 @@
                 document.querySelectorAll('input[name="pageLinearUnit"]').forEach((element) => {
                     if (element.value === textBlock.linearUnit) {
                         console.log(`match LU __ ${element.value} is ${textBlock.linearUnit}`);
-                        element.setAttribute("checked", "true");
+                        //element.setAttribute("checked", "true");
+                        document.getElementById(`${element.id}`).checked = true
                     }
                 });
                 //Weight Unit
                 document.querySelectorAll('input[name="pageWeightUnit"]').forEach((element) => {
                     if (element.value === textBlock.weightUnit) {
                         console.log(`match LU __ ${element.value} is ${textBlock.weightUnit}`);
-                        element.setAttribute("checked", "true");
+                        //element.setAttribute("checked", "true");
+                        document.getElementById(`${element.id}`).checked = true
                     }
                 });
                 //Page Width
                 document.querySelector('#widthInput').setAttribute("placeholder", textBlock.pageWidth);
+                document.querySelector('#widthInput').value = null;
                 //Page Height
                 document.querySelector('#heightInput').setAttribute("placeholder", textBlock.pageHeight);
+                document.querySelector('#heightInput').value = null;
                 //Paper GSM
                 document.querySelector('#paperWeight').setAttribute("placeholder", textBlock.paperGSM);
+                document.querySelector('#paperWeight').value = null;
                 //Top and Bottom Margins
                 document.querySelector('#topBotomInput').setAttribute("placeholder", textBlock.topBottomMargin);
+                document.querySelector('#topBotomInput').value = null;
                 //Inside Margin
                 document.querySelector('#insideInput').setAttribute("placeholder", textBlock.insideMargin);
+                document.querySelector('#insideInput').value = null;
                 //Outside Margin
                 document.querySelector('#outsideInput').setAttribute("placeholder", textBlock.outsideMargin);
+                document.querySelector('#outsideInput').value = null;
                 //Target Font Point Size
                 document.querySelector('#pointSizeFont').setAttribute("placeholder", textBlock.targetFontPt);
+                document.querySelector('#pointSizeFont').value = null;
                 //Font Family
                 document.querySelector('#fontList').setAttribute("placeholder", textBlock.fontFamily);
+                document.querySelector('#fontList').value = null;
                 //Line Spacing
                 document.querySelector('#lineSpacing').setAttribute("placeholder", textBlock.lineSpacing);
+                document.querySelector('#lineSpacing').value = null;
                 //Paragraph Spacing
                 document.querySelector('#paragraphSpacing').setAttribute("placeholder", textBlock.paragraphSpacing);
+                document.querySelector('#paragraphSpacing').value = null;
                 //Fly Leaves
                 document.querySelector('#numFlyLeaves').setAttribute("placeholder", textBlock.flyLeaves);
+                document.querySelector('#numFlyLeaves').value = null;
                 //Title Page
                 if (textBlock.titlePage > 0) {
-                    document.querySelector('#titlePageAdd').setAttribute("checked", "true");
+                    //document.querySelector('#titlePageAdd').setAttribute("checked", "true");
+                    document.querySelector('#titlePageAdd').checked = true;
+                } else {
+                    //document.querySelector('#titlePageAdd').setAttribute("checked", "false");
+                    document.querySelector('#titlePageAdd').checked = false;
                 }
                 //Table Of Contents Page
                 if (textBlock.tableOfContentsPage > 0) {
-                    document.querySelector('#tocPageAdd').setAttribute("checked", "true");
-                }               
+                    //document.querySelector('#tocPageAdd').setAttribute("checked", "true");
+                    document.querySelector('#tocPageAdd').checked = true;
+                } else {
+                    //document.querySelector('#tocPageAdd').setAttribute("checked", "false");
+                    document.querySelector('#tocPageAdd').checked = false;
+                }
                 //Info Page
                 if (textBlock.infoPage > 0) {
-                    document.querySelector('#bookInfoPageAdd').setAttribute("checked", "true");
-                }                 
+                    //document.querySelector('#bookInfoPageAdd').setAttribute("checked", "true");
+                    document.querySelector('#bookInfoPageAdd').checked = true;
+                } else {
+                    //document.querySelector('#bookInfoPageAdd').setAttribute("checked", "false");
+                    document.querySelector('#bookInfoPageAdd').checked = false;
+                }
                 //Page Per Section Head
                 document.querySelector('#chHeadPage').setAttribute("placeholder", textBlock.pagePerSectionHead);
+                document.querySelector('#chHeadPage').value = null;
                 //Image Pages
                 document.querySelector('#imagePage').setAttribute("placeholder", textBlock.imagePages);
+                document.querySelector('#imagePage').value = null;
 
 
             }
@@ -205,6 +232,21 @@
                 let inMarginOM = valueOM;
                 textBlock1.outsideMargin = linearConverter(inMarginOM, textBlock1.linearUnit, "px");
             }
+
+            /*
+            * button to reset textblock settings to default. WITH TEXTBLOCK
+            */
+            const defaultBtn = document.getElementById("defaultBtn");
+            document.querySelector('#defaultBtn').addEventListener("click", event => {
+                event.preventDefault();
+                getJSONconfig(path)
+                .then(res => setJSONconfig(textBlock1, res))
+                .then(re => setViewToConfig(textBlock1))
+                .then(res => updateMeasures())
+                .then(res => textMeasure(noShowDiv, textBlock1))
+                .then(res => updateResults());
+            })
+
 
             /*
             * take in linear unit from user. WITH TEXTBLOCK
@@ -747,13 +789,12 @@
 
 <body>
 
-    <div class="flex-container" style="background-color:greenyellow;">
+    <div class="flex-container">
         <div class="pageHeader flex-container" id="pageHeader" style="background-color: lightcoral;">
-            <H4>**under construction**</H4>
+
             <div class="flex-item">
                 <div id="divHeaderImg" class="flex-item">
-                    <img id="headerImg" src="images/books.png" alt="books of various sizes standing against eachother"
-                        style="max-width: 100px;">
+                    <img id="headerImg" src="images/books.png" alt="books of various sizes standing against eachother">
                 </div>
                 <div id="divHeaderText" class="flex-item">
                     <h1>TextBlock Planner</h1>
@@ -768,23 +809,29 @@
             <div class="flex-container-inner resultsContent" style="background-color:cornflowerblue;">
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
-                    <h5 class="card-header">Number of pages: </h5>
+                    <h5 class="card-header">Pages</h5>
                     <div id="resultNumPages" style="background-color: deeppink;">?</div>
                 </div>
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
-                    <h5 class="card-header">Number of sheets</h5>
+                    <h5 class="card-header">Sheets</h5>
                     <div id="resultNumSheets" style="background-color: deeppink;">?</div>
                 </div>
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
-                    <h5 class="card-header">Textblock thickness</h5>
+                    <h5 class="card-header">Thickness</h5>
                     <div id="resultBlockThickness" style="background-color: deeppink;">?</div>
                 </div>
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
-                    <h5 class="card-header">Textblock weight</h5>
+                    <h5 class="card-header">Weight</h5>
                     <div id="resultWeight" style="background-color: deeppink;">?</div>
+                </div>
+
+                <div class="flex-item-card" style="background-color: aliceblue;">
+                    <h5 class="card-header">Settings</h5>
+                    <button id="defaultBtn"
+                        style="background-color: deeppink; font-size: 14pt; font-weight: bold;">Default</button>
                 </div>
 
 
@@ -792,10 +839,10 @@
         </div>
 
         <div class="flex-container" id="pageContent">
-            <div class="tabBar" style="background-color: coral;">
+            <div class="tabBar">
 
-                <div data-tab-target="#settings">
-                    <h3>Settings</h3>
+                <div class="section">
+                    <h3 data-tab-target="#settings">Settings</h3>
 
                     <div class="tab" id="settings" data-tab-content style="background-color: plum;">
                         <div>
@@ -838,8 +885,8 @@
                     </div>
                 </div>
 
-                <div data-tab-target="#paper">
-                    <h3>Paper Information</h3>
+                <div class="section">
+                    <h3 data-tab-target="#paper">Paper Information</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="paper" data-tab-content style="background-color: aqua;">
@@ -871,8 +918,8 @@
                     </div>
                 </div>
 
-                <div data-tab-target="#text">
-                    <h3>Text Information</h3>
+                <div class="section">
+                    <h3 data-tab-target="#text">Text Information</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
@@ -883,7 +930,8 @@
 
                             <div>
                                 <h5>Input New TXT File</h5>
-                                <input type="file" id="filePicker" multiple accept=".txt">
+                                <label for="filePicker">Select txt Files</label>
+                                <input type="file" id="filePicker" name="filePicker" multiple accept=".txt">
                                 <button id="load">Load Files</button>
 
                             </div>
@@ -891,8 +939,9 @@
                             <div>
                                 <h5>Number of chapters or sections</h5>
                                 <div>
-                                    <input type="number" id="numSections" name="numSections">
                                     <label for="numSections">Chapter/Section Count</label>
+                                    <input type="number" id="numSections" name="numSections">
+
                                 </div>
                             </div>
 
@@ -900,8 +949,8 @@
                     </div>
                 </div>
 
-                <div data-tab-target="#formatting">
-                    <h3>Text Formatting</h3>
+                <div class="section">
+                    <h3 data-tab-target="#formatting">Text Formatting</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="formatting" data-tab-content style="background-color:bisque;">
@@ -962,8 +1011,8 @@
                 </div>
 
 
-                <div data-tab-target="#extras">
-                    <h3>Extras</h3>
+                <div class="section">
+                    <h3 data-tab-target="#extras">Extras</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="extras" data-tab-content style="background-color:violet;">
@@ -1015,7 +1064,7 @@
         </div>
     </div>
 
-    <div id="textNoShow" style="display: block;">!</div>
+    <div id="textNoShow" style="display: none;">!</div>
 
 </body>
 
