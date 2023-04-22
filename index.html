@@ -172,12 +172,34 @@
             * update results. WITH TEXTBLOCK
             */
             const updateResults = function () {
-                numPageRes.innerText = textBlock1.resultNumPages;
-                numSheetsRes.innerText = textBlock1.resultNumSheets;
+                if (isNaN(textBlock1.resultNumPages)) {
+                    numPageRes.innerHTML = "&nbsp;";
+                } else {
+                    numPageRes.innerText = textBlock1.resultNumPages;
+                }
+                
+                if (isNaN(textBlock1.resultNumSheets)){
+                    numSheetsRes.innerHTML = "&nbsp;";
+                } else {
+                    numSheetsRes.innerText = textBlock1.resultNumSheets;
+                }
+                
                 let showThickness = linearConverter((textBlock1.resultThickness), "cm", textBlock1.linearUnit);
-                thicknessBlockRes.innerText = showThickness.toFixed(2);
+                if (isNaN(showThickness)) {
+                    //console.log("show thickness NaN");
+                    showThickness = "";
+                    thicknessBlockRes.innerText = showThickness + textBlock1.linearUnit;
+                } else {
+                    thicknessBlockRes.innerText = showThickness.toFixed(2) + textBlock1.linearUnit;
+                }
+                
                 let showWeight = weightConverter(textBlock1.resultWeight, "kg", textBlock1.weightUnit);
-                weightBlockRes.innerText = showWeight.toFixed(2);
+                if (isNaN(showWeight)) {
+                    showWeight = "";
+                    weightBlockRes.innerText = showWeight + textBlock1.weightUnit;
+                } else {
+                    weightBlockRes.innerText = showWeight.toFixed(2) + textBlock1.weightUnit;
+                }
             }
 
             /*
@@ -823,22 +845,22 @@
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
                     <h5 class="card-header">Pages</h5>
-                    <div id="resultNumPages" style="background-color: deeppink;">?</div>
+                    <div id="resultNumPages" style="background-color: deeppink;">&nbsp;</div>
                 </div>
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
                     <h5 class="card-header">Sheets</h5>
-                    <div id="resultNumSheets" style="background-color: deeppink;">?</div>
+                    <div id="resultNumSheets" style="background-color: deeppink;">&nbsp;</div>
                 </div>
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
                     <h5 class="card-header">Thickness</h5>
-                    <div id="resultBlockThickness" style="background-color: deeppink;">?</div>
+                    <div id="resultBlockThickness" style="background-color: deeppink;">&nbsp;</div>
                 </div>
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
                     <h5 class="card-header">Weight</h5>
-                    <div id="resultWeight" style="background-color: deeppink;">?</div>
+                    <div id="resultWeight" style="background-color: deeppink;">&nbsp;</div>
                 </div>
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
@@ -855,14 +877,14 @@
             <div class="tabBar">
 
                 <div class="section">
-                    <h3 data-tab-target="#settings">Settings</h3>
+                    <h3 data-tab-target="#settings">Units <img id="settingsImg" src="images/icon-config-small.png" alt="settings cog with ruler icon"></h3>
 
                     <div class="tab" id="settings" data-tab-content style="background-color: plum;">
                         <div>
-                            <h5>Units</h5>
+                            
                             <fieldset>
 
-                                <legend>Select a Linear Measurement Unit:</legend>
+                                <legend>Select a Linear Unit:</legend>
 
                                 <div>
                                     <input type="radio" id="pageInCM" name="pageLinearUnit" value="cm">
@@ -881,7 +903,7 @@
 
                             <fieldset>
 
-                                <legend>Select a Weight Measurement Unit:</legend>
+                                <legend>Select a Weight Unit:</legend>
 
                                 <div>
                                     <input type="radio" id="blockInKG" name="pageWeightUnit" value="kg">
@@ -899,7 +921,7 @@
                 </div>
 
                 <div class="section">
-                    <h3 data-tab-target="#paper">Paper Information</h3>
+                    <h3 data-tab-target="#paper">Paper Information <img id="paperImg" src="images/icon-paper-small.png" alt="paper icon"></h3>
 
                     <div class="tabContent">
                         <div class="tab" id="paper" data-tab-content style="background-color: aqua;">
@@ -932,7 +954,7 @@
                 </div>
 
                 <div class="section">
-                    <h3 data-tab-target="#text">Text Information</h3>
+                    <h3 data-tab-target="#text">Text Information <img id="textImg" src="images/icon-document-small.png" alt="text document icon"></h3>
 
                     <div class="tabContent">
                         <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
@@ -963,7 +985,7 @@
                 </div>
 
                 <div class="section">
-                    <h3 data-tab-target="#formatting">Text Formatting</h3>
+                    <h3 data-tab-target="#formatting">Text Formatting <img id="formattingImg" src="images/icon-formating-small.png" alt="formatting icon with paragraph symble"></h3>
 
                     <div class="tabContent">
                         <div class="tab" id="formatting" data-tab-content style="background-color:bisque;">
@@ -1025,7 +1047,7 @@
 
 
                 <div class="section">
-                    <h3 data-tab-target="#extras">Extras</h3>
+                    <h3 data-tab-target="#extras">Extras <img id="extrasImg" src="images/icon-library-small.png" alt="additions icon"></h3>
 
                     <div class="tabContent">
                         <div class="tab" id="extras" data-tab-content style="background-color:violet;">
