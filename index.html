@@ -44,7 +44,7 @@
             const noShowDiv = document.getElementById("textNoShow");
 
             const defaultBtn = document.getElementById("defaultBtn");
-            const saveBtn = document.getElementById("saveBtn");
+            const downloadBtn = document.getElementById("downloadBtn");
 
             const linearUnitIn = document.getElementsByName("pageLinearUnit");
             const weightUnitIn = document.getElementsByName("pageWeightUnit");
@@ -90,9 +90,16 @@
             /*
             * button to save to a txt file
             */
-            document.querySelector('#saveBtn').addEventListener("click", event => {
+            document.querySelector('#downloadBtn').addEventListener("click", event => {
                 event.preventDefault();
                 console.log(textBlockString(textBlock1));
+
+                const fileLink = document.createElement("a");
+                const file = new Blob([textBlockString(textBlock1)], { type : 'text/plain'});
+                fileLink.href = URL.createObjectURL(file);
+                fileLink.download = "textBlockResults.txt";
+                fileLink.click();
+                URL.revokeObjectURL(fileLink.href);
             })
 
 
@@ -659,8 +666,8 @@
                 </div>
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
-                    <h5 class="card-header">Save</h5>
-                    <button id="saveBtn"
+                    <h5 class="card-header">Download</h5>
+                    <button id="downloadBtn"
                         style="background-color: deeppink; font-size: 14pt; font-weight: bold;">Save</button>
                 </div>
 
@@ -893,7 +900,7 @@
         </div>
     </div>
 
-    <div id="textNoShow" style="display: block;">!</div>
+    <div id="textNoShow" style="display: none;">!</div>
 
 </body>
 
