@@ -79,7 +79,9 @@ label[for="filePicker"] {
 
 #fileList > div {
     width: 100px;
-    background-color: darkgoldenrod;
+    background-color: lightblue;
+    border: 1px solid gray;
+    border-radius: 5px;
     margin: 2px;
     overflow-wrap: break-word;
 }

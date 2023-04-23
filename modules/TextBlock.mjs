@@ -39,7 +39,7 @@ class TextBlock {
         this.targetFontPt = 12;
         this.fontFamily = "Times New Roman";
         this.lineSpacing = 1;
-        this.paragraphSpacing = 1;
+        this.paragraphSpacing = 0;
 
         //Extras
         this.flyLeaves = 0;
@@ -111,19 +111,92 @@ class TextBlock {
 }
 
 
-/*
-* TEST FOR INPUT VALIDATIONS TRACKING
-* adds to validation map with input validation 
-* values 0 for good, 1 for bad
-* input element id is key
-*/
-/* function addValidation (key, value) {
-    this.validation.set(key, value);
-    
 
+/*
+* TEST FOR DEFAULT SETTINGS IMPORT
+* set TextBlock atributes to configuration json file for TextBlock settings
+*/
+/* function setJSONconfig(textBlock, jsonData) {
+    textBlock.linearUnit = jsonData.linearUnit;
+    textBlock.weightUnit = jsonData.weightUnit;
+    textBlock.pageWidth = jsonData.pageWidth;
+    textBlock.pageHeight = jsonData.pageHeight;
+    textBlock.paperGSM = jsonData.paperGSM;
+    textBlock.topBottomMargin = jsonData.topBottomMargin;
+    textBlock.insideMargin = jsonData.insideMargin;
+    textBlock.outsideMargin = jsonData.outsideMargin;
+    textBlock.targetFontPt = jsonData.targetFontPt;
+    textBlock.fontFamily = jsonData.fontFamily;
+    textBlock.lineSpacing = jsonData.lineSpacing;
+    textBlock.paragraphSpacing = jsonData.paragraphSpacing;
+    textBlock.flyLeaves = jsonData.flyLeaves;
+    textBlock.titlePage = jsonData.titlePage;
+    textBlock.tableOfContentsPage = jsonData.tableOfContentsPage;
+    textBlock.infoPage = jsonData.infoPage;
+    textBlock.pagePerSectionHead = jsonData.pagePerSectionHead;
+    textBlock.imagePages = jsonData.imagePages;
 }
  */
 
+/*
+* FOR OUTPUT FILE TEXT
+* 
+*/
+function textBlockString (textBlock) {
+    const header = `TextBlock Planner Results \n`;
+    
+    const fileList = () => {
+        let ret = `\nIncluded Files: \n`;
+        const iterator = textBlock.targetTexts.keys();
+        for (let key of iterator) {
+            ret = ret + `>>${key} \n`;
+        }
+        return ret;
+    }
+    const fileString = fileList();
+    const chapters = `Chapters/Sections: ${textBlock.numSections} \n`;
+    const fileSec = `${fileString}${chapters}`;
+
+    const resultHeader = `\nPredicted Results: \n`;
+    const numPages = `>>Number of pages: ${textBlock.resultNumPages} \n`;
+    const numSheets = `>>Number of sheets: ${textBlock.resultNumSheets} \n`;
+    const thickness = `>>Thickness: ${linearConverter(textBlock.resultThickness, "cm", textBlock.linearUnit).toFixed(2)} ${textBlock.linearUnit} \n`;
+    const weight = `>>Weight: ${weightConverter(textBlock.resultWeight, "kg", textBlock.weightUnit).toFixed(2)} ${textBlock.weightUnit} \n`;
+    const resultSec = `${resultHeader}${numPages}${numSheets}${thickness}${weight}`;
+
+    const pageHeader = `\nPaper Characteristics: \n`;
+    const height = `>>Page height: ${linearConverter(textBlock.pageHeight, "px", textBlock.linearUnit).toFixed(2)} ${textBlock.linearUnit} \n`;
+    const width = `>>Page width: ${linearConverter(textBlock.pageWidth, "px", textBlock.linearUnit).toFixed(2)} ${textBlock.linearUnit} \n`;
+    const gsm = `>>Paper weight: ${textBlock.paperGSM} gsm \n`;
+    const paperSec = `${pageHeader}${height}${width}${gsm}`;
+
+    const formatingHeader = `\nFormating Used: \n`;
+    const topBottomMargin = `>>Top and bottom margins: ${linearConverter(textBlock.topBottomMargin, "px", textBlock.linearUnit).toFixed(2)} ${textBlock.linearUnit} \n`;
+    const insideMargin = `>>Inside margins:  ${linearConverter(textBlock.insideMargin, "px", textBlock.linearUnit).toFixed(2)} ${textBlock.linearUnit} \n`;
+    const outsideMargin = `>>Outside margins:  ${linearConverter(textBlock.outsideMargin, "px", textBlock.linearUnit).toFixed(2)} ${textBlock.linearUnit} \n`;
+    const fontPt = `>>Font size: ${textBlock.targetFontPt} pt \n`;
+    const font = `>>Font: ${textBlock.fontFamily} \n`;
+    const lineSpace = `>>Line spacing: ${textBlock.lineSpacing} \n`;
+    const paragraphSpacing = `>>Paragraph spacing: ${textBlock.paragraphSpacing} \n`;
+    const formatSec = `${formatingHeader}${topBottomMargin}${insideMargin}${outsideMargin}${fontPt}${font}${lineSpace}${paragraphSpacing}`;
+
+    const extraHeader = `\nExtras: \n`;
+    const flyLeaves = `>>Number of fly leaves: ${textBlock.flyLeaves} \n`;
+    const isThere = (atribute) => {
+        if(atribute > 0){
+            return "Yes";
+        } else {return "No"}
+    }
+    const titlePage = `>>Title page: ${isThere(textBlock.titlePage)} \n`;
+    const tocPage = `>>Table of contents page: ${isThere(textBlock.tableOfContentsPage)} \n`;
+    const infoPage = `>>Book information page: ${isThere(textBlock.infoPage)} \n`;
+    const pagePerHeader = `>>Portion of page per chapter heading: ${textBlock.pagePerSectionHead} \n`;
+    const imagePages = `>>Pages used for images: ${textBlock.imagePages} \n`;
+    const extraSec = `${extraHeader}${flyLeaves}${titlePage}${tocPage}${infoPage}${pagePerHeader}${imagePages}`;
+
+    const string = `${header}${fileSec}${resultSec}${paperSec}${formatSec}${extraSec}`;
+    return string;
+}
 
 
 /*
@@ -278,4 +351,4 @@ function textMeasure(element, textBlock) {
 }
 
 
-export { TextBlock, textMeasure, addChildTextDiv, removeChildTextDiv, updateStyleChildTextDiv }
+export { TextBlock, textBlockString, textMeasure, addChildTextDiv, removeChildTextDiv, updateStyleChildTextDiv }
