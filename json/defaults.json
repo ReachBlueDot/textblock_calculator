@@ -10,7 +10,7 @@
     "targetFontPt":12,
     "fontFamily":"Times New Roman",
     "lineSpacing":1,
-    "paragraphSpacing":1,
+    "paragraphSpacing":0,
     "flyLeaves":0,
     "titlePage":0,
     "tableOfContentsPage":0,

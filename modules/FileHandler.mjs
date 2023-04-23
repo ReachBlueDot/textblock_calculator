@@ -7,7 +7,6 @@ class FileHandler {
 
 }
 
-
 /**
  * Add selected files to local storage
  * takes element file picker
