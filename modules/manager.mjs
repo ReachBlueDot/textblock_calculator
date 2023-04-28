@@ -128,22 +128,22 @@ function setViewToConfig(textBlock) {
         }
     });
     //Page Width
-    document.querySelector('#widthInput').setAttribute("placeholder", linearConverter(textBlock.pageWidth, "px", textBlock.linearUnit).toFixed(1) );
+    document.querySelector('#widthInput').setAttribute("placeholder", linearConverter(textBlock.pageWidth, "px", textBlock.linearUnit).toFixed(2) );
     document.querySelector('#widthInput').value = null;
     //Page Height
-    document.querySelector('#heightInput').setAttribute("placeholder", linearConverter(textBlock.pageHeight, "px", textBlock.linearUnit).toFixed(1)  );
+    document.querySelector('#heightInput').setAttribute("placeholder", linearConverter(textBlock.pageHeight, "px", textBlock.linearUnit).toFixed(2)  );
     document.querySelector('#heightInput').value = null;
     //Paper GSM
     document.querySelector('#paperWeight').setAttribute("placeholder", textBlock.paperGSM);
     document.querySelector('#paperWeight').value = null;
     //Top and Bottom Margins
-    document.querySelector('#topBotomInput').setAttribute("placeholder", linearConverter(textBlock.topBottomMargin, "px", textBlock.linearUnit).toFixed(1) );
+    document.querySelector('#topBotomInput').setAttribute("placeholder", linearConverter(textBlock.topBottomMargin, "px", textBlock.linearUnit).toFixed(2) );
     document.querySelector('#topBotomInput').value = null;
     //Inside Margin
-    document.querySelector('#insideInput').setAttribute("placeholder", linearConverter(textBlock.insideMargin, "px", textBlock.linearUnit).toFixed(1) );
+    document.querySelector('#insideInput').setAttribute("placeholder", linearConverter(textBlock.insideMargin, "px", textBlock.linearUnit).toFixed(2) );
     document.querySelector('#insideInput').value = null;
     //Outside Margin
-    document.querySelector('#outsideInput').setAttribute("placeholder", linearConverter(textBlock.outsideMargin, "px", textBlock.linearUnit).toFixed(1) );
+    document.querySelector('#outsideInput').setAttribute("placeholder", linearConverter(textBlock.outsideMargin, "px", textBlock.linearUnit).toFixed(2) );
     document.querySelector('#outsideInput').value = null;
     //Target Font Point Size
     document.querySelector('#pointSizeFont').setAttribute("placeholder", textBlock.targetFontPt);
@@ -223,66 +223,35 @@ function updateResults(textblock, numPageRes, numSheetsRes, thicknessBlockRes, w
 
 function updateMeasures(textblock, pageWidthIn, pageHeightIn, topBottomMarginIn, insideMarginIn, ousideMarginIn) {
     
-    let valueWidth;
-    if (pageWidthIn.value === "") {
-        valueWidth = pageWidthIn.placeholder;
-    } else {
-        valueWidth = parseFloat(pageWidthIn.value);
+    if (pageWidthIn.value !== "") {
+        let valueWidth = parseFloat(pageWidthIn.value);
+        textblock.pageWidth = linearConverter(valueWidth, textblock.linearUnit, "px");
     }
-    let inWidth = valueWidth;
-    textblock.pageWidth = linearConverter(inWidth, textblock.linearUnit, "px");
-    
-    let valueHeight;
-    if (pageHeightIn.value === "") {
-        valueHeight = pageHeightIn.placeholder;
-    } else {
-        valueHeight = parseFloat(pageHeightIn.value);
+
+
+    if (pageHeightIn.value !== "") {
+        let valueHeight = parseFloat(pageHeightIn.value);
+        textblock.pageHeight = linearConverter(valueHeight, textblock.linearUnit, "px");
     }
-    let inHeight = valueHeight;
-    textblock.pageHeight = linearConverter(inHeight, textblock.linearUnit, "px");
 
-    let valueTBM;
-    if (topBottomMarginIn.value === "") {
-        valueTBM = topBottomMarginIn.placeholder;
-    } else {
 
-        //TEST
-        /*                     console.log("TBM in__");
-                            console.log(topBottomMarginIn.value); */
-
-        valueTBM = parseFloat(topBottomMarginIn.value);
+    if (topBottomMarginIn.value !== "") {
+        let valueTBM = parseFloat(topBottomMarginIn.value);
+        textblock.topBottomMargin = linearConverter(valueTBM, textblock.linearUnit, "px");
     }
-    let inMarginTBM = valueTBM
-    textblock.topBottomMargin = linearConverter(inMarginTBM, textblock.linearUnit, "px");
 
-    let valueIM;
-    if (insideMarginIn.value === "") {
-        valueIM = insideMarginIn.placeholder;
-    } else {
 
-        //TEST
-        /*                     console.log("IM in__");
-                            console.log(insideMarginIn.value); */
-
-        valueIM = parseFloat(insideMarginIn.value);
+    if (insideMarginIn.value !== "") {
+        let valueIM = parseFloat(insideMarginIn.value);
+        textblock.insideMargin = linearConverter(valueIM, textblock.linearUnit, "px");
     }
-    let inMarginIM = valueIM;
-    textblock.insideMargin = linearConverter(inMarginIM, textblock.linearUnit, "px");
 
 
-    let valueOM;
-    if (ousideMarginIn.value === "") {
-        valueOM = ousideMarginIn.placeholder;
-    } else {
-
-        //TEST
-        /*                     console.log("OM in__");
-                            console.log(ousideMarginIn.value); */
-
-        valueOM = parseFloat(ousideMarginIn.value);
+    if (ousideMarginIn.value !== "") {
+        let valueOM = parseFloat(ousideMarginIn.value);
+        textblock.outsideMargin = linearConverter(valueOM, textblock.linearUnit, "px");
     }
-    let inMarginOM = valueOM;
-    textblock.outsideMargin = linearConverter(inMarginOM, textblock.linearUnit, "px");
+
 }
 
 
