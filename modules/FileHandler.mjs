@@ -57,7 +57,7 @@ async function handleFilesIn(filesElement, loadElement) {
             thisText = thisText + val[i];
 /*             console.log(thisText); */
 
-            if (localStorage.getItem(nameListArray[i]) !== null) {
+            if (sessionStorage.getItem(nameListArray[i]) !== null) {
                 storeFile = confirm(`A file with this name (${nameListArray[i]}) already exists, do you want to replace it?`);
                 //TEST
 /*                 console.log(storeFile); */
@@ -65,16 +65,16 @@ async function handleFilesIn(filesElement, loadElement) {
                 if (storeFile === true) {
                     //TEST
 /*                     console.log("storring file"); */
-                    localStorage.removeItem(nameListArray[i]);
+sessionStorage.removeItem(nameListArray[i]);
 
                     //TEST
 /*                     console.log("Local Storage Keys post remove");
                     console.log(Object.keys(localStorage)); */
 
-                    localStorage.setItem(nameListArray[i], thisText);
+                    sessionStorage.setItem(nameListArray[i], thisText);
                 }
             } else {
-                localStorage.setItem(nameListArray[i], thisText);
+                sessionStorage.setItem(nameListArray[i], thisText);
             }
 
             //TEST
@@ -96,11 +96,11 @@ async function handleFilesIn(filesElement, loadElement) {
 
 /**
  * ****************IN TESTING*************************************************
- * Show files from Local Storage in a Div
+ * Show files from Session Storage in a Div
  * takes a div
  */
-function showFilesFromLocal(element, textBlock) {
-    const fileList = Object.keys(localStorage);
+function showFilesFromSession(element, textBlock) {
+    const fileList = Object.keys(sessionStorage);
     for (let item of fileList) {
         const fileDiv = document.createElement("div");
         fileDiv.setAttribute("class", "showDoc");
@@ -149,4 +149,4 @@ function activateFile(textBlock, fileName, fileText) {
     console.log("end of activate file");
 }
 
-export { FileHandler, handleFilesIn, showFilesFromLocal, activateFile }
+export { FileHandler, handleFilesIn, showFilesFromSession, activateFile }
