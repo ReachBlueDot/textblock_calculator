@@ -25,8 +25,8 @@ function handleFilesInPromise(file) {
 }
 
 
-async function handleFilesIn(element) {
-    const fileList = element.files;
+async function handleFilesIn(filesElement, loadElement) {
+    const fileList = filesElement.files;
     console.log(fileList);
     const nameListArray = [];
     let promiseReaders = [];
@@ -80,10 +80,12 @@ async function handleFilesIn(element) {
             //TEST
 /*             console.log("Local Storage Keys");
             console.log(Object.keys(localStorage)); */
-
+            loadElement.click();
         }
 
     });
+
+    
 
 }
 

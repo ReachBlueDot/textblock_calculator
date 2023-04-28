@@ -20,12 +20,15 @@
         import { TextBlock, textBlockString, textMeasure, addChildTextDiv, removeChildTextDiv } from './modules/TextBlock.mjs';
         import { linearConverter, weightConverter } from './modules/converters.mjs';
         import { FileHandler, handleFilesIn, showFilesFromLocal, activateFile } from './modules/FileHandler.mjs';
-        import { getJSONconfig, setJSONconfig, setViewToConfig, updateResults, updateMeasures, addFontLink } from './modules/manager.mjs';
+        import { getJSONconfig, setJSONconfig, populatePageSizeSelect, getJSONpageSize, setJSONpageSize, setViewToConfig, updateResults, updateMeasures, addFontLink } from './modules/manager.mjs';
 
         window.addEventListener("DOMContentLoaded", () => {
 
-            //TESTING
+            //TESTING**************************************************
+            //*********************************************************
             localStorage.clear();
+            //*********************************************************
+            //*********************************************************
 
             /*
             * fetch default configuration json file for TextBlock settings
@@ -48,6 +51,7 @@
 
             const linearUnitIn = document.getElementsByName("pageLinearUnit");
             const weightUnitIn = document.getElementsByName("pageWeightUnit");
+            const pagePresets = document.getElementById("pagePresets");
             const pageWidthIn = document.getElementById("widthInput");
             const pageHeightIn = document.getElementById("heightInput");
             const paperGSMinput = document.getElementById("paperWeight");
@@ -115,6 +119,7 @@
                         /*                         console.log("L unit __");
                                                 console.log(textBlock1.linearUnit); */
                     }
+                    setViewToConfig(textBlock1);
                     updateMeasures(textBlock1, pageWidthIn, pageHeightIn, topBottomMarginIn, insideMarginIn, ousideMarginIn);
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
@@ -137,7 +142,24 @@
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
                 })
+            });
+
+            /*
+            * populate page size preset selelect element
+            */
+            populatePageSizeSelect("#pagePresets", "./json/paperPresets.json");
+
+            document.querySelector("#pagePresets").addEventListener("change", event => {
+                getJSONpageSize("./json/paperPresets.json", event.target.value).then(page => {
+                    setJSONpageSize(textBlock1, page);
+                    setViewToConfig(textBlock1);
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+                    (console.log(textBlock1));
+                })
             })
+           
+
 
 
             /*
@@ -154,7 +176,7 @@
                     pageWidthIn.value = null;
                 }
 
-            })
+            });
 
             /*
             * take in page height from user in px. WITH TEXTBLOCK
@@ -252,7 +274,8 @@
 
             //FILE Handler declared for event listner
             function handleFiles() {
-                handleFilesIn(filePicker);
+                handleFilesIn(filePicker, loadFilesBtn);
+                
             }
 
 
@@ -645,7 +668,7 @@
                 </div>
 
                 <div class="flex-item-card" style="background-color: aliceblue;">
-                    <h5 class="card-header">Sheets</h5>
+                    <h5 class="card-header">Folios</h5>
                     <div id="resultNumSheets" style="background-color: deeppink;">&nbsp;</div>
                 </div>
 
@@ -730,6 +753,12 @@
                                 <h5>Page Dimentions</h5>
 
                                 <div>
+                                    <label for="pagePresets">Page Size Preset Options: </label>
+                                    <select name="pagePresets" id="pagePresets"></select>
+                                </div>
+
+                                <h4>Or enter your own:</h4>
+                                <div>
                                     <label for="widthInput">Page Width</label>
                                     <input type="number" id="widthInput" name="widthInput" required>
                                 </div>
@@ -768,7 +797,7 @@
                                 <h5>Input New TXT File</h5>
                                 <label for="filePicker">Select txt Files</label>
                                 <input type="file" id="filePicker" name="filePicker" multiple accept=".txt">
-                                <button id="load">Load Files</button>
+                                <button id="load" style="display: none;">Load Files</button>
 
                             </div>
 

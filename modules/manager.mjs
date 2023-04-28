@@ -9,8 +9,11 @@ import { linearConverter, weightConverter } from "./converters.mjs";
 async function getJSONconfig(path) {
     const response = await fetch(path);
     const jsonData = await response.json();
+
+    //TEST
     console.log("JSON fetched");
     console.log(jsonData);
+
     return jsonData;
 }
 
@@ -40,6 +43,68 @@ function setJSONconfig(textBlock, jsonData) {
 }
 
 
+
+/*
+* TEST POPULATE PAGE SETTINGS 
+* populate select with page size options from json config
+*/
+async function populatePageSizeSelect(element, path) {
+    const response = await fetch(path);
+    const jsonData = await response.json();
+
+    //TEST
+    console.log("JSON fetched");
+    console.log(jsonData);
+
+    let htmlString = "";
+    //htmlString += `<option value = '-1'>default page sizes</option>`;
+    if(jsonData) {
+        jsonData.pages.forEach (pages => {
+            htmlString += `<option value='${pages.name}'>${pages.name}</option>`;
+        });
+        console.log(element);
+        document.querySelector(element).innerHTML = htmlString;
+    }
+} 
+
+/*
+* PAPER DEFAULT SETTINGS SET TEXTBLOCK
+* get TextBlock atributes to configuration json file for TextBlock settings
+*/
+async function getJSONpageSize(path, pageName) {
+    const response = await fetch(path);
+    const jsonData = await response.json();
+
+    let pageInfo;
+
+    jsonData.pages.forEach (pages => {
+        if (pages.name === pageName) {
+
+            console.log(pages);
+            pageInfo = pages;
+        }
+    });
+
+    //test
+    return pageInfo;
+}
+
+
+/*
+* PAPER DEFAULT SETTINGS SET TEXTBLOCK
+* set TextBlock atributes to configuration json file for TextBlock settings
+*/
+function setJSONpageSize(textBlock, jsonData) {
+    textBlock.pageWidth = jsonData.pageWidth;
+    textBlock.pageHeight = jsonData.pageHeight;
+    textBlock.topBottomMargin = jsonData.topBottomMargin;
+    textBlock.insideMargin = jsonData.insideMargin;
+    textBlock.outsideMargin = jsonData.outsideMargin;
+}
+
+
+
+
 /*
 * set element values to match TextBlock settings
 */
@@ -47,36 +112,38 @@ function setViewToConfig(textBlock) {
     //Linear Unit
     document.querySelectorAll('input[name="pageLinearUnit"]').forEach((element) => {
         if (element.value === textBlock.linearUnit) {
+            //TEST
             console.log(`match LU __ ${element.value} is ${textBlock.linearUnit}`);
-            //element.setAttribute("checked", "true");
+            
             document.getElementById(`${element.id}`).checked = true
         }
     });
     //Weight Unit
     document.querySelectorAll('input[name="pageWeightUnit"]').forEach((element) => {
         if (element.value === textBlock.weightUnit) {
+            //TEST
             console.log(`match LU __ ${element.value} is ${textBlock.weightUnit}`);
-            //element.setAttribute("checked", "true");
+            
             document.getElementById(`${element.id}`).checked = true
         }
     });
     //Page Width
-    document.querySelector('#widthInput').setAttribute("placeholder", textBlock.pageWidth);
+    document.querySelector('#widthInput').setAttribute("placeholder", linearConverter(textBlock.pageWidth, "px", textBlock.linearUnit).toFixed(1) );
     document.querySelector('#widthInput').value = null;
     //Page Height
-    document.querySelector('#heightInput').setAttribute("placeholder", textBlock.pageHeight);
+    document.querySelector('#heightInput').setAttribute("placeholder", linearConverter(textBlock.pageHeight, "px", textBlock.linearUnit).toFixed(1)  );
     document.querySelector('#heightInput').value = null;
     //Paper GSM
     document.querySelector('#paperWeight').setAttribute("placeholder", textBlock.paperGSM);
     document.querySelector('#paperWeight').value = null;
     //Top and Bottom Margins
-    document.querySelector('#topBotomInput').setAttribute("placeholder", textBlock.topBottomMargin);
+    document.querySelector('#topBotomInput').setAttribute("placeholder", linearConverter(textBlock.topBottomMargin, "px", textBlock.linearUnit).toFixed(1) );
     document.querySelector('#topBotomInput').value = null;
     //Inside Margin
-    document.querySelector('#insideInput').setAttribute("placeholder", textBlock.insideMargin);
+    document.querySelector('#insideInput').setAttribute("placeholder", linearConverter(textBlock.insideMargin, "px", textBlock.linearUnit).toFixed(1) );
     document.querySelector('#insideInput').value = null;
     //Outside Margin
-    document.querySelector('#outsideInput').setAttribute("placeholder", textBlock.outsideMargin);
+    document.querySelector('#outsideInput').setAttribute("placeholder", linearConverter(textBlock.outsideMargin, "px", textBlock.linearUnit).toFixed(1) );
     document.querySelector('#outsideInput').value = null;
     //Target Font Point Size
     document.querySelector('#pointSizeFont').setAttribute("placeholder", textBlock.targetFontPt);
@@ -95,26 +162,20 @@ function setViewToConfig(textBlock) {
     document.querySelector('#numFlyLeaves').value = null;
     //Title Page
     if (textBlock.titlePage > 0) {
-        //document.querySelector('#titlePageAdd').setAttribute("checked", "true");
         document.querySelector('#titlePageAdd').checked = true;
     } else {
-        //document.querySelector('#titlePageAdd').setAttribute("checked", "false");
         document.querySelector('#titlePageAdd').checked = false;
     }
     //Table Of Contents Page
     if (textBlock.tableOfContentsPage > 0) {
-        //document.querySelector('#tocPageAdd').setAttribute("checked", "true");
         document.querySelector('#tocPageAdd').checked = true;
     } else {
-        //document.querySelector('#tocPageAdd').setAttribute("checked", "false");
         document.querySelector('#tocPageAdd').checked = false;
     }
     //Info Page
     if (textBlock.infoPage > 0) {
-        //document.querySelector('#bookInfoPageAdd').setAttribute("checked", "true");
         document.querySelector('#bookInfoPageAdd').checked = true;
     } else {
-        //document.querySelector('#bookInfoPageAdd').setAttribute("checked", "false");
         document.querySelector('#bookInfoPageAdd').checked = false;
     }
     //Page Per Section Head
@@ -224,4 +285,4 @@ function addFontLink(fontFamily, headerElement) {
 }
 
 
-export { getJSONconfig, setJSONconfig, setViewToConfig, updateResults, updateMeasures, addFontLink }
+export { getJSONconfig, setJSONconfig, populatePageSizeSelect, getJSONpageSize, setJSONpageSize, setViewToConfig, updateResults, updateMeasures, addFontLink }
