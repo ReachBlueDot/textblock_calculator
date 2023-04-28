@@ -222,14 +222,28 @@ function updateResults(textblock, numPageRes, numSheetsRes, thicknessBlockRes, w
 }
 
 function updateMeasures(textblock, pageWidthIn, pageHeightIn, topBottomMarginIn, insideMarginIn, ousideMarginIn) {
-    let inWidth = parseFloat(pageWidthIn.value);
+    
+    let valueWidth;
+    if (pageWidthIn.value === "") {
+        valueWidth = pageWidthIn.placeholder;
+    } else {
+        valueWidth = parseFloat(pageWidthIn.value);
+    }
+    let inWidth = valueWidth;
     textblock.pageWidth = linearConverter(inWidth, textblock.linearUnit, "px");
-    let inHeight = parseFloat(pageHeightIn.value);
+    
+    let valueHeight;
+    if (pageHeightIn.value === "") {
+        valueHeight = pageHeightIn.placeholder;
+    } else {
+        valueHeight = parseFloat(pageHeightIn.value);
+    }
+    let inHeight = valueHeight;
     textblock.pageHeight = linearConverter(inHeight, textblock.linearUnit, "px");
 
     let valueTBM;
     if (topBottomMarginIn.value === "") {
-        valueTBM = 0;
+        valueTBM = topBottomMarginIn.placeholder;
     } else {
 
         //TEST
@@ -243,7 +257,7 @@ function updateMeasures(textblock, pageWidthIn, pageHeightIn, topBottomMarginIn,
 
     let valueIM;
     if (insideMarginIn.value === "") {
-        valueIM = 0;
+        valueIM = insideMarginIn.placeholder;
     } else {
 
         //TEST
@@ -258,7 +272,7 @@ function updateMeasures(textblock, pageWidthIn, pageHeightIn, topBottomMarginIn,
 
     let valueOM;
     if (ousideMarginIn.value === "") {
-        valueOM = 0;
+        valueOM = ousideMarginIn.placeholder;
     } else {
 
         //TEST
