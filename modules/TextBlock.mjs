@@ -97,10 +97,12 @@ class TextBlock {
      * get space to add to text length measurment for line break spacing
      */
     get paraSpaceAdd() {
-        let addUnit = this.targetFontPt * this.lineSpacing;
+        
+        let addUnit = (this.targetFontPt * this.lineSpacing);
 
-        //TEST       
-        let totalAdded = (this.paragraphSpacing * addUnit) * this.numLineBreaks;
+        //TEST 
+        //trying adding 1      
+        let totalAdded = ((this.paragraphSpacing +1) * addUnit) * this.numLineBreaks;
 
         //TEST
 /*         console.log("added for paragraphs __" + totalAdded); */
@@ -242,7 +244,7 @@ function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, sheetCount) {
  * takes portion of page per, and number of sections
  */
 function headerSpace(portionOfPage, numSections) {
-    return (portionOfPage * numSections);
+    return ((portionOfPage * numSections)+(numSections*.5));
 }
 
 /**

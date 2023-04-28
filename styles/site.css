@@ -8,7 +8,13 @@ body {
     margin: 0px;
 }
 
+select {
+    font-size: 16pt;
+}
 
+option {
+    font-size: 16pt;
+}
 
 input {
     font-size: 16pt;
