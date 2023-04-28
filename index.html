@@ -19,14 +19,14 @@
         import { getFontList } from './scripts/pickFont.js';
         import { TextBlock, textBlockString, textMeasure, addChildTextDiv, removeChildTextDiv } from './modules/TextBlock.mjs';
         import { linearConverter, weightConverter } from './modules/converters.mjs';
-        import { FileHandler, handleFilesIn, showFilesFromLocal, activateFile } from './modules/FileHandler.mjs';
+        import { FileHandler, handleFilesIn, showFilesFromSession, activateFile } from './modules/FileHandler.mjs';
         import { getJSONconfig, setJSONconfig, populatePageSizeSelect, getJSONpageSize, setJSONpageSize, setViewToConfig, updateResults, updateMeasures, addFontLink } from './modules/manager.mjs';
 
         window.addEventListener("DOMContentLoaded", () => {
 
             //TESTING**************************************************
             //*********************************************************
-            localStorage.clear();
+            //sessionStorage.clear();
             //*********************************************************
             //*********************************************************
 
@@ -38,6 +38,7 @@
             const path = './json/defaults.json';
 
             getJSONconfig(path).then(res => setJSONconfig(textBlock1, res)).then(re => setViewToConfig(textBlock1));
+
 
 
             const numPageRes = document.getElementById("resultNumPages");
@@ -76,7 +77,55 @@
             const headerElement = document.getElementsByTagName('head');
 
 
-           
+            /*
+            * Load any files in session storage. 
+            */
+            const loadFromSession = async function loadFromSession() {
+                console.log("loading");
+
+                showFilesFromSession(fileDisplay, textBlock1);
+                textMeasure(noShowDiv, textBlock1);
+                //updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
+                let checkElement = document.querySelectorAll("input.activeCheck");
+                checkElement.forEach((item) => {
+                    item.addEventListener('onload', () => {
+                        /*                         console.log("Loaded !!**!!**!!"); */
+                    })
+
+                    item.addEventListener('change', () => {
+                        /*                         console.log("changed********************"); */
+
+                        let fileKey = item.id;
+                        let localText = sessionStorage.getItem(fileKey);
+
+
+                        if (item.checked === true) {
+                            /*                             console.log("now Checked ************"); */
+                            activateFile(textBlock1, fileKey, localText);
+                            addChildTextDiv(noShowDiv, textBlock1, fileKey);
+                            textMeasure(noShowDiv, textBlock1);
+                            updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+                        } else {
+                            /*                             console.log("now NOT Checked ************");
+                                                        console.log(textBlock1.targetTexts); */
+                            textBlock1.targetTexts.delete(`${fileKey}`);
+                            removeChildTextDiv(noShowDiv, textBlock1, fileKey);
+                            /*                             console.log(textBlock1.targetTexts); */
+                            textMeasure(noShowDiv, textBlock1);
+                            updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+                        }
+                    })
+                })
+
+
+                console.log("loaded");
+            }
+
+            loadFromSession();
+
+
 
             /*
             * button to reset textblock settings to default. WITH TEXTBLOCK
@@ -84,12 +133,12 @@
             document.querySelector('#defaultBtn').addEventListener("click", event => {
                 event.preventDefault();
                 getJSONconfig(path)
-                .then(res => setJSONconfig(textBlock1, res))
-                .then(re => setViewToConfig(textBlock1))
-                .then(res => updateMeasures(textBlock1, pageWidthIn, pageHeightIn, topBottomMarginIn, insideMarginIn, ousideMarginIn))
-                .then(res => textMeasure(noShowDiv, textBlock1))
-                .then(res => updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes));
-            })
+                    .then(res => setJSONconfig(textBlock1, res))
+                    .then(re => setViewToConfig(textBlock1))
+                    .then(res => updateMeasures(textBlock1, pageWidthIn, pageHeightIn, topBottomMarginIn, insideMarginIn, ousideMarginIn))
+                    .then(res => textMeasure(noShowDiv, textBlock1))
+                    .then(res => updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes));
+            });
 
             /*
             * button to save to a txt file
@@ -99,12 +148,12 @@
                 console.log(textBlockString(textBlock1));
 
                 const fileLink = document.createElement("a");
-                const file = new Blob([textBlockString(textBlock1)], { type : 'text/plain'});
+                const file = new Blob([textBlockString(textBlock1)], { type: 'text/plain' });
                 fileLink.href = URL.createObjectURL(file);
                 fileLink.download = "textBlockResults.txt";
                 fileLink.click();
                 URL.revokeObjectURL(fileLink.href);
-            })
+            });
 
 
             /*
@@ -124,7 +173,7 @@
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
                 })
-            })
+            });
 
 
             /*
@@ -157,8 +206,8 @@
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
                     (console.log(textBlock1));
                 })
-            })
-           
+            });
+
 
 
 
@@ -192,7 +241,7 @@
                     pageHeightIn.value = null;
                 }
 
-            })
+            });
 
 
             /*
@@ -203,10 +252,6 @@
                 if (paperGSMinput.value === "") {
                     value = 75;
                 } else {
-                    //TEST
-                    /*                     console.log("GSM __");
-                                        console.log(paperGSMinput.value); */
-
                     value = parseFloat(paperGSMinput.value);
                 }
 
@@ -219,7 +264,9 @@
                     paperGSMinput.value = null;
                 }
 
-            })
+            });
+
+
 
 
 
@@ -235,7 +282,7 @@
                     fileDisplay.removeChild(fileDisplay.firstChild);
                 }
 
-                showFilesFromLocal(fileDisplay, textBlock1);
+                showFilesFromSession(fileDisplay, textBlock1);
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
 
@@ -250,7 +297,7 @@
                         /*                         console.log("changed********************"); */
 
                         let fileKey = item.id;
-                        let localText = localStorage.getItem(fileKey);
+                        let localText = sessionStorage.getItem(fileKey);
 
 
                         if (item.checked === true) {
@@ -270,14 +317,24 @@
                         }
                     })
                 })
-            })
+            });
+
+
 
             //FILE Handler declared for event listner
             function handleFiles() {
                 handleFilesIn(filePicker, loadFilesBtn);
-                
             }
 
+            //click load files button on load of tab
+            /*             let textTab = document.getElementById("text");
+                        loadFilesBtn.click(); */
+            /*             textTab.addEventListener('onload', () => {
+                            //TEST
+                            console.log("loading on load");
+            
+                            loadFilesBtn.click();
+                        }); */
 
             /*
             * get section count from user. WITH TEXTBLOCK
@@ -304,7 +361,7 @@
                     sectionCountIn.value = null;
                 }
 
-            })
+            });
 
             /*
             * get top and bottom margin size from user in px. WITH TEXTBLOCK
@@ -333,7 +390,7 @@
                     topBottomMarginIn.value = null;
                 }
 
-            })
+            });
 
             /*
             * get inside margin size from user in px. WITH TEXTBLOCK
@@ -363,7 +420,7 @@
                     insideMarginIn.value = null;
                 }
 
-            })
+            });
 
             /*
             * get outside margin size from user in px. WITH TEXTBLOCK
@@ -392,7 +449,7 @@
                     ousideMarginIn.value = null;
                 }
 
-            })
+            });
 
 
             /*
@@ -409,7 +466,7 @@
                     fontSizeIn.value = null;
                 }
 
-            })
+            });
 
             /*
             * get font family from user . WITH TEXTBLOCK
@@ -423,7 +480,7 @@
                 textBlock1.fontFamily = fontPicker.value;
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
-            })
+            });
 
 
             /*
@@ -437,7 +494,7 @@
                     });
                     document.querySelector("#fontList").innerHTML = html;
                 }
-            })
+            });
 
             /*
             * get line spacing  from user. WITH TEXTBLOCK
@@ -464,7 +521,7 @@
                 }
 
 
-            })
+            });
 
             /*
             * get paragraph spacing  from user. WITH TEXTBLOCK
@@ -490,7 +547,7 @@
                     paragraphSpaceIn.value = null;
                 }
 
-            })
+            });
 
             /*
             * get number of fly leaves  from user. WITH TEXTBLOCK
@@ -516,7 +573,7 @@
                     flyLeavesIn.value = null;
                 }
 
-            })
+            });
 
             /*
             * get if Title page  from user. WITH TEXTBLOCK
@@ -537,7 +594,7 @@
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
 
-            })
+            });
 
             /*
             * get if Table of contents page  from user. WITH TEXTBLOCK
@@ -557,7 +614,7 @@
                 }
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
-            })
+            });
 
 
             /*
@@ -578,7 +635,7 @@
                 }
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
-            })
+            });
 
 
             /*
@@ -605,7 +662,7 @@
                     secionHeaderPortionIn.value = null;
                 }
 
-            })
+            });
 
             /*
             * get number of a pages taken by images  from user. WITH TEXTBLOCK
@@ -631,7 +688,7 @@
                     imgPagesIn.value = null;
                 }
 
-            })
+            });
 
         });
 
@@ -645,7 +702,9 @@
 
     <div class="flex-container">
         <div class="pageHeader flex-container" id="pageHeader" style="background-color: lightcoral;">
-
+            <div>
+                **Under Construction**
+            </div>
             <div class="flex-item">
                 <div id="divHeaderImg" class="flex-item">
                     <img id="headerImg" src="images/books.png" alt="books of various sizes standing against eachother">
@@ -701,11 +760,12 @@
             <div class="tabBar">
 
                 <div class="section">
-                    <h3 data-tab-target="#settings"><img id="settingsImg" src="images/icon-config-small.png" alt="settings cog with ruler icon"> Units</h3>
+                    <h3 data-tab-target="#settings"><img id="settingsImg" src="images/icon-config-small.png"
+                            alt="settings cog with ruler icon"> Units</h3>
 
                     <div class="tab" id="settings" data-tab-content style="background-color: plum;">
                         <div>
-                            
+
                             <fieldset>
 
                                 <legend>Select a Linear Unit:</legend>
@@ -745,7 +805,8 @@
                 </div>
 
                 <div class="section">
-                    <h3 data-tab-target="#paper"><img id="paperImg" src="images/icon-paper-small.png" alt="paper icon"> Paper Information</h3>
+                    <h3 data-tab-target="#paper"><img id="paperImg" src="images/icon-paper-small.png" alt="paper icon">
+                        Paper Information</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="paper" data-tab-content style="background-color: aqua;">
@@ -784,7 +845,8 @@
                 </div>
 
                 <div class="section">
-                    <h3 data-tab-target="#text"><img id="textImg" src="images/icon-document-small.png" alt="text document icon"> Text Information</h3>
+                    <h3 data-tab-target="#text"><img id="textImg" src="images/icon-document-small.png"
+                            alt="text document icon"> Text Information</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
@@ -815,7 +877,8 @@
                 </div>
 
                 <div class="section">
-                    <h3 data-tab-target="#formatting"><img id="formattingImg" src="images/icon-formating-small.png" alt="formatting icon with paragraph symble"> Text Formatting</h3>
+                    <h3 data-tab-target="#formatting"><img id="formattingImg" src="images/icon-formating-small.png"
+                            alt="formatting icon with paragraph symble"> Text Formatting</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="formatting" data-tab-content style="background-color:bisque;">
@@ -877,7 +940,8 @@
 
 
                 <div class="section">
-                    <h3 data-tab-target="#extras"><img id="extrasImg" src="images/icon-library-small.png" alt="additions icon"> Extras</h3>
+                    <h3 data-tab-target="#extras"><img id="extrasImg" src="images/icon-library-small.png"
+                            alt="additions icon"> Extras</h3>
 
                     <div class="tabContent">
                         <div class="tab" id="extras" data-tab-content style="background-color:violet;">
