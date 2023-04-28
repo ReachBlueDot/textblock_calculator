@@ -1,0 +1,37 @@
+{
+    "pages" : [
+        {
+            "name": "Half letter",
+            "pageWidth": 528,
+            "pageHeight": 816,
+            "topBottomMargin": 0,
+            "insideMargin": 0,
+            "outsideMargin": 0
+        },
+        {
+            "name": "Quarter letter",
+            "pageWidth": 264,
+            "pageHeight": 528,
+            "topBottomMargin": 0,
+            "insideMargin": 0,
+            "outsideMargin": 0
+        },
+        {
+            "name": "A5",
+            "pageWidth": 559,
+            "pageHeight": 794,
+            "topBottomMargin": 0,
+            "insideMargin": 0,
+            "outsideMargin": 0
+        },
+        {
+            "name": "A6",
+            "pageWidth": 397,
+            "pageHeight": 559,
+            "topBottomMargin": 0,
+            "insideMargin": 0,
+            "outsideMargin": 0
+        }
+
+    ]
+}
