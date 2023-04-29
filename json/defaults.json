@@ -15,6 +15,7 @@
     "titlePage":0,
     "tableOfContentsPage":0,
     "infoPage":0,
+    "sectionHeadSameSide": false,
     "pagePerSectionHead":0,
     "imagePages":0
 }

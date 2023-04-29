@@ -46,6 +46,7 @@ class TextBlock {
         this.titlePage = 0;
         this.tableOfContentsPage = 0;
         this.infoPage = 0;
+        this.sectionHeadSameSide = false;
         this.pagePerSectionHead = 0;
         this.imagePages = 0;
 
@@ -192,9 +193,10 @@ function textBlockString (textBlock) {
     const titlePage = `>>Title page: ${isThere(textBlock.titlePage)} \n`;
     const tocPage = `>>Table of contents page: ${isThere(textBlock.tableOfContentsPage)} \n`;
     const infoPage = `>>Book information page: ${isThere(textBlock.infoPage)} \n`;
+    const sectionHeadSide = `>>Chaper heding will fall the (right or left): ${textBlock.sectionHeadSameSide} \n`;
     const pagePerHeader = `>>Portion of page per chapter heading: ${textBlock.pagePerSectionHead} \n`;
     const imagePages = `>>Pages used for images: ${textBlock.imagePages} \n`;
-    const extraSec = `${extraHeader}${flyLeaves}${titlePage}${tocPage}${infoPage}${pagePerHeader}${imagePages}`;
+    const extraSec = `${extraHeader}${flyLeaves}${titlePage}${tocPage}${infoPage}${sectionHeadSide}${pagePerHeader}${imagePages}`;
 
     const string = `${header}${fileSec}${resultSec}${paperSec}${formatSec}${extraSec}`;
     return string;
@@ -241,10 +243,16 @@ function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, sheetCount) {
 
 /**
  * Calculate pages to add for section headings
- * takes portion of page per, and number of sections
+ * takes portion of page per, and number of sections, and if section will alway begin on the same side
  */
-function headerSpace(portionOfPage, numSections) {
-    return ((portionOfPage * numSections)+(numSections*.5));
+function headerSpace(portionOfPage, numSections, startsOnSide) {
+    let spaceAdd = 0;
+    if(startsOnSide === true) {
+        spaceAdd = ((portionOfPage + 1) * numSections) + (numSections * .5);
+    } else {
+        spaceAdd = (portionOfPage * numSections)+(numSections*.5);
+    }
+    return spaceAdd;
 }
 
 /**
@@ -327,7 +335,7 @@ function textMeasure(element, textBlock) {
     //TEST - none
     noShowDiv.style.display = "none";
 
-    let headerPgs = headerSpace(textBlock.pagePerSectionHead, textBlock.numSections);
+    let headerPgs = headerSpace(textBlock.pagePerSectionHead, textBlock.numSections, textBlock.sectionHeadSameSide);
     let addInPages = (2 * textBlock.flyLeaves) + textBlock.titlePage + textBlock.tableOfContentsPage + textBlock.infoPage + headerPgs + textBlock.imagePages;
     addInPages = Math.ceil(addInPages);
 

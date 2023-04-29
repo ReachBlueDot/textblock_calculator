@@ -71,6 +71,7 @@
             const titlePageIn = document.getElementById("titlePageAdd");
             const tocPageIn = document.getElementById("tocPageAdd");
             const infoPageIn = document.getElementById("bookInfoPageAdd");
+            const chHeadSameSide = document.getElementById("chHeadSameSide");
             const secionHeaderPortionIn = document.getElementById("chHeadPage");
             const imgPagesIn = document.getElementById("imagePage");
 
@@ -637,6 +638,18 @@
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
             });
 
+            /*
+            * get if Copyright page  from user. WITH TEXTBLOCK
+            */
+           document.querySelector('#chHeadSameSide').addEventListener("change", event => {
+            if ( chHeadSameSide.checked ) {
+                textBlock1.sectionHeadSameSide = true;
+            } else {
+                textBlock1.sectionHeadSameSide = false;
+            }
+            textMeasure(noShowDiv, textBlock1);
+            updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+           });
 
             /*
             * get portion of a page taken by each section heading  from user. WITH TEXTBLOCK
@@ -948,7 +961,7 @@
 
                             <div>
                                 <h5>Fly Leaves</h5>
-                                <label for="numFlyLeaves">Number of fly leaves, front and back: </label>
+                                <label for="numFlyLeaves">Total number of fly leaves: </label>
                                 <input type="number" id="numFlyLeaves" name="numFlyLeaves" required min="0">
                             </div>
 
@@ -972,8 +985,15 @@
 
                             <div>
                                 <h5>Chapter heading</h5>
-                                <label for="chHeadPage">Portion of Page Taken: </label>
-                                <input type="number" id="chHeadPage" name="chHeadPage">
+                                <div>
+                                    <label for="chHeadSameSide">Begin on the same side </label>
+                                    <input type="checkbox" id="chHeadSameSide" name="chHeadSameSide">
+                                </div>
+                                <div>
+                                    <label for="chHeadPage">Portion of Page Taken: </label>
+                                    <input type="number" id="chHeadPage" name="chHeadPage">
+                                </div>
+
                             </div>
 
                             <div>
