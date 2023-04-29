@@ -353,7 +353,7 @@ function textMeasure(element, textBlock) {
 
     textBlock.resultNumPages = Math.ceil(divHeight / textBlock.textAreaHeight) + addInPages;
     textBlock.resultNumSheets = Math.ceil(textBlock.resultNumPages / 4);
-    textBlock.resultThickness = blockThicknessCM(textBlock.paperGSM, textBlock.resultNumSheets);
+    textBlock.resultThickness = blockThicknessCM(textBlock.paperGSM, (textBlock.resultNumSheets*2));
     textBlock.resultWeight = blockWeightKg(textBlock.paperGSM, textBlock.pageHeight, textBlock.pageWidth, textBlock.resultNumSheets);
 
 /*     console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
