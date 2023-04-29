@@ -38,6 +38,7 @@ function setJSONconfig(textBlock, jsonData) {
     textBlock.titlePage = jsonData.titlePage;
     textBlock.tableOfContentsPage = jsonData.tableOfContentsPage;
     textBlock.infoPage = jsonData.infoPage;
+    textBlock.sectionHeadSameSide = jsonData.sectionHeadSameSide;
     textBlock.pagePerSectionHead = jsonData.pagePerSectionHead;
     textBlock.imagePages = jsonData.imagePages;
 }
@@ -177,6 +178,12 @@ function setViewToConfig(textBlock) {
         document.querySelector('#bookInfoPageAdd').checked = true;
     } else {
         document.querySelector('#bookInfoPageAdd').checked = false;
+    }
+    //Section head will start on same side
+    if (textBlock.sectionHeadSameSide === true) {
+        document.querySelector('#chHeadSameSide').checked = true;
+    } else {
+        document.querySelector('#chHeadSameSide').checked = false;
     }
     //Page Per Section Head
     document.querySelector('#chHeadPage').setAttribute("placeholder", textBlock.pagePerSectionHead);
