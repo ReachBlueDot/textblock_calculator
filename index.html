@@ -16,7 +16,8 @@
 
 
     <script type="module">
-        import { getFontList } from './scripts/pickFont.js';
+        //import { getFontList } from './scripts/pickFont.js';
+        import { getFontList } from './modules/pickFont.mjs';
         import { TextBlock, textBlockString, textMeasure, addChildTextDiv, removeChildTextDiv } from './modules/TextBlock.mjs';
         import { linearConverter, weightConverter } from './modules/converters.mjs';
         import { FileHandler, handleFilesIn, showFilesFromSession, activateFile } from './modules/FileHandler.mjs';
@@ -76,7 +77,7 @@
             const imgPagesIn = document.getElementById("imagePage");
 
             const headerElement = document.getElementsByTagName('head');
-
+            const updateNoShow = document.getElementById("updateNoShow");
 
             /*
             * Load any files in session storage. 
@@ -473,14 +474,24 @@
             * get font family from user . WITH TEXTBLOCK
             */
             document.querySelector('#fontList').addEventListener("change", event => {
-                addFontLink(fontPicker.value, headerElement);
-                //TEST
-                /*                 console.log("added header link");
-                 */
 
-                textBlock1.fontFamily = fontPicker.value;
+
+                addFontLink(fontPicker.value, headerElement, textBlock1);
+
+            });
+
+
+            /*
+            * click button to update, used by addFontLink
+            * I know this isn't great. I tried to use promices first, and I couldn't make that work either
+            * *******************TODO************************************
+            */
+            document.querySelector('#updateNoShow').addEventListener("click", event => {
+                console.log("button for load pressed");
+                //textBlock1.fontFamily = fontPicker.value is in add font link
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
             });
 
 
@@ -496,6 +507,7 @@
                     document.querySelector("#fontList").innerHTML = html;
                 }
             });
+
 
             /*
             * get line spacing  from user. WITH TEXTBLOCK
@@ -641,15 +653,15 @@
             /*
             * get if Copyright page  from user. WITH TEXTBLOCK
             */
-           document.querySelector('#chHeadSameSide').addEventListener("change", event => {
-            if ( chHeadSameSide.checked ) {
-                textBlock1.sectionHeadSameSide = true;
-            } else {
-                textBlock1.sectionHeadSameSide = false;
-            }
-            textMeasure(noShowDiv, textBlock1);
-            updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
-           });
+            document.querySelector('#chHeadSameSide').addEventListener("change", event => {
+                if (chHeadSameSide.checked) {
+                    textBlock1.sectionHeadSameSide = true;
+                } else {
+                    textBlock1.sectionHeadSameSide = false;
+                }
+                textMeasure(noShowDiv, textBlock1);
+                updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+            });
 
             /*
             * get portion of a page taken by each section heading  from user. WITH TEXTBLOCK
@@ -1013,7 +1025,8 @@
         </div>
     </div>
 
-    <div id="textNoShow" style="display: none;">!</div>
+    <div id="textNoShow" style="display: block;">!</div>
+    <button id="updateNoShow" hidden></button>
 
 </body>
 

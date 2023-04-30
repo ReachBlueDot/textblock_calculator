@@ -14,7 +14,7 @@ tabs.forEach(tab => {
     tab.addEventListener('click', () => {
         const target = document.querySelector(tab.dataset.tabTarget);
         let wasActive = target.classList.contains('active');
-        console.log(wasActive);
+        //console.log(wasActive);
 
         tabContents.forEach(tabContents => {
 

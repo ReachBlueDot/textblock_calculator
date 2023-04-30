@@ -34,12 +34,12 @@ async function handleFilesIn(filesElement, loadElement) {
     for (let item of fileList) {
 
         //TEST
-/*         console.log(item); */
+        /*         console.log(item); */
 
         nameListArray.push(item.name);
 
         //TEST
-/*         console.log(nameListArray); */
+        /*         console.log(nameListArray); */
     }
 
 
@@ -47,29 +47,29 @@ async function handleFilesIn(filesElement, loadElement) {
         promiseReaders.push(handleFilesInPromise(fileList[i]));
     }
     Promise.all(promiseReaders).then((val) => {
-/*         console.log("__Reader Results__ ");
-        console.log(val); */
+        /*         console.log("__Reader Results__ ");
+                console.log(val); */
 
         for (let i = 0; i < nameListArray.length; i++) {
             let thisText = "";
             let storeFile = false;
 
             thisText = thisText + val[i];
-/*             console.log(thisText); */
+            /*             console.log(thisText); */
 
             if (sessionStorage.getItem(nameListArray[i]) !== null) {
                 storeFile = confirm(`A file with this name (${nameListArray[i]}) already exists, do you want to replace it?`);
                 //TEST
-/*                 console.log(storeFile); */
+                /*                 console.log(storeFile); */
 
                 if (storeFile === true) {
                     //TEST
-/*                     console.log("storring file"); */
-sessionStorage.removeItem(nameListArray[i]);
+                    /*                     console.log("storring file"); */
+                    sessionStorage.removeItem(nameListArray[i]);
 
                     //TEST
-/*                     console.log("Local Storage Keys post remove");
-                    console.log(Object.keys(localStorage)); */
+                    /*                     console.log("Local Storage Keys post remove");
+                                        console.log(Object.keys(localStorage)); */
 
                     sessionStorage.setItem(nameListArray[i], thisText);
                 }
@@ -78,14 +78,14 @@ sessionStorage.removeItem(nameListArray[i]);
             }
 
             //TEST
-/*             console.log("Local Storage Keys");
-            console.log(Object.keys(localStorage)); */
+            /*             console.log("Local Storage Keys");
+                        console.log(Object.keys(localStorage)); */
             loadElement.click();
         }
 
     });
 
-    
+
 
 }
 
@@ -109,19 +109,20 @@ function showFilesFromSession(element, textBlock) {
         activeCheck.setAttribute("type", "checkbox");
         activeCheck.setAttribute("class", "activeCheck");
         activeCheck.setAttribute("id", `${item}`);
+        activeCheck.setAttribute("title", `${item}`)
 
         if (textBlock.targetTexts.has(item)) {
             console.log("already on list ^^^^^^^^^^^^^^");
             activeCheck.setAttribute("checked", "true");
         }
-        //activeCheck.setAttribute("checked", "true");
+        
         const activeFileLable = document.createElement("lable");
         activeFileLable.setAttribute("for", `${item}`);
         activeFileLable.innerText = item;
 
         fileDiv.appendChild(activeCheck);
         fileDiv.appendChild(activeFileLable);
-        
+
 
         element.appendChild(fileDiv);
     }
