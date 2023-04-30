@@ -301,6 +301,10 @@ function removeChildTextDiv(element, textBlock, targetTextsKey) {
  */
 function updateStyleChildTextDiv(element, textBlock) {
     for (const child of element.children) {
+        //TEST
+        console.log("updateing child div___");
+
+        
         child.style.fontSize = textBlock.targetFontPt + "pt";
         child.style.fontFamily = textBlock.fontFamily;
         child.style.lineHeight = textBlock.lineSpacing;
@@ -318,7 +322,7 @@ function textMeasure(element, textBlock) {
     console.log("measure Block__");
     console.log(textBlock);
 
-    updateStyleChildTextDiv(element, textBlock);
+    updateStyleChildTextDiv(noShowDiv, textBlock);
 
     //TEST DOES A GETTER WORK LIKE THIS?
     noShowDiv.style.width = textBlock.textAreaWidth + "px";
@@ -333,7 +337,7 @@ function textMeasure(element, textBlock) {
 /*     let divWidth = noShowDiv.clientWidth + "px"; */
 
     //TEST - none
-    noShowDiv.style.display = "none";
+    //noShowDiv.style.display = "none";
 
     let headerPgs = headerSpace(textBlock.pagePerSectionHead, textBlock.numSections, textBlock.sectionHeadSameSide);
     let addInPages = (2 * textBlock.flyLeaves) + textBlock.titlePage + textBlock.tableOfContentsPage + textBlock.infoPage + headerPgs + textBlock.imagePages;
