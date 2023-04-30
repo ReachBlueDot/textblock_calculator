@@ -476,30 +476,25 @@
             document.querySelector('#fontList').addEventListener("change", event => {
 
 
-                addFontLink(fontPicker.value, headerElement, textBlock1);
+                addFontLink(fontPicker.value, headerElement, noShowDiv, textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
+                 document.fonts.ready.then(() => {
+                    console.log("Fonts Ready promice___");
+                    textBlock1.fontFamily = fontPicker.value;
+                    textMeasure(noShowDiv, textBlock1);
+                    updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+                }); 
 
             });
 
-
-            /*
-            * click button to update, used by addFontLink
-            * I know this isn't great. I tried to use promices first, and I couldn't make that work either
-            * *******************TODO************************************
-            */
-            document.querySelector('#updateNoShow').addEventListener("click", event => {
-                console.log("button for load pressed");
-                //textBlock1.fontFamily = fontPicker.value is in add font link
-                textMeasure(noShowDiv, textBlock1);
-                updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
-
-            });
 
 
             /*
             * get font list and populate fontList selector 
             */
             getFontList().then(results => {
-                let html = `<option value='-1'>Select your font</option>`;
+                let html = `<option value='-1'>Times New Roman</option>`;
                 if (results) {
                     results.forEach(font => {
                         html += `<option value='${font.family}'>${font.family}</option>`;
@@ -1026,7 +1021,7 @@
     </div>
 
     <div id="textNoShow" style="display: block;">!</div>
-    <button id="updateNoShow" hidden></button>
+
 
 </body>
 
