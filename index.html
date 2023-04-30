@@ -174,6 +174,8 @@
                     updateMeasures(textBlock1, pageWidthIn, pageHeightIn, topBottomMarginIn, insideMarginIn, ousideMarginIn);
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 })
             });
 
@@ -192,6 +194,8 @@
                     }
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 })
             });
 
@@ -206,6 +210,8 @@
                     setViewToConfig(textBlock1);
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                     (console.log(textBlock1));
                 })
             });
@@ -222,6 +228,8 @@
                     textBlock1.pageWidth = linearConverter(inWidth, textBlock1.linearUnit, "px");
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${inWidth} is not a valid value. Please try again.`);
                     pageWidthIn.value = null;
@@ -238,6 +246,8 @@
                     textBlock1.pageHeight = linearConverter(inHeight, textBlock1.linearUnit, "px");
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${inHeight} is not a valid value. Please try again.`);
                     pageHeightIn.value = null;
@@ -261,6 +271,8 @@
                     textBlock1.paperGSM = value;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${value} is not a valid value. Please try again.`);
                     paperGSMinput.value = null;
@@ -289,6 +301,8 @@
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
 
 
+
+
                 let checkElement = document.querySelectorAll("input.activeCheck");
                 checkElement.forEach((item) => {
                     item.addEventListener('onload', () => {
@@ -308,6 +322,8 @@
                             addChildTextDiv(noShowDiv, textBlock1, fileKey);
                             textMeasure(noShowDiv, textBlock1);
                             updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                         } else {
                             /*                             console.log("now NOT Checked ************");
                                                         console.log(textBlock1.targetTexts); */
@@ -316,6 +332,8 @@
                             /*                             console.log(textBlock1.targetTexts); */
                             textMeasure(noShowDiv, textBlock1);
                             updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                         }
                     })
                 })
@@ -358,6 +376,8 @@
                     textBlock1.numSections = value;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${value} is not a valid value. Please try again.`);
                     sectionCountIn.value = null;
@@ -387,6 +407,8 @@
                     textBlock1.topBottomMargin = inMarginPX;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${inMargin} is not a valid margin value for a page of this size. Please try again.`);
                     topBottomMarginIn.value = null;
@@ -417,6 +439,8 @@
                     textBlock1.insideMargin = inMarginPX;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${inMargin} is not a valid margin value for a page of this size. Please check the outside margin value and try again.`);
                     insideMarginIn.value = null;
@@ -446,6 +470,8 @@
                     textBlock1.outsideMargin = inMarginPX;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${inMargin} is not a valid margin value for a page of this size. Please check the inside margin value and try again.`);
                     ousideMarginIn.value = null;
@@ -463,6 +489,8 @@
                     textBlock1.targetFontPt = parseFloat(fontSizeIn.value);
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${fontSizeIn.value} is not a valid value. Please try again.`);
                     fontSizeIn.value = null;
@@ -479,12 +507,13 @@
                 addFontLink(fontPicker.value, headerElement, noShowDiv, textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
 
 
-                 document.fonts.ready.then(() => {
+                document.fonts.ready.then(() => {
                     console.log("Fonts Ready promice___");
                     textBlock1.fontFamily = fontPicker.value;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
-                }); 
+
+                });
 
             });
 
@@ -523,6 +552,8 @@
                     textBlock1.lineSpacing = value;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${value} is not a valid value. Please try again.`);
                     lineSpaceIn.value = null;
@@ -550,6 +581,8 @@
                     textBlock1.paragraphSpacing = value;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${value} is not a valid value. Please try again.`);
                     paragraphSpaceIn.value = null;
@@ -576,6 +609,8 @@
                     textBlock1.flyLeaves = value;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${value} is not a valid value. Please try again.`);
                     flyLeavesIn.value = null;
@@ -602,6 +637,8 @@
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
 
+
+
             });
 
             /*
@@ -622,6 +659,8 @@
                 }
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
             });
 
 
@@ -643,6 +682,8 @@
                 }
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
             });
 
             /*
@@ -656,6 +697,8 @@
                 }
                 textMeasure(noShowDiv, textBlock1);
                 updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
             });
 
             /*
@@ -677,6 +720,8 @@
                     textBlock1.pagePerSectionHead = value;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${value} is not a valid value. Please try agian.`);
                     secionHeaderPortionIn.value = null;
@@ -703,6 +748,8 @@
                     textBlock1.imagePages = value;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+
+
                 } else {
                     alert(`${value} is not a valid value. Please try agian.`);
                     imgPagesIn.value = null;
@@ -1020,7 +1067,7 @@
         </div>
     </div>
 
-    <div id="textNoShow" style="display: none;">!</div>
+    <div id="textNoShow" style="display: block; ">&nbsp;</div>
 
 
 </body>
