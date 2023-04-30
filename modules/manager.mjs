@@ -1,5 +1,4 @@
-import { TextBlock } from "./TextBlock.mjs";
-import { FileHandler } from "./FileHandler.mjs";
+import { textMeasure } from './TextBlock.mjs';
 import { linearConverter, weightConverter } from "./converters.mjs";
 
 /*
@@ -198,10 +197,10 @@ function setViewToConfig(textBlock) {
 * update results. WITH TEXTBLOCK
 */
 function updateResults(textblock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes) {
-    
+
     //TEST
     console.log("updating Results__")
-    
+
     if (isNaN(textblock.resultNumPages)) {
         numPageRes.innerHTML = "&nbsp;";
     } else {
@@ -269,20 +268,40 @@ function updateMeasures(textblock, pageWidthIn, pageHeightIn, topBottomMarginIn,
 /*
 * Add download link for font to header
 */
-async function addFontLink(fontFamilyNew, headerElement, textBlock) {
-    const url = "https://fonts.googleapis.com/css?family=" + fontFamilyNew;
-    const link = document.createElement('link');
-    link.href = url;
-    link.rel = "stylesheet";
-    link.onload = () => {
-        console.log("done Load now__");
-        textBlock.fontFamily = fontFamilyNew;
-        document.getElementById("updateNoShow").click();
-    };
-    link.async = true;
-    headerElement[0].appendChild(link);
+async function addFontLink(fontFamilyNew, headerElement, noShowDiv, textBlock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes) {
+    if (document.getElementById(`fontLink${fontFamilyNew}`) === null) {
+        const url = "https://fonts.googleapis.com/css?family=" + fontFamilyNew;
+        const link = document.createElement('link');
+        link.href = url;
+        link.rel = "stylesheet";
+        link.id = `fontLink${fontFamilyNew}`;
+
+
+
+        link.onload = () => {
+            document.fonts.ready.then(() => {
+                //TEST
+                console.log("done Load now__");
+                
+                textBlock.fontFamily = fontFamilyNew;
+                textMeasure(noShowDiv, textBlock);
+                updateResults(textBlock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+            })
+
+        };
+
+        headerElement[0].appendChild(link);
+    } else {
+        //TEST
+        console.log("link in head already__");
+    }
+
+
 
 }
+
+
+
 
 
 export { getJSONconfig, setJSONconfig, populatePageSizeSelect, getJSONpageSize, setJSONpageSize, setViewToConfig, updateResults, updateMeasures, addFontLink }
