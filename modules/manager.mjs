@@ -269,7 +269,7 @@ function updateMeasures(textblock, pageWidthIn, pageHeightIn, topBottomMarginIn,
 * Add download link for font to header
 */
 async function addFontLink(fontFamilyNew, headerElement, noShowDiv, textBlock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes) {
-    if (document.getElementById(`fontLink${fontFamilyNew}`) === null) {
+    if (document.getElementById(`fontLink${fontFamilyNew}`) === null && fontFamilyNew != -1) {
         const url = "https://fonts.googleapis.com/css?family=" + fontFamilyNew;
         const link = document.createElement('link');
         link.href = url;
@@ -282,7 +282,7 @@ async function addFontLink(fontFamilyNew, headerElement, noShowDiv, textBlock, n
             document.fonts.ready.then(() => {
                 //TEST
                 console.log("done Load now__");
-                
+
                 textBlock.fontFamily = fontFamilyNew;
                 textMeasure(noShowDiv, textBlock);
                 updateResults(textBlock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
@@ -291,6 +291,16 @@ async function addFontLink(fontFamilyNew, headerElement, noShowDiv, textBlock, n
         };
 
         headerElement[0].appendChild(link);
+    } else if (fontFamilyNew == -1) {
+
+        const response = await fetch("./json/defaults.json");
+        const jsonData = await response.json();
+        textBlock.fontFamily = jsonData.fontFamily;
+        textMeasure(noShowDiv, textBlock);
+        updateResults(textBlock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
+        
+        //TEST
+        console.log(`Font default is__ ${jsonData.fontFamily}`);
     } else {
         //TEST
         console.log("link in head already__");
