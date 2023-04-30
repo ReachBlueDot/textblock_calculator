@@ -59,14 +59,14 @@ async function populatePageSizeSelect(element, path) {
 
     let htmlString = "";
     //htmlString += `<option value = '-1'>default page sizes</option>`;
-    if(jsonData) {
-        jsonData.pages.forEach (pages => {
+    if (jsonData) {
+        jsonData.pages.forEach(pages => {
             htmlString += `<option value='${pages.name}'>${pages.name}</option>`;
         });
         console.log(element);
         document.querySelector(element).innerHTML = htmlString;
     }
-} 
+}
 
 /*
 * PAPER DEFAULT SETTINGS SET TEXTBLOCK
@@ -78,7 +78,7 @@ async function getJSONpageSize(path, pageName) {
 
     let pageInfo;
 
-    jsonData.pages.forEach (pages => {
+    jsonData.pages.forEach(pages => {
         if (pages.name === pageName) {
 
             console.log(pages);
@@ -115,7 +115,7 @@ function setViewToConfig(textBlock) {
         if (element.value === textBlock.linearUnit) {
             //TEST
             console.log(`match LU __ ${element.value} is ${textBlock.linearUnit}`);
-            
+
             document.getElementById(`${element.id}`).checked = true
         }
     });
@@ -124,27 +124,27 @@ function setViewToConfig(textBlock) {
         if (element.value === textBlock.weightUnit) {
             //TEST
             console.log(`match LU __ ${element.value} is ${textBlock.weightUnit}`);
-            
+
             document.getElementById(`${element.id}`).checked = true
         }
     });
     //Page Width
-    document.querySelector('#widthInput').setAttribute("placeholder", linearConverter(textBlock.pageWidth, "px", textBlock.linearUnit).toFixed(2) );
+    document.querySelector('#widthInput').setAttribute("placeholder", linearConverter(textBlock.pageWidth, "px", textBlock.linearUnit).toFixed(2));
     document.querySelector('#widthInput').value = null;
     //Page Height
-    document.querySelector('#heightInput').setAttribute("placeholder", linearConverter(textBlock.pageHeight, "px", textBlock.linearUnit).toFixed(2)  );
+    document.querySelector('#heightInput').setAttribute("placeholder", linearConverter(textBlock.pageHeight, "px", textBlock.linearUnit).toFixed(2));
     document.querySelector('#heightInput').value = null;
     //Paper GSM
     document.querySelector('#paperWeight').setAttribute("placeholder", textBlock.paperGSM);
     document.querySelector('#paperWeight').value = null;
     //Top and Bottom Margins
-    document.querySelector('#topBotomInput').setAttribute("placeholder", linearConverter(textBlock.topBottomMargin, "px", textBlock.linearUnit).toFixed(2) );
+    document.querySelector('#topBotomInput').setAttribute("placeholder", linearConverter(textBlock.topBottomMargin, "px", textBlock.linearUnit).toFixed(2));
     document.querySelector('#topBotomInput').value = null;
     //Inside Margin
-    document.querySelector('#insideInput').setAttribute("placeholder", linearConverter(textBlock.insideMargin, "px", textBlock.linearUnit).toFixed(2) );
+    document.querySelector('#insideInput').setAttribute("placeholder", linearConverter(textBlock.insideMargin, "px", textBlock.linearUnit).toFixed(2));
     document.querySelector('#insideInput').value = null;
     //Outside Margin
-    document.querySelector('#outsideInput').setAttribute("placeholder", linearConverter(textBlock.outsideMargin, "px", textBlock.linearUnit).toFixed(2) );
+    document.querySelector('#outsideInput').setAttribute("placeholder", linearConverter(textBlock.outsideMargin, "px", textBlock.linearUnit).toFixed(2));
     document.querySelector('#outsideInput').value = null;
     //Target Font Point Size
     document.querySelector('#pointSizeFont').setAttribute("placeholder", textBlock.targetFontPt);
@@ -198,6 +198,10 @@ function setViewToConfig(textBlock) {
 * update results. WITH TEXTBLOCK
 */
 function updateResults(textblock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes) {
+    
+    //TEST
+    console.log("updating Results__")
+    
     if (isNaN(textblock.resultNumPages)) {
         numPageRes.innerHTML = "&nbsp;";
     } else {
@@ -229,7 +233,7 @@ function updateResults(textblock, numPageRes, numSheetsRes, thicknessBlockRes, w
 }
 
 function updateMeasures(textblock, pageWidthIn, pageHeightIn, topBottomMarginIn, insideMarginIn, ousideMarginIn) {
-    
+
     if (pageWidthIn.value !== "") {
         let valueWidth = parseFloat(pageWidthIn.value);
         textblock.pageWidth = linearConverter(valueWidth, textblock.linearUnit, "px");
@@ -265,11 +269,17 @@ function updateMeasures(textblock, pageWidthIn, pageHeightIn, topBottomMarginIn,
 /*
 * Add download link for font to header
 */
-function addFontLink(fontFamily, headerElement) {
-    const url = "https://fonts.googleapis.com/css?family=" + fontFamily;
+async function addFontLink(fontFamilyNew, headerElement, textBlock) {
+    const url = "https://fonts.googleapis.com/css?family=" + fontFamilyNew;
     const link = document.createElement('link');
     link.href = url;
     link.rel = "stylesheet";
+    link.onload = () => {
+        console.log("done Load now__");
+        textBlock.fontFamily = fontFamilyNew;
+        document.getElementById("updateNoShow").click();
+    };
+    link.async = true;
     headerElement[0].appendChild(link);
 
 }
