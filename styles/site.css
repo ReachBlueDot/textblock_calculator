@@ -10,6 +10,7 @@ body {
 
 select {
     font-size: 16pt;
+    width: 300px;
 }
 
 option {
@@ -60,6 +61,15 @@ label[for="filePicker"] {
     flex-grow: 2;
 }
 
+h1 {
+    font-family: 'New Century Schoolbook';
+}
+
+h1::first-letter {
+    font-family: 'Book Antiqua';
+    font-size: larger;
+}
+
 #divHeaderImg {
     flex-grow: 1;
     align-items: center;
@@ -90,7 +100,7 @@ label[for="filePicker"] {
     align-content: flex-start;
 }
 
-#fileList > div {
+#fileList div {
     width: 100px;
     background-color: lightblue;
     border: 1px solid gray;
@@ -98,6 +108,11 @@ label[for="filePicker"] {
     margin: 2px;
     overflow-wrap: break-word;
 }
+
+#fileList div:hover {
+    border: 3px solid rgb(219, 28, 28);
+}
+
 
 #load {
     display: inline;
@@ -136,7 +151,7 @@ label[for="filePicker"] {
     padding-bottom: 0px;
 }
 
-h3 > img {
+h3 img {
     width: 40px;
     height: 40px;
 }
@@ -168,12 +183,53 @@ h3 > img {
     border: 3px solid black;
     border-radius: 10px;
     border-collapse: collapse;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color:bisque;
 }
 
-.section > h3 {
-    margin-top: 5px;
-    margin-bottom: 5px;
+.section h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    background-image: linear-gradient(to bottom right, plum, yellow);
+    border-radius: 10px;
 }
+
+.section + .section h3 {
+    background-image: linear-gradient(to bottom right, yellow,rgb(161, 160, 221));
+}
+
+.section + .section + .section h3 {
+    background-image: linear-gradient(to bottom right, rgb(161, 160, 221), rgb(160, 221, 216));
+}
+
+.section + .section + .section + .section h3 {
+    background-image: linear-gradient(to bottom right, rgb(160, 221, 216), rgb(226, 153, 169));
+}
+
+.section + .section + .section + .section + .section h3 {
+    background-image: linear-gradient(to bottom right, rgb(226, 153, 169), rgb(209, 153, 226));
+}
+
+.section h3::first-line {
+    font-weight: bolder;
+    color: darkblue;
+}
+
+.section:first-of-type {
+    border-top: 6px solid black;;
+}
+
+.section:last-of-type {
+    border-bottom: 6px solid black;;
+}
+
+h3 + .tabContent {
+    background-color:bisque;
+}
+
 
 [data-tab-content] {
     display: none;
@@ -184,8 +240,8 @@ h3 > img {
 }
 
 .tabBar > div {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
     margin: 0px;
