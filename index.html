@@ -16,10 +16,11 @@
 
 
     <script type="module">
+        //import { getFontList } from './scripts/pickFont.js';
         import { getFontList } from './modules/pickFont.mjs';
         import { TextBlock, textBlockString, textMeasure, addChildTextDiv, removeChildTextDiv } from './modules/TextBlock.mjs';
         import { linearConverter, weightConverter } from './modules/converters.mjs';
-        import { handleFilesIn, showFilesFromSession, activateFile } from './modules/fileHandler.mjs';
+        import { FileHandler, handleFilesIn, showFilesFromSession, activateFile } from './modules/FileHandler.mjs';
         import { getJSONconfig, setJSONconfig, populatePageSizeSelect, getJSONpageSize, setJSONpageSize, setViewToConfig, updateResults, updateMeasures, addFontLink } from './modules/manager.mjs';
 
         window.addEventListener("DOMContentLoaded", () => {
@@ -280,13 +281,7 @@
             });
 
 
-            /*
-            * FILE Handler declared for event listener
-            * --Function Expression--
-            */
-            const handleFiles = function handleFiles() {
-                handleFilesIn(filePicker, loadFilesBtn);
-            }
+
 
 
             /*
@@ -346,10 +341,10 @@
 
 
 
-/*             //FILE Handler declared for event listner
-            const handleFiles = function handleFiles() {
+            //FILE Handler declared for event listner
+            function handleFiles() {
                 handleFilesIn(filePicker, loadFilesBtn);
-            } */
+            }
 
             //click load files button on load of tab
             /*             let textTab = document.getElementById("text");
@@ -1072,8 +1067,7 @@
         </div>
     </div>
 
-    <h6 id="previewHeader" style="background-color: brown;">Style Preview</h6>
-    <div id="textNoShow" style="display: none; ">&nbsp;</div>
+    <div id="textNoShow" style="display: block; ">&nbsp;</div>
 
 
 </body>

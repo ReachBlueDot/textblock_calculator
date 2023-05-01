@@ -1,6 +1,6 @@
 /**
  * 
- * Code for navigation and tab elements of the page
+ * Code for navigation and tab elements
  */
 
 
@@ -14,7 +14,7 @@ tabs.forEach(tab => {
     tab.addEventListener('click', () => {
         const target = document.querySelector(tab.dataset.tabTarget);
         let wasActive = target.classList.contains('active');
-
+        //console.log(wasActive);
 
         tabContents.forEach(tabContents => {
 
