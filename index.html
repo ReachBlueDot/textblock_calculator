@@ -281,6 +281,13 @@
             });
 
 
+            /*
+            * FILE Handler declared for event listener
+            * --Function Expression--
+            */
+            const handleFiles = function handleFiles() {
+                handleFilesIn(filePicker, loadFilesBtn);
+            }
 
 
 
@@ -341,10 +348,6 @@
 
 
 
-            //FILE Handler declared for event listner
-            function handleFiles() {
-                handleFilesIn(filePicker, loadFilesBtn);
-            }
 
             //click load files button on load of tab
             /*             let textTab = document.getElementById("text");
