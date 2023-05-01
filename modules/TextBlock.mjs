@@ -243,7 +243,7 @@ function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, sheetCount) {
 
 /**
  * Calculate pages to add for section headings
- * takes portion of page per, and number of sections, and if section will alway begin on the same side
+ * takes portion of page per, and number of sections, and if section will always begin on the same side
  */
 function headerSpace(portionOfPage, numSections, startsOnSide) {
     let spaceAdd = 0;
