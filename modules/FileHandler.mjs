@@ -1,6 +1,11 @@
-/**
- * Functions to handel file activitys 
- */
+import { TextBlock, addChildTextDiv } from "./TextBlock.mjs";
+
+class FileHandler {
+    constructor() {
+        this.storedFiles = [];
+    }
+
+}
 
 /**
  * Add selected files to local storage
@@ -145,4 +150,4 @@ function activateFile(textBlock, fileName, fileText) {
     console.log("end of activate file");
 }
 
-export { handleFilesIn, showFilesFromSession, activateFile }
+export { FileHandler, handleFilesIn, showFilesFromSession, activateFile }
