@@ -1,3 +1,8 @@
+/**
+ * Functions to handel management of interface an processing of data 
+ */
+
+
 import { textMeasure } from './TextBlock.mjs';
 import { linearConverter, weightConverter } from "./converters.mjs";
 
@@ -94,7 +99,7 @@ async function getJSONpageSize(path, pageName) {
 * PAPER DEFAULT SETTINGS SET TEXTBLOCK
 * set TextBlock atributes to configuration json file for TextBlock settings
 */
-function setJSONpageSize(textBlock, jsonData) {
+const setJSONpageSize = function (textBlock, jsonData) {
     textBlock.pageWidth = jsonData.pageWidth;
     textBlock.pageHeight = jsonData.pageHeight;
     textBlock.topBottomMargin = jsonData.topBottomMargin;

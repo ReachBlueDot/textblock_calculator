@@ -8,6 +8,10 @@ body {
     margin: 0px;
 }
 
+* {
+    font-size: 16pt;
+}
+
 select {
     font-size: 16pt;
 }
@@ -73,6 +77,7 @@ label[for="filePicker"] {
 
 #resultsDisplay {
     text-align: center;
+    max-height: -moz-fit-content;
     max-height: fit-content;
 }
 
@@ -120,6 +125,7 @@ label[for="filePicker"] {
     align-items: stretch;
     min-width: 100px;
     max-width: 45%;
+    max-height: -moz-fit-content;
     max-height: fit-content;
     margin: 3px;
     padding: 3px;
@@ -141,7 +147,6 @@ h3 > img {
 
 .pageContent {
     display: flex;
-    size: auto;
 }
 
 .tabBar {
@@ -152,9 +157,7 @@ h3 > img {
     padding-bottom: 15px;
 }
 
-.tabContent {
-    max-width: auto;
-}
+
 
 .tab {
     display: flex;
