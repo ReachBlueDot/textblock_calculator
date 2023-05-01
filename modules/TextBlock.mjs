@@ -364,7 +364,7 @@ function textMeasure(element, textBlock) {
         console.log(noShowDiv.innerText); */
 
     //TEST - none
-    //noShowDiv.style.display = "none";
+    noShowDiv.style.display = "none";
 }
 
 

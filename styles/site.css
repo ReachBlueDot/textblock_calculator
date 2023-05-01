@@ -73,6 +73,7 @@ label[for="filePicker"] {
 
 #resultsDisplay {
     text-align: center;
+    max-height: -moz-fit-content;
     max-height: fit-content;
 }
 
@@ -120,6 +121,7 @@ label[for="filePicker"] {
     align-items: stretch;
     min-width: 100px;
     max-width: 45%;
+    max-height: -moz-fit-content;
     max-height: fit-content;
     margin: 3px;
     padding: 3px;
