@@ -1,3 +1,7 @@
+/**
+ * Functions and TextBlock Object to handel data storage and manipulation 
+ */
+
 import { linearConverter, weightConverter } from './converters.mjs';
 
 /**
@@ -364,7 +368,7 @@ function textMeasure(element, textBlock) {
         console.log(noShowDiv.innerText); */
 
     //TEST - none
-    //noShowDiv.style.display = "none";
+    noShowDiv.style.display = "none";
 }
 
 
