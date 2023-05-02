@@ -33,13 +33,8 @@ async function handleFilesIn(filesElement, loadElement) {
 
     for (let item of fileList) {
 
-        //TEST
-        /*         console.log(item); */
-
         nameListArray.push(item.name);
 
-        //TEST
-        /*         console.log(nameListArray); */
     }
 
 
@@ -47,29 +42,19 @@ async function handleFilesIn(filesElement, loadElement) {
         promiseReaders.push(handleFilesInPromise(fileList[i]));
     }
     Promise.all(promiseReaders).then((val) => {
-        /*         console.log("__Reader Results__ ");
-                console.log(val); */
 
         for (let i = 0; i < nameListArray.length; i++) {
             let thisText = "";
             let storeFile = false;
 
             thisText = thisText + val[i];
-            /*             console.log(thisText); */
 
             if (sessionStorage.getItem(nameListArray[i]) !== null) {
                 storeFile = confirm(`A file with this name (${nameListArray[i]}) already exists, do you want to replace it?`);
-                //TEST
-                /*                 console.log(storeFile); */
 
                 if (storeFile === true) {
-                    //TEST
-                    /*                     console.log("storring file"); */
-                    sessionStorage.removeItem(nameListArray[i]);
 
-                    //TEST
-                    /*                     console.log("Local Storage Keys post remove");
-                                        console.log(Object.keys(localStorage)); */
+                    sessionStorage.removeItem(nameListArray[i]);
 
                     sessionStorage.setItem(nameListArray[i], thisText);
                 }
@@ -77,9 +62,6 @@ async function handleFilesIn(filesElement, loadElement) {
                 sessionStorage.setItem(nameListArray[i], thisText);
             }
 
-            //TEST
-            /*             console.log("Local Storage Keys");
-                        console.log(Object.keys(localStorage)); */
             loadElement.click();
         }
 
@@ -95,7 +77,6 @@ async function handleFilesIn(filesElement, loadElement) {
 
 
 /**
- * ****************IN TESTING*************************************************
  * Show files from Session Storage in a Div
  * takes a div
  */
@@ -112,7 +93,7 @@ function showFilesFromSession(element, textBlock) {
         activeCheck.setAttribute("title", `${item}`)
 
         if (textBlock.targetTexts.has(item)) {
-            console.log("already on list ^^^^^^^^^^^^^^");
+
             activeCheck.setAttribute("checked", "true");
         }
         
@@ -136,18 +117,8 @@ function showFilesFromSession(element, textBlock) {
  */
 function activateFile(textBlock, fileName, fileText) {
 
-    //TEST
-    console.log("testActivateFile  _");
-    console.log(fileText);
-
     textBlock.targetTexts.set(fileName, fileText);
-    console.log("Target Texts Array __");
-    console.log(textBlock.targetTexts);
 
-
-
-    //TEST
-    console.log("end of activate file");
 }
 
 export { FileHandler, handleFilesIn, showFilesFromSession, activateFile }
