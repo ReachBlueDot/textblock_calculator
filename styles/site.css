@@ -8,6 +8,7 @@ body {
     margin: 0px;
 }
 
+
 select {
     font-size: 16pt;
     width: 300px;
@@ -25,10 +26,35 @@ input[type="checkbox"] {
     height: 1.25em;
     width: 1.25em;
     vertical-align: middle;
+
 }
+
+input:placeholder-shown {
+    border: 5px solid lightskyblue;
+    border-radius: 3px;
+}
+
+input[type="checkbox"]:checked {
+    outline: 3px solid lightgreen;
+    border: none;
+
+}
+
+
+
 
 input[type="file"] {
     max-width: 300px;
+}
+
+input[type="file"]::file-selector-button {
+    border: 3px solid lightskyblue;
+    border-radius: 3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+label:after {
+    content: ": ";
 }
 
 label[for="filePicker"] {
@@ -52,23 +78,54 @@ label[for="filePicker"] {
 }
 
 
+
 .pageHeader {
     text-align: center;
-    max-height: 10%;
+
+    background-color:#fff87d;
 }
 
 #divHeaderText {
     flex-grow: 2;
 }
 
+.pageHeader a {
+    font-size: 12pt;
+}
+
+a:link {
+    color: black;
+    font-family: 'Rockwell', serif;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: blue;
+}
+
+a::before {
+    content: '\261B';
+}
+
+a::after {
+    content: '\261A';
+}
+
+
 h1 {
     font-family: 'New Century Schoolbook';
+    font-size: 200%;
 }
 
 h1::first-letter {
     font-family: 'Book Antiqua';
     font-size: larger;
 }
+
 
 #divHeaderImg {
     flex-grow: 1;
@@ -78,6 +135,18 @@ h1::first-letter {
 #headerImg {
     max-height: 100px;
     max-width: 100px;
+}
+
+#headerImg::selection {
+    background-color: darkred;
+}
+
+.resultsContent {
+    background-color:cornflowerblue;
+}
+
+.resultsContent div {
+    background-color: aliceblue;
 }
 
 
@@ -111,14 +180,9 @@ h1::first-letter {
 
 #fileList div:hover {
     border: 3px solid rgb(219, 28, 28);
+    margin: 0px;
 }
 
-
-#load {
-    display: inline;
-    text-align: center;
-    font-size: 16pt;
-}
 
 .flex-container-inner {
     display: flex;
@@ -128,6 +192,7 @@ h1::first-letter {
     margin: 0px;
     max-height: max-content;
 }
+
 
 .flex-item-card {
     display: flex;
@@ -150,6 +215,26 @@ h1::first-letter {
     padding-top: 0px;
     padding-bottom: 0px;
 }
+
+.card-header + div {
+    background-color: deeppink;
+}
+
+.card-header + button {
+    background-color: dodgerblue;
+    border: 2px solid deeppink;
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+#defaultBtn::before {
+    content: '\21BA';
+}
+
+#downloadBtn::before {
+    content: '\270E'
+}
+
 
 h3 img {
     width: 40px;
@@ -226,8 +311,15 @@ h3 img {
     border-bottom: 6px solid black;;
 }
 
+
+h4 ~ div {
+    margin-top: 3px;
+}
+
 h3 + .tabContent {
     background-color:bisque;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 
@@ -237,6 +329,7 @@ h3 + .tabContent {
 
 .active[data-tab-content] {
     display: block;
+
 }
 
 .tabBar > div {
@@ -252,8 +345,45 @@ h3 + .tabContent {
 
 
 
-@media only screen and (min-width: 400px) {
+@media only screen and (min-width: 700px) {
     .tabBar > div {
         text-align: start;
     }
+
+    label {
+        width: 260px;
+        float:left;
+        text-align: end;
+        padding-right: 3px;
+    }
+
+    .pageHeader a {
+        font-size: 14pt;
+    }
+
+    .resultsContent .flex-item-card ~ .flex-item-card {
+        border: 3px solid gold;
+    }
+    
+    .card-header {
+        max-height: min-content;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    
+    .card-header + div {
+        background-color: deeppink;
+        font-size: 24px;
+        border: 3px inset grey;
+    }
+    
+    .pageHeader + div > h6 {
+        font-size: larger;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 8px;
+    }
+
 }
