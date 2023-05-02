@@ -6,8 +6,12 @@ body {
     padding-top: 0px;
     padding-bottom: 0px;
     margin: 0px;
+    background-color: rgb(207, 235, 233);
 }
 
+.testConfig {
+    display: none;
+}
 
 select {
     font-size: 16pt;
@@ -34,14 +38,17 @@ input:placeholder-shown {
     border-radius: 3px;
 }
 
+
+input[type="number"]:invalid + .inputTag::after{
+    content: '\26A0';
+    color: red;
+}
+
 input[type="checkbox"]:checked {
     outline: 3px solid lightgreen;
     border: none;
 
 }
-
-
-
 
 input[type="file"] {
     max-width: 300px;
@@ -51,7 +58,13 @@ input[type="file"]::file-selector-button {
     border: 3px solid lightskyblue;
     border-radius: 3px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
 }
+
+label.above {
+display: block;
+}
+
 
 label:after {
     content: ": ";
@@ -66,24 +79,24 @@ label[for="filePicker"] {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 0px;
+
 }
 
 .flex-item {
     display: flex;
     flex-direction: row;
+    height: max-content;
 }
 
 
 
 .pageHeader {
     text-align: center;
-
     background-color:#fff87d;
+    padding: 5px;
 }
+
 
 #divHeaderText {
     flex-grow: 2;
@@ -119,6 +132,8 @@ a::after {
 h1 {
     font-family: 'New Century Schoolbook';
     font-size: 200%;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 h1::first-letter {
@@ -159,6 +174,7 @@ h1::first-letter {
 #resultsHeader {
     max-height: 20px;
     margin: 0px;
+    background-color: rgb(213, 167, 236);
 }
 
 #fileList {
@@ -225,6 +241,7 @@ h1::first-letter {
     border: 2px solid deeppink;
     font-size: 14pt;
     font-weight: bold;
+    color: black;
 }
 
 #defaultBtn::before {
@@ -279,7 +296,7 @@ h3 img {
     margin-right: 0px;
     margin-left: 0px;
     background-image: linear-gradient(to bottom right, plum, yellow);
-    border-radius: 10px;
+    border-radius: 9px;
 }
 
 .section + .section h3 {
@@ -357,6 +374,13 @@ h3 + .tabContent {
         padding-right: 3px;
     }
 
+    label.above {
+        display: inline;
+    }
+
+    h1 {
+        font-size: 50pt;
+    }
     .pageHeader a {
         font-size: 14pt;
     }
@@ -384,6 +408,14 @@ h3 + .tabContent {
         margin-top: 5px;
         margin-bottom: 5px;
         padding: 8px;
+    }
+
+    @media only screen and (min-width: 1100px) {
+
+        #divHeaderText {
+            flex-grow: 3;
+            padding-left: 10%;
+        }
     }
 
 }

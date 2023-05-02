@@ -136,6 +136,10 @@ function setViewToConfig(textBlock) {
     //Paper GSM
     document.querySelector('#paperWeight').setAttribute("placeholder", textBlock.paperGSM);
     document.querySelector('#paperWeight').value = null;
+
+    //Number of Chapers
+    document.querySelector('#numSections').setAttribute("placeholder", textBlock.numSections);
+
     //Top and Bottom Margins
     document.querySelector('#topBotomInput').setAttribute("placeholder", linearConverter(textBlock.topBottomMargin, "px", textBlock.linearUnit).toFixed(2));
     document.querySelector('#topBotomInput').value = null;
@@ -282,7 +286,7 @@ async function addFontLink(fontFamilyNew, headerElement, noShowDiv, textBlock, n
             document.fonts.ready.then(() => {
                 //TEST
                 console.log("done Load now__");
-                
+
                 textBlock.fontFamily = fontFamilyNew;
                 textMeasure(noShowDiv, textBlock);
                 updateResults(textBlock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
@@ -292,7 +296,7 @@ async function addFontLink(fontFamilyNew, headerElement, noShowDiv, textBlock, n
 
         headerElement[0].appendChild(link);
     } else if (fontFamilyNew == -1) {
-        
+
         const response = await fetch(`./json/defaults.json`);
         const jsonData = await response.json();
         textBlock.fontFamily = jsonData.fontFamily;
