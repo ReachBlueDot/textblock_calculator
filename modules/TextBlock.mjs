@@ -62,20 +62,14 @@ class TextBlock {
      */
 
     get numLineBreaks() {
-        //TEST
         const textsIter = this.targetTexts.values();
 
         let newLineCount = 0;
         for (let text of textsIter) {
             newLineCount = newLineCount + (text.match(/\n/g) || []).length + 1;
 
-            //TEST
-            /*             console.log("Line Count So far__ ");
-                        console.log("numParagraphs __" + newLineCount); */
         }
-        //TEST
-        /*         console.log("Line Count Total__ ");
-                console.log("numParagraphs __" + newLineCount); */
+
         return newLineCount;
     }
 
@@ -86,13 +80,10 @@ class TextBlock {
     get paraSpaceAdd() {
 
         let addUnit = (this.targetFontPt * this.lineSpacing);
-
-        //TEST 
-        //trying adding 1      
+       
+        // adding 1      
         let totalAdded = ((this.paragraphSpacing + 1) * addUnit) * this.numLineBreaks;
 
-        //TEST
-        /*         console.log("added for paragraphs __" + totalAdded); */
         return totalAdded;
     }
 
@@ -100,32 +91,6 @@ class TextBlock {
 }
 
 
-
-/*
-* TEST FOR DEFAULT SETTINGS IMPORT
-* set TextBlock atributes to configuration json file for TextBlock settings
-*/
-/* function setJSONconfig(textBlock, jsonData) {
-    textBlock.linearUnit = jsonData.linearUnit;
-    textBlock.weightUnit = jsonData.weightUnit;
-    textBlock.pageWidth = jsonData.pageWidth;
-    textBlock.pageHeight = jsonData.pageHeight;
-    textBlock.paperGSM = jsonData.paperGSM;
-    textBlock.topBottomMargin = jsonData.topBottomMargin;
-    textBlock.insideMargin = jsonData.insideMargin;
-    textBlock.outsideMargin = jsonData.outsideMargin;
-    textBlock.targetFontPt = jsonData.targetFontPt;
-    textBlock.fontFamily = jsonData.fontFamily;
-    textBlock.lineSpacing = jsonData.lineSpacing;
-    textBlock.paragraphSpacing = jsonData.paragraphSpacing;
-    textBlock.flyLeaves = jsonData.flyLeaves;
-    textBlock.titlePage = jsonData.titlePage;
-    textBlock.tableOfContentsPage = jsonData.tableOfContentsPage;
-    textBlock.infoPage = jsonData.infoPage;
-    textBlock.pagePerSectionHead = jsonData.pagePerSectionHead;
-    textBlock.imagePages = jsonData.imagePages;
-}
- */
 
 /*
 * FOR OUTPUT FILE TEXT
@@ -190,7 +155,7 @@ function textBlockString(textBlock) {
 
 
 /*
-* TEST FOR TEXT THICKNESS MEASUREMENT
+* TEXT THICKNESS MEASUREMENT
 * translates paper GSM and page count to aproxomate thickness of textblock in CM
 */
 function blockThicknessCM(pageThicknessGSM, leafeCount) {
@@ -203,25 +168,19 @@ function blockThicknessCM(pageThicknessGSM, leafeCount) {
 
 
 /*
-* TEST FOR TEXT WEIGHT MEASUREMENT
+* TEXT WEIGHT MEASUREMENT
 * translates paper GSM and page count to aproxomate weight of textblock in kilograms
 * takes linear units of px
 */
 function blockWeightKg(pageThicknessGSM, pageHeight, pageWidth, sheetCount) {
 
-    /*     console.log("_block Weight test__");
-        console.log(pageThicknessGSM);
-        console.log(pageHeight);
-        console.log(pageWidth);
-        console.log(sheetCount); */
+
 
     let cmHeight = linearConverter(pageHeight, "px", "cm");
-    /*     console.log(cmHeight); */
+
     let cmWidth = linearConverter(pageWidth, "px", "cm");
-    /*     console.log(cmWidth); */
 
     let weightKG = (pageThicknessGSM * cmHeight * cmWidth * sheetCount * 2) / (1000 * 10000);
-    /*     console.log(weightKG); */
 
     return weightKG;
 }
@@ -247,9 +206,6 @@ function headerSpace(portionOfPage, numSections, startsOnSide) {
 function addChildTextDiv(element, textBlock, targetTextsKey) {
     for (const child of element.children) {
         if (targetTextsKey === child.id) {
-            //TEST
-            /*             console.log(targetTextsKey);
-                        console.log(child.id); */
 
             child.remove();
         }
@@ -271,9 +227,7 @@ function addChildTextDiv(element, textBlock, targetTextsKey) {
 function removeChildTextDiv(element, textBlock, targetTextsKey) {
     for (const child of element.children) {
         if (targetTextsKey === child.id) {
-            //TEST
-            /*             console.log(targetTextsKey);
-                        console.log(child.id); */
+
 
             child.remove();
         }
@@ -287,9 +241,6 @@ function removeChildTextDiv(element, textBlock, targetTextsKey) {
  */
 function updateStyleChildTextDiv(element, textBlock) {
     for (const child of element.children) {
-        //TEST
-        console.log("updateing child div___");
-
 
         child.style.fontSize = textBlock.targetFontPt + "pt";
         child.style.fontFamily = textBlock.fontFamily;
@@ -304,13 +255,8 @@ function updateStyleChildTextDiv(element, textBlock) {
 function textMeasure(element, textBlock) {
     let noShowDiv = element;
 
-    //TEST
-    console.log("measure Block__");
-    console.log(textBlock);
-
     updateStyleChildTextDiv(noShowDiv, textBlock);
 
-    //TEST DOES A GETTER WORK LIKE THIS?
     noShowDiv.style.width = textBlock.textAreaWidth + "px";
 
 
@@ -320,36 +266,17 @@ function textMeasure(element, textBlock) {
     //add in paragrph spacing
     divHeight = divHeight + textBlock.paraSpaceAdd;
 
-    /*     let divWidth = noShowDiv.clientWidth + "px"; */
-
-    //TEST - none
-    //noShowDiv.style.display = "none";
 
     let headerPgs = headerSpace(textBlock.pagePerSectionHead, textBlock.numSections, textBlock.sectionHeadSameSide);
     let addInPages = (2 * textBlock.flyLeaves) + textBlock.titlePage + textBlock.tableOfContentsPage + textBlock.infoPage + headerPgs + textBlock.imagePages;
     addInPages = Math.ceil(addInPages);
-
-    //TEST
-    /*     console.log("TEST ADD IN Pages ___");
-        console.log(textBlock.pagePerSectionHead);
-        console.log(numSections);
-        console.log(headerPgs);
-        console.log(2 * textBlock.flyLeaves);
-        console.log(textBlock.titlePage);
-        console.log(textBlock.tableOfContentsPage);
-        console.log(textBlock.infoPage);
-        console.log(textBlock.imagePages);
-        console.log(addInPages); */
 
     textBlock.resultNumPages = Math.ceil(divHeight / textBlock.textAreaHeight) + addInPages;
     textBlock.resultNumSheets = Math.ceil(textBlock.resultNumPages / 4);
     textBlock.resultThickness = blockThicknessCM(textBlock.paperGSM, (textBlock.resultNumSheets * 2));
     textBlock.resultWeight = blockWeightKg(textBlock.paperGSM, textBlock.pageHeight, textBlock.pageWidth, textBlock.resultNumSheets);
 
-    /*     console.log("Height_" + divHeight + "__Width_" + divWidth + "_");
-        console.log(noShowDiv.innerText); */
-
-    //TEST - none
+    //Hide text - none
     noShowDiv.style.display = "none";
 }
 

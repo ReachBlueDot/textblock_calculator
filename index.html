@@ -16,7 +16,6 @@
 
 
     <script type="module">
-        //import { getFontList } from './scripts/pickFont.js';
         import { getFontList } from './modules/pickFont.mjs';
         import { TextBlock, textBlockString, textMeasure, addChildTextDiv, removeChildTextDiv } from './modules/TextBlock.mjs';
         import { linearConverter, weightConverter } from './modules/converters.mjs';
@@ -83,48 +82,46 @@
             * Load any files in session storage. 
             */
             const loadFromSession = async function loadFromSession() {
-                console.log("loading");
 
                 showFilesFromSession(fileDisplay, textBlock1);
                 textMeasure(noShowDiv, textBlock1);
-                //updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
 
 
                 let checkElement = document.querySelectorAll("input.activeCheck");
                 checkElement.forEach((item) => {
                     item.addEventListener('onload', () => {
-                        /*                         console.log("Loaded !!**!!**!!"); */
+
                     })
 
                     item.addEventListener('change', () => {
-                        /*                         console.log("changed********************"); */
+
 
                         let fileKey = item.id;
                         let localText = sessionStorage.getItem(fileKey);
 
 
                         if (item.checked === true) {
-                            /*                             console.log("now Checked ************"); */
+
                             activateFile(textBlock1, fileKey, localText);
                             addChildTextDiv(noShowDiv, textBlock1, fileKey);
                             textMeasure(noShowDiv, textBlock1);
                             updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
                         } else {
-                            /*                             console.log("now NOT Checked ************");
-                                                        console.log(textBlock1.targetTexts); */
+
                             textBlock1.targetTexts.delete(`${fileKey}`);
                             removeChildTextDiv(noShowDiv, textBlock1, fileKey);
-                            /*                             console.log(textBlock1.targetTexts); */
+
                             textMeasure(noShowDiv, textBlock1);
                             updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
                         }
                     })
                 })
 
-
-                console.log("loaded");
             }
 
+            /*
+            * Load Inital files from session sotrage
+            */
             loadFromSession();
 
 
@@ -148,7 +145,6 @@
             */
             document.querySelector('#downloadBtn').addEventListener("click", event => {
                 event.preventDefault();
-                console.log(textBlockString(textBlock1));
 
                 const fileLink = document.createElement("a");
                 const file = new Blob([textBlockString(textBlock1)], { type: 'text/plain' });
@@ -167,9 +163,6 @@
                     if (element.checked) {
                         textBlock1.linearUnit = element.value;
 
-                        //TEST
-                        /*                         console.log("L unit __");
-                                                console.log(textBlock1.linearUnit); */
                     }
                     setViewToConfig(textBlock1);
                     updateMeasures(textBlock1, pageWidthIn, pageHeightIn, topBottomMarginIn, insideMarginIn, ousideMarginIn);
@@ -189,9 +182,6 @@
                     if (element.checked) {
                         textBlock1.weightUnit = element.value;
 
-                        //TEST
-                        /*                         console.log("W unit __");
-                                                console.log(textBlock1.weightUnit); */
                     }
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
@@ -212,8 +202,6 @@
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
 
-
-                    (console.log(textBlock1));
                 })
             });
 
@@ -314,18 +302,18 @@
                 let checkElement = document.querySelectorAll("input.activeCheck");
                 checkElement.forEach((item) => {
                     item.addEventListener('onload', () => {
-                        /*                         console.log("Loaded !!**!!**!!"); */
+
                     })
 
                     item.addEventListener('change', () => {
-                        /*                         console.log("changed********************"); */
+
 
                         let fileKey = item.id;
                         let localText = sessionStorage.getItem(fileKey);
 
 
                         if (item.checked === true) {
-                            /*                             console.log("now Checked ************"); */
+
                             activateFile(textBlock1, fileKey, localText);
                             addChildTextDiv(noShowDiv, textBlock1, fileKey);
                             textMeasure(noShowDiv, textBlock1);
@@ -333,11 +321,10 @@
 
 
                         } else {
-                            /*                             console.log("now NOT Checked ************");
-                                                        console.log(textBlock1.targetTexts); */
+
                             textBlock1.targetTexts.delete(`${fileKey}`);
                             removeChildTextDiv(noShowDiv, textBlock1, fileKey);
-                            /*                             console.log(textBlock1.targetTexts); */
+
                             textMeasure(noShowDiv, textBlock1);
                             updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
 
@@ -348,18 +335,6 @@
             });
 
 
-
-
-            //click load files button on load of tab
-            /*             let textTab = document.getElementById("text");
-                        loadFilesBtn.click(); */
-            /*             textTab.addEventListener('onload', () => {
-                            //TEST
-                            console.log("loading on load");
-            
-                            loadFilesBtn.click();
-                        }); */
-
             /*
             * get section count from user. WITH TEXTBLOCK
             */
@@ -368,10 +343,6 @@
                 if (sectionCountIn.value === "") {
                     value = 1;
                 } else {
-
-                    //TEST
-                    /*                     console.log("NUM SECTIONS __");
-                                        console.log(sectionCountIn.value); */
 
                     value = parseInt(sectionCountIn.value);
                 }
@@ -397,10 +368,6 @@
                 if (topBottomMarginIn.value === "") {
                     value = 0;
                 } else {
-
-                    //TEST
-                    /*                     console.log("TBM in__");
-                                        console.log(topBottomMarginIn.value); */
 
                     value = parseFloat(topBottomMarginIn.value);
                 }
@@ -429,10 +396,6 @@
                     value = 0;
                 } else {
 
-                    //TEST
-                    /*                      console.log("IM in__");
-                                        console.log(insideMarginIn.value);  */
-
                     value = parseFloat(insideMarginIn.value);
                 }
 
@@ -460,10 +423,6 @@
                 if (ousideMarginIn.value === "") {
                     value = 0;
                 } else {
-
-                    //TEST
-                    /*                     console.log("OM in__");
-                                        console.log(ousideMarginIn.value); */
 
                     value = parseFloat(ousideMarginIn.value);
                 }
@@ -512,7 +471,7 @@
 
 
                 document.fonts.ready.then(() => {
-                    console.log("Fonts Ready promice___");
+                    //console.log("Fonts Ready promice___");
                     textBlock1.fontFamily = fontPicker.value;
                     textMeasure(noShowDiv, textBlock1);
                     updateResults(textBlock1, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
@@ -546,10 +505,6 @@
                     value = 1;
                 } else {
 
-                    //TEST
-                    /*                     console.log("LINE SPACE__");
-                                        console.log(lineSpaceIn.value); */
-
                     value = parseFloat(lineSpaceIn.value);
                 }
                 if (value > 0) {
@@ -575,10 +530,6 @@
                     value = 1;
                 } else {
 
-                    //TEST
-                    /*                     console.log("PARA SPACE__");
-                                        console.log(paragraphSpaceIn.value); */
-
                     value = parseFloat(paragraphSpaceIn.value);
                 }
                 if (value >= 0) {
@@ -603,10 +554,6 @@
                     value = 0;
                 } else {
 
-                    //TEST
-                    /*                     console.log("FLY LEAVS__");
-                                        console.log(flyLeavesIn.value); */
-
                     value = parseFloat(flyLeavesIn.value);
                 }
                 if (value >= 0) {
@@ -627,14 +574,10 @@
             */
             document.querySelector('#titlePageAdd').addEventListener("change", event => {
                 if (titlePageIn.checked) {
-                    //TEST
-                    /*                     console.log("checked!!!"); */
 
                     textBlock1.titlePage = 2;
 
                 } else {
-                    //TEST
-                    /*                     console.log("Not Checked!!!"); */
 
                     textBlock1.titlePage = 0;
                 }
@@ -650,14 +593,10 @@
             */
             document.querySelector('#tocPageAdd').addEventListener("change", event => {
                 if (tocPageIn.checked) {
-                    //TEST
-                    /*              console.log("checked!!!"); */
 
                     textBlock1.tableOfContentsPage = 2;
 
                 } else {
-                    //TEST
-                    console.log("Not Checked!!!");
 
                     textBlock1.tableOfContentsPage = 0;
                 }
@@ -673,14 +612,10 @@
             */
             document.querySelector('#bookInfoPageAdd').addEventListener("change", event => {
                 if (infoPageIn.checked) {
-                    //TEST
-                    /*          console.log("checked!!!"); */
 
                     textBlock1.infoPage = 2;
 
                 } else {
-                    //TEST
-                    /*               console.log("Not Checked!!!"); */
 
                     textBlock1.infoPage = 0;
                 }
@@ -714,10 +649,6 @@
                     value = 0;
                 } else {
 
-                    //TEST
-                    /*                     console.log("Ch Header Pg__");
-                                        console.log(secionHeaderPortionIn.value); */
-
                     value = parseFloat(secionHeaderPortionIn.value);
                 }
                 if (value >= 0) {
@@ -741,10 +672,6 @@
                 if (imgPagesIn.value === "") {
                     value = 0;
                 } else {
-
-                    //TEST
-                    /*                     console.log("Image Pg__");
-                                        console.log(imgPagesIn.value); */
 
                     value = parseFloat(imgPagesIn.value);
                 }

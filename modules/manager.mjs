@@ -2,22 +2,18 @@ import { textMeasure } from './TextBlock.mjs';
 import { linearConverter, weightConverter } from "./converters.mjs";
 
 /*
-* TEST GET DEFAULT SETTINGS IMPORT
+* GET DEFAULT SETTINGS IMPORT
 * get TextBlock atributes to configuration json file for TextBlock settings
 */
 async function getJSONconfig(path) {
     const response = await fetch(path);
     const jsonData = await response.json();
 
-    //TEST
-    console.log("JSON fetched");
-    console.log(jsonData);
-
     return jsonData;
 }
 
 /*
-* TEST FOR DEFAULT SETTINGS IMPORT
+* FOR DEFAULT SETTINGS IMPORT
 * set TextBlock atributes to configuration json file for TextBlock settings
 */
 function setJSONconfig(textBlock, jsonData) {
@@ -45,24 +41,20 @@ function setJSONconfig(textBlock, jsonData) {
 
 
 /*
-* TEST POPULATE PAGE SETTINGS 
+* POPULATE PAGE SETTINGS 
 * populate select with page size options from json config
 */
 async function populatePageSizeSelect(element, path) {
     const response = await fetch(path);
     const jsonData = await response.json();
 
-    //TEST
-    console.log("JSON fetched");
-    console.log(jsonData);
-
     let htmlString = "";
-    //htmlString += `<option value = '-1'>default page sizes</option>`;
+
     if (jsonData) {
         jsonData.pages.forEach(pages => {
             htmlString += `<option value='${pages.name}'>${pages.name}</option>`;
         });
-        console.log(element);
+
         document.querySelector(element).innerHTML = htmlString;
     }
 }
@@ -80,12 +72,10 @@ async function getJSONpageSize(path, pageName) {
     jsonData.pages.forEach(pages => {
         if (pages.name === pageName) {
 
-            console.log(pages);
             pageInfo = pages;
         }
     });
 
-    //test
     return pageInfo;
 }
 
@@ -112,8 +102,6 @@ function setViewToConfig(textBlock) {
     //Linear Unit
     document.querySelectorAll('input[name="pageLinearUnit"]').forEach((element) => {
         if (element.value === textBlock.linearUnit) {
-            //TEST
-            console.log(`match LU __ ${element.value} is ${textBlock.linearUnit}`);
 
             document.getElementById(`${element.id}`).checked = true
         }
@@ -121,8 +109,6 @@ function setViewToConfig(textBlock) {
     //Weight Unit
     document.querySelectorAll('input[name="pageWeightUnit"]').forEach((element) => {
         if (element.value === textBlock.weightUnit) {
-            //TEST
-            console.log(`match LU __ ${element.value} is ${textBlock.weightUnit}`);
 
             document.getElementById(`${element.id}`).checked = true
         }
@@ -202,9 +188,6 @@ function setViewToConfig(textBlock) {
 */
 function updateResults(textblock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes) {
 
-    //TEST
-    console.log("updating Results__")
-
     if (isNaN(textblock.resultNumPages)) {
         numPageRes.innerHTML = "&nbsp;";
     } else {
@@ -219,7 +202,6 @@ function updateResults(textblock, numPageRes, numSheetsRes, thicknessBlockRes, w
 
     let showThickness = linearConverter((textblock.resultThickness), "cm", textblock.linearUnit);
     if (isNaN(showThickness)) {
-        //console.log("show thickness NaN");
         showThickness = "";
         thicknessBlockRes.innerText = showThickness + textblock.linearUnit;
     } else {
@@ -284,8 +266,6 @@ async function addFontLink(fontFamilyNew, headerElement, noShowDiv, textBlock, n
 
         link.onload = () => {
             document.fonts.ready.then(() => {
-                //TEST
-                console.log("done Load now__");
 
                 textBlock.fontFamily = fontFamilyNew;
                 textMeasure(noShowDiv, textBlock);
@@ -303,10 +283,8 @@ async function addFontLink(fontFamilyNew, headerElement, noShowDiv, textBlock, n
         textMeasure(noShowDiv, textBlock);
         updateResults(textBlock, numPageRes, numSheetsRes, thicknessBlockRes, weightBlockRes);
 
-        console.log("default font __");
-
     } else {
-        console.log("font already loaded __");
+        //console.log("font already loaded __");
     }
 
 
