@@ -771,56 +771,54 @@
 <body>
 
     <div class="flex-container">
-        <div class="pageHeader flex-container" id="pageHeader" style="background-color: lightcoral;">
+        <div class="pageHeader flex-container" id="pageHeader" >
             <div>
                 **Under Construction**
             </div>
             <div class="flex-item">
                 <div id="divHeaderImg" class="flex-item">
-                    <img id="headerImg" src="images/books.png" alt="books of various sizes standing against eachother">
+                    <img id="headerImg" src="images/books-blue.png" alt="books of various sizes standing against eachother">
                 </div>
                 <div id="divHeaderText" class="flex-item">
                     <h1>TextBlock Planner</h1>
                 </div>
             </div>
-
+            <a href="https://momijizukamori.github.io/bookbinder-js/" target="_blank">Looking for Bookbinder JS? Click here. </a>
         </div>
 
         <div id="resultsDisplay">
-            <h6 id="resultsHeader" style="background-color: brown;">Textblock Results</h6>
+            <h6 id="resultsHeader" >Textblock Results</h6>
 
-            <div class="flex-container-inner resultsContent" style="background-color:cornflowerblue;">
+            <div class="flex-container-inner resultsContent">
 
-                <div class="flex-item-card" style="background-color: aliceblue;">
+                <div class="flex-item-card" >
                     <h5 class="card-header">Pages</h5>
-                    <div id="resultNumPages" style="background-color: deeppink;">&nbsp;</div>
+                    <div id="resultNumPages" >&nbsp;</div>
                 </div>
 
-                <div class="flex-item-card" style="background-color: aliceblue;">
+                <div class="flex-item-card" >
                     <h5 class="card-header">Folios</h5>
-                    <div id="resultNumSheets" style="background-color: deeppink;">&nbsp;</div>
+                    <div id="resultNumSheets" >&nbsp;</div>
                 </div>
 
-                <div class="flex-item-card" style="background-color: aliceblue;">
+                <div class="flex-item-card">
                     <h5 class="card-header">Thickness</h5>
-                    <div id="resultBlockThickness" style="background-color: deeppink;">&nbsp;</div>
+                    <div id="resultBlockThickness" >&nbsp;</div>
                 </div>
 
-                <div class="flex-item-card" style="background-color: aliceblue;">
+                <div class="flex-item-card">
                     <h5 class="card-header">Weight</h5>
-                    <div id="resultWeight" style="background-color: deeppink;">&nbsp;</div>
+                    <div id="resultWeight" >&nbsp;</div>
                 </div>
 
-                <div class="flex-item-card" style="background-color: aliceblue;">
+                <div class="flex-item-card" >
                     <h5 class="card-header">Settings</h5>
-                    <button id="defaultBtn"
-                        style="background-color: deeppink; font-size: 14pt; font-weight: bold;">Clear</button>
+                    <button id="defaultBtn">Clear</button>
                 </div>
 
-                <div class="flex-item-card" style="background-color: aliceblue;">
+                <div class="flex-item-card" >
                     <h5 class="card-header">Download</h5>
-                    <button id="downloadBtn"
-                        style="background-color: deeppink; font-size: 14pt; font-weight: bold;">Save</button>
+                    <button id="downloadBtn">Save</button>
                 </div>
 
             </div>
@@ -833,45 +831,48 @@
                     <h3 data-tab-target="#settings"><img id="settingsImg" src="images/icon-config-small.png"
                             alt="settings cog with ruler icon"> Units</h3>
 
-                    <div class="tab" id="settings" data-tab-content style="background-color: plum;">
-                        <div>
+                    <div class="tabContent">
+                        <div class="tab" id="settings" data-tab-content>
+                            <div>
 
-                            <fieldset>
+                                <fieldset>
 
-                                <legend>Select a Linear Unit:</legend>
+                                    <legend>Select a Linear Unit:</legend>
 
-                                <div>
-                                    <input type="radio" id="pageInCM" name="pageLinearUnit" value="cm">
-                                    <label for="pageInCM">cm</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="pageInIN" name="pageLinearUnit" value="in">
-                                    <label for="pageInIN">in</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="pageInPX" name="pageLinearUnit" value="px">
-                                    <label for="pageInPX">pixels</label>
-                                </div>
+                                    <div>
+                                        <input type="radio" id="pageInCM" name="pageLinearUnit" value="cm">
+                                        <label for="pageInCM">cm</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="pageInIN" name="pageLinearUnit" value="in">
+                                        <label for="pageInIN">in</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="pageInPX" name="pageLinearUnit" value="px">
+                                        <label for="pageInPX">pixels</label>
+                                    </div>
 
-                            </fieldset>
+                                </fieldset>
 
-                            <fieldset>
+                                <fieldset>
 
-                                <legend>Select a Weight Unit:</legend>
+                                    <legend>Select a Weight Unit:</legend>
 
-                                <div>
-                                    <input type="radio" id="blockInKG" name="pageWeightUnit" value="kg">
-                                    <label for="blockInKG">kg</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="blockInLB" name="pageWeightUnit" value="lb">
-                                    <label for="blockInLB">lb</label>
-                                </div>
+                                    <div>
+                                        <input type="radio" id="blockInKG" name="pageWeightUnit" value="kg">
+                                        <label for="blockInKG">kg</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="blockInLB" name="pageWeightUnit" value="lb">
+                                        <label for="blockInLB">lb</label>
+                                    </div>
 
-                            </fieldset>
+                                </fieldset>
+                            </div>
+
                         </div>
-
                     </div>
+
                 </div>
 
                 <div class="section">
@@ -879,12 +880,12 @@
                         Paper Information</h3>
 
                     <div class="tabContent">
-                        <div class="tab" id="paper" data-tab-content style="background-color: aqua;">
+                        <div class="tab" id="paper" data-tab-content>
                             <div>
                                 <h5>Page Dimentions</h5>
 
                                 <div>
-                                    <label for="pagePresets">Page Size Preset Options: </label>
+                                    <label for="pagePresets">Page Size Preset Options</label>
                                     <select name="pagePresets" id="pagePresets"></select>
                                 </div>
 
@@ -904,8 +905,8 @@
                             <div>
                                 <h5>Paper Weight</h5>
                                 <div>
-                                    <input type="number" id="paperWeight" name="paperWeight">
                                     <label for="paperWeight">gsm</label>
+                                    <input type="number" id="paperWeight" name="paperWeight">
                                 </div>
                             </div>
 
@@ -919,7 +920,7 @@
                             alt="text document icon"> Text Information</h3>
 
                     <div class="tabContent">
-                        <div class="tab" id="text" data-tab-content style="background-color:aquamarine;">
+                        <div class="tab" id="text" data-tab-content>
                             <div>
                                 <h5>Select Text</h5>
                                 <div id="fileList"></div>
@@ -951,7 +952,7 @@
                             alt="formatting icon with paragraph symble"> Text Formatting</h3>
 
                     <div class="tabContent">
-                        <div class="tab" id="formatting" data-tab-content style="background-color:bisque;">
+                        <div class="tab" id="formatting" data-tab-content>
                             <div>
                                 <div>
                                     <h4>Page Margins</h4>
@@ -974,13 +975,13 @@
                                     <h4>Font Formating</h4>
                                     <div>
                                         <h5>Font point size of body text</h5>
-                                        <label for="pointSizeFont">Pt: </label>
+                                        <label for="pointSizeFont">Pt</label>
                                         <input type="number" id="pointSizeFont" name="pointSizeFont" required>
                                     </div>
 
                                     <div>
                                         <h5>Font</h5>
-                                        <label for="fontList">Select: </label>
+                                        <label for="fontList">Select font</label>
                                         <select id="fontList"></select>
                                     </div>
                                 </div>
@@ -992,13 +993,13 @@
 
                                     <div>
                                         <h5>Line Spacing</h5>
-                                        <label for="lineSpacing">Spacing: </label>
+                                        <label for="lineSpacing">Line spacing</label>
                                         <input type="number" id="lineSpacing" name="lineSpacing" required>
                                     </div>
 
                                     <div>
                                         <h5>Line Spacing Between Paragraphs</h5>
-                                        <label for="paragraphSpacing">Spacing: </label>
+                                        <label for="paragraphSpacing">Paragraph spacing</label>
                                         <input type="number" id="paragraphSpacing" name="paragraphSpacing" required>
                                     </div>
                                 </div>
@@ -1014,40 +1015,40 @@
                             alt="additions icon"> Extras</h3>
 
                     <div class="tabContent">
-                        <div class="tab" id="extras" data-tab-content style="background-color:violet;">
+                        <div class="tab" id="extras" data-tab-content>
 
                             <div>
                                 <h5>Fly Leaves</h5>
-                                <label for="numFlyLeaves">Total number of fly leaves: </label>
+                                <label for="numFlyLeaves">Total number of fly leaves</label>
                                 <input type="number" id="numFlyLeaves" name="numFlyLeaves" required min="0">
                             </div>
 
                             <div>
                                 <h5>Title Page</h5>
-                                <label for="titlePageAdd">Add </label>
+                                <label for="titlePageAdd">Include in front matter</label>
                                 <input type="checkbox" id="titlePageAdd" name="titlePageAdd">
                             </div>
 
                             <div>
                                 <h5>Table of Contents</h5>
-                                <label for="tocPageAdd">Add </label>
+                                <label for="tocPageAdd">Include in front matter</label>
                                 <input type="checkbox" id="tocPageAdd" name="tocPageAdd">
                             </div>
 
                             <div>
                                 <h5>Book Information or Copyright</h5>
-                                <label for="bookInfoPageAdd">Add </label>
+                                <label for="bookInfoPageAdd">Include in front matter</label>
                                 <input type="checkbox" id="bookInfoPageAdd" name="bookInfoPageAdd">
                             </div>
 
                             <div>
                                 <h5>Chapter heading</h5>
                                 <div>
-                                    <label for="chHeadSameSide">Begin on the same side </label>
+                                    <label for="chHeadSameSide">Begin on the same side</label>
                                     <input type="checkbox" id="chHeadSameSide" name="chHeadSameSide">
                                 </div>
                                 <div>
-                                    <label for="chHeadPage">Portion of Page Taken: </label>
+                                    <label for="chHeadPage">Portion of Page Taken</label>
                                     <input type="number" id="chHeadPage" name="chHeadPage">
                                 </div>
 
@@ -1055,7 +1056,7 @@
 
                             <div>
                                 <h5>Images</h5>
-                                <label for="imagePage">Pages taken up by images: </label>
+                                <label for="imagePage">Pages taken up by images</label>
                                 <input type="number" id="imagePage" name="imagePage">
                             </div>
 
@@ -1063,10 +1064,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
     </div>
 

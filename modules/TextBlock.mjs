@@ -6,30 +6,17 @@ import { linearConverter, weightConverter } from './converters.mjs';
 class TextBlock {
     constructor() {
         //Unit Settings for Display
-        /*         this.linearUnit = "px";
-                this.weightUnit = "kg"; */
         this.linearUnit = "";
         this.weightUnit = "";
 
         //Paper Information
-        /*         this.pageWidth = 528;
-                this.pageHeight = 816;
-                this.paperGSM = 75; */
         this.pageWidth = 0;
         this.pageHeight = 0;
         this.paperGSM = 0;
 
-        //Text Area Information
-        //this.textAreaWidth = pageWidth;
-        //this.textAreaHeight = pageHeight;
 
         //Text Information
-        //this.fileNames = [];
-
-        //usable text string
-        //this.targetText = "";
         this.targetTexts = new Map();
-
         this.numSections = 1;
 
         //Text Formating
@@ -56,8 +43,7 @@ class TextBlock {
         this.resultThickness = 0;
         this.resultWeight = 0;
 
-        //Validation Map
-        /*         this.validation = new Map(); */
+
     }
 
     //Getters
